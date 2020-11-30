@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Anteile:</strong>
+  <%= @membership.shares %>
+</p>
+
+<p>
+  <strong>Startdatum:</strong>
+  <%= @membership.startDate %>
+</p>
+
+<p>
+  <strong>Enddatum:</strong>
+  <%= @membership.endDate %>
+</p>
+
+<p>
+  <strong>Verteilerstelle:</strong>
+  <%= @membership.distributionPoint %>
+</p>
+
+<p>
+<strong>Probezeit:</strong>
+  <%= @membership.is_trial_membership? %>
+</p>
+
+<%= link_to 'Edit', edit_membership_path(@membership) %> |
+<%= link_to 'Back', memberships_path %>

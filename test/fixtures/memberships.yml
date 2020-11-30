@@ -1,0 +1,24 @@
+# == Schema Information
+#
+# Table name: memberships
+#
+#  id                :integer          not null, primary key
+#  shares            :integer
+#  startDate         :datetime
+#  endDate           :datetime
+#  distributionPoint :string
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#
+
+one:
+  shares: 1
+  startDate: 2020-11-30 22:21:25
+  endDate: 2020-11-30 22:21:25
+  distributionPoint: MyString
+
+two:
+  shares: 1
+  startDate: 2020-11-30 22:21:25
+  endDate: 2020-11-30 22:21:25
+  distributionPoint: MyString

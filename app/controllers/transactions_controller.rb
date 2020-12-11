@@ -7,6 +7,10 @@ class TransactionsController < ApplicationController
     @transactions = Transaction.all
   end
 
+  def import
+    Transaction.import(params[:file])
+  end
+
   # GET /transactions/1
   # GET /transactions/1.json
   def show

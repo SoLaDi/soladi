@@ -18,3 +18,4 @@ class Membership < ApplicationRecord
         diff.to_i < 90
     end
 end
+_

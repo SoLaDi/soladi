@@ -1,0 +1,18 @@
+;;;;;Kontoinformationen > Konten > EUR 12345678, Spk M�rkisch-Oderland;;;;;;;
+Buchung;Wertstellung;;Buchungstext;Beg�nstigter/Zahlungspflichtiger;;;Verwendungszweck;Betrag;W�hrung;Auszugsnr.;Laufender Saldo;
+28.09.2020;28.09.2020;;GUTSCHR. UEBERWEISUNG;Alice Adams;;;Mitgliedsbeitrag SOLAWI Nr 1111;84,00 H;EUR;;0 H;
+01.10.2020;01.10.2020;;ENTGELTABSCHLUSS;"
+";;;"Abrechnung 30.09.2020
+siehe Anlage";15,12 S;EUR;;0 H;
+01.10.2020;01.10.2020;;FOLGELASTSCHRIFT;"Vodafone GmbH
+";;;Vodafone sagt Danke;34,06 S;EUR;;0 H;
+27.10.2020;27.10.2020;;GUTSCHR. UEBERWEISUNG;John Deer;;;Mitgliedsbeitrag SOLAWI Nr 2222;95,00 H;EUR;;0 H;
+02.11.2020;01.11.2020;;ENTGELTABSCHLUSS;"
+";;;"Abrechnung 30.10.2020
+siehe Anlage";15,51 S;EUR;;0 H;
+27.11.2020;27.11.2020;;KARTENZAHLUNG;"Worldline Sweden AB
+";;;foo;80,98 S;EUR;;0 H;
+;;;;;;;;Summe 495,46 H;;;;
+"
+Anzahl: 18";;;;;;;;;;;;
+07.12.2020;;13:49;;;;SFIRM;;;;;;1 von 1

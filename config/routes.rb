@@ -39,18 +39,10 @@
 #                  rails_direct_uploads POST   /rails/active_storage/direct_uploads(.:format)                                           active_storage/direct_uploads#create
 
 Rails.application.routes.draw do
+  root :to => 'home#index'
+  devise_for :admins
+  devise_for :users
   resources :transactions do collection {post :import} end
   resources :memberships
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
-
-
-# Rails.application.routes.draw do
-#   resources :brands, only: [:index, :show] do
-#     resources :products, only: [:index, :show]
-#   end
-
-#   resource :basket, only: [:show, :update, :destroy]
-
-#   resolve("Basket") { route_for(:basket) }
-# end

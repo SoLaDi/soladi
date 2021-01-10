@@ -7,6 +7,10 @@
 	annotate --models
 	annotate --routes
 
+### login if started locally
+
+
+
 ## TODOs
 
 ### Membership model

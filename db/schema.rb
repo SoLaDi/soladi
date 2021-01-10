@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_15_222521) do
+ActiveRecord::Schema.define(version: 2021_01_10_100824) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -33,6 +33,15 @@ ActiveRecord::Schema.define(version: 2020_12_15_222521) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "payments", force: :cascade do |t|
+    t.date "month"
+    t.decimal "amount"
+    t.integer "memberships_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["memberships_id"], name: "index_payments_on_memberships_id"
+  end
+
   create_table "transactions", force: :cascade do |t|
     t.date "entry_date"
     t.string "sender"
@@ -41,6 +50,7 @@ ActiveRecord::Schema.define(version: 2020_12_15_222521) do
     t.string "currency"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index "\"date\", \"sender\", \"description\", \"amount\", \"currency\"", name: "transactions_unique", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -66,4 +76,5 @@ ActiveRecord::Schema.define(version: 2020_12_15_222521) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "payments", "memberships", column: "memberships_id"
 end

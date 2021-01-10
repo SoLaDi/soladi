@@ -8,6 +8,7 @@ class CreateTransactions < ActiveRecord::Migration[6.0]
       t.string :currency
 
       t.timestamps
+      t.index [:date, :sender, :description, :amount, :currency], unique: true, name: 'transactions_unique'
     end
   end
 end

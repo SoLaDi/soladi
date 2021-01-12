@@ -8,6 +8,10 @@ class TransactionsController < ApplicationController
     @transactions = Transaction.all
   end
 
+  def list
+    Transaction.where(membership: params[:membership_id]).find_each
+  end
+
   def import
     Transaction.import(params[:file])
   end

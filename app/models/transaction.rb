@@ -10,10 +10,10 @@
 #  currency      :string
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
-#  membership_id :integer          not null
+#  membership_id :integer
 #
 class Transaction < ApplicationRecord
-  belongs_to :memberships, optional: true
+  belongs_to :membership, optional: true
 
   validates :entry_date, presence: true
   validates :sender, presence: true

@@ -5,6 +5,7 @@
 <table>
   <thead>
     <tr>
+      <th>ID</th>
       <th>Anteile</th>
       <th>Startdatum</th>
       <th>Enddatum</th>
@@ -17,6 +18,7 @@
   <tbody>
     <% @memberships.each do |membership| %>
       <tr>
+        <td><%= membership.id %></td>
         <td><%= membership.shares %></td>
         <td><%= membership.startDate %></td>
         <td><%= membership.endDate %></td>

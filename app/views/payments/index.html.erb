@@ -5,6 +5,7 @@
 <table>
   <thead>
     <tr>
+      <th>Year</th>
       <th>Month</th>
       <th>Amount</th>
       <th>Memberships</th>
@@ -15,9 +16,10 @@
   <tbody>
     <% @payments.each do |payment| %>
       <tr>
+        <td><%= payment.year %></td>
         <td><%= payment.month %></td>
         <td><%= payment.amount %></td>
-        <td><%= payment.memberships_id %></td>
+        <td><%= payment.membership_id %></td>
         <td><%= link_to 'Show', payment %></td>
         <td><%= link_to 'Edit', edit_payment_path(payment) %></td>
         <td><%= link_to 'Destroy', payment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -25,7 +27,10 @@
     <% end %>
   </tbody>
 </table>
-
+<div>
+  <h4>Generate payments from transactions</h4>
+  <%= button_to "Generate", generate_payments_path %>
+</div>
 <br>
 
 <%= link_to 'New Payment', new_payment_path %>

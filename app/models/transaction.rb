@@ -2,16 +2,19 @@
 #
 # Table name: transactions
 #
-#  id          :integer          not null, primary key
-#  entry_date  :date
-#  sender      :string
-#  description :string
-#  amount      :decimal(, )
-#  currency    :string
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
+#  id            :integer          not null, primary key
+#  entry_date    :date
+#  sender        :string
+#  description   :string
+#  amount        :decimal(, )
+#  currency      :string
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  membership_id :integer          not null
 #
 class Transaction < ApplicationRecord
+  belongs_to :memberships, optional: true
+
   validates :entry_date, presence: true
   validates :sender, presence: true
   validates :description, presence: true
@@ -19,6 +22,8 @@ class Transaction < ApplicationRecord
   validates :currency, presence: true
 
   require 'csv'
+  require 'bigdecimal'
+  require 'bigdecimal/util'
 
   def self.import(file)
     total_rows_count = 0
@@ -44,15 +49,18 @@ class Transaction < ApplicationRecord
           # filter for incoming transactions (S == soll == outgoing / H == haben == incoming)
           if type == "H"
             begin
-              if Transaction.new(
+              transaction = Transaction.new(
                 entry_date: row.at(0),
                 sender: row.at(4),
                 description: row.at(7),
-                amount: amount,
+                amount: amount.tr(',','.').to_d,
                 currency: row.at(9)
-              ).save
+              )
+
+              if transaction.save
                 imported_rows.push row
               else
+                puts transaction.errors.full_messages
                 invalid_rows.push row
               end
 

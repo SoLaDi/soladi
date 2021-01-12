@@ -57,6 +57,8 @@ class Transaction < ApplicationRecord
                 currency: row.at(9)
               )
 
+              puts transaction.inspect
+
               if transaction.save
                 imported_rows.push row
               else
@@ -66,6 +68,7 @@ class Transaction < ApplicationRecord
 
             rescue ActiveRecord::RecordNotUnique
               duplicate_rows.push row
+              puts transaction.errors.inspect
               puts "Record already exists"
             end
           else

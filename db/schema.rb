@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(version: 2021_01_11_164557) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "membership_id"
-    t.index "\"date\", \"sender\", \"description\", \"amount\", \"currency\"", name: "transactions_unique", unique: true
+    t.index ["entry_date", "sender", "description", "amount", "currency"], name: "transactions_unique", unique: true
     t.index ["membership_id"], name: "index_transactions_on_membership_id"
   end
 

@@ -1,9 +1,17 @@
 ;;;;;Kontoinformationen > Konten > EUR 12345678, Spk M�rkisch-Oderland;;;;;;;
 Buchung;Wertstellung;;Buchungstext;Beg�nstigter/Zahlungspflichtiger;;;Verwendungszweck;Betrag;W�hrung;Auszugsnr.;Laufender Saldo;
-28.09.2020;28.09.2020;;GUTSCHR. UEBERWEISUNG;Alice Adams;;;Mitgliedsbeitrag SOLAWI Nr 1111;84,10 H;EUR;;0 H;
+28.09.2020;28.09.2020;;GUTSCHR. UEBERWEISUNG;Alice Adams;;;Mitgliedsbeitrag SOLAWI Nr 1000;84,10 H;EUR;;0 H;
+29.09.2020;29.09.2020;;GUTSCHR. UEBERWEISUNG;Alicia Thomson;;;Mitgliedsbeitrag solawi 1000;5,90 H;EUR;;0 H;
 01.10.2020;01.10.2020;;ENTGELTABSCHLUSS;;;;Abrechnung 30.09.2020 siehe Anlage;15,12 S;EUR;;0 H;
 01.10.2020;01.10.2020;;FOLGELASTSCHRIFT;Vodafone GmbH;;;Vodafone sagt Danke;34,06 S;EUR;;0 H;
-27.10.2020;27.10.2020;;GUTSCHR. UEBERWEISUNG;John Deer;;;Mitgliedsbeitrag SOLAWI Nr 2222;95,09 H;EUR;;0 H;
+27.10.2020;27.10.2020;;GUTSCHR. UEBERWEISUNG;John Deer;;;Mitgliedsbeitrag SOLAWI Nr 2222;30,00 H;EUR;;0 H;
+27.10.2020;27.10.2020;;GUTSCHR. UEBERWEISUNG;John Deer;;;Mitgliedsbeitrag SOLAWI Nr 2222;29,90 H;EUR;;0 H;
+28.10.2020;28.10.2020;;GUTSCHR. UEBERWEISUNG;John Deer;;;Mitgliedsbeitrag SOLAWI Nr 2222;25,01 H;EUR;;0 H;
 02.11.2020;01.11.2020;;ENTGELTABSCHLUSS;;;;Abrechnung 30.10.2020siehe Anlage;15,51 S;EUR;;0 H;
 27.11.2020;27.11.2020;;KARTENZAHLUNG;Worldline Sweden AB;;;foo;80,98 S;EUR;;0 H;;;;;;;;;Summe 495,46 H;;;;Anzahl: 18;;;;;;;;;;;;
+28.11.2020;28.11.2020;;GUTSCHR. UEBERWEISUNG;Alice Adams;;;Mitgliedsbeitrag SOLAWI Nr 1000;84,10 H;EUR;;0 H;
+29.11.2020;29.11.2020;;GUTSCHR. UEBERWEISUNG;Alicia Thomson;;;Mitgliedsbeitrag solawi 1000;5,90 H;EUR;;0 H;
+05.01.2021;05.01.2021;;GUTSCHR. UEBERWEISUNG;Alicia Thomson;;;Mitgliedsbeitrag solawi 1000;5,90 H;EUR;;0 H;
+06.01.2021;06.01.2021;;GUTSCHR. UEBERWEISUNG;Alicia Thomson;;;Mitgliedsbeitrag solawi 1000;51,90 H;EUR;;0 H;
+06.01.2021;06.01.2021;;GUTSCHR. UEBERWEISUNG;Alicia Thomson;;;Mitgliedsbeitrag solawi 1000;1,90 H;EUR;;0 H;
 07.12.2020;;13:49;;;;SFIRM;;;;;;1 von 1

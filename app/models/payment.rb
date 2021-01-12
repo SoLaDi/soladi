@@ -20,11 +20,20 @@ class Payment < ApplicationRecord
         month: item.month.to_i,
         amount: item.total_amount,
         membership_id: item.membership_id)
-      puts p.inspect
-      if p.save
-        puts "successfully persisted"
-      else
-        puts p.errors.inspect
+
+      begin
+        if p.save
+          puts "successfully persisted"
+        else
+          puts p.errors.inspect
+        end
+      rescue ActiveRecord::RecordNotUnique
+        puts "Payment already exists"
+        existing_payment = Payment.where(year: item.year.to_i, month: item.month.to_i, membership_id: item.membership_id).take
+        puts existing_payment.inspect
+
+        existing_payment.amount = item.total_amount
+        existing_payment.save
       end
     end
   end

@@ -26,8 +26,8 @@ ActiveRecord::Schema.define(version: 2021_01_11_164557) do
 
   create_table "memberships", force: :cascade do |t|
     t.integer "shares"
-    t.date "startDate"
-    t.date "endDate"
+    t.datetime "startDate"
+    t.datetime "endDate"
     t.string "distributionPoint"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -53,7 +53,6 @@ ActiveRecord::Schema.define(version: 2021_01_11_164557) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "membership_id"
-    t.index ["entry_date", "sender", "description", "amount", "currency"], name: "transactions_unique", unique: true
     t.index ["membership_id"], name: "index_transactions_on_membership_id"
   end
 

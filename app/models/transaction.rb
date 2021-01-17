@@ -49,12 +49,14 @@ class Transaction < ApplicationRecord
           # filter for incoming transactions (S == soll == outgoing / H == haben == incoming)
           if type == "H"
             begin
+
               transaction = Transaction.new(
                 entry_date: row.at(0),
                 sender: row.at(4),
                 description: row.at(7),
                 amount: amount.tr(',','.').to_d,
-                currency: row.at(9)
+                currency: row.at(9),
+                membership_id: extract_membership_id(row.at(7))
               )
 
               puts transaction.inspect
@@ -82,5 +84,16 @@ class Transaction < ApplicationRecord
     puts "imported rows: #{imported_rows.length}"
     puts "duplicate rows: #{duplicate_rows.length}"
     puts "invalid rows: #{invalid_rows.length}"
+  end
+
+  def self.extract_membership_id(description)
+    matches = description.scan(/\d{4}/)
+    maybe_membership_id = matches.length == 1 ? matches.first : nil
+
+    if Membership.exists?(maybe_membership_id)
+      maybe_membership_id
+    else
+      nil
+    end
   end
 end

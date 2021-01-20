@@ -4,31 +4,37 @@
 
 <table>
   <thead>
-    <tr>
-      <th>ID</th>
-      <th>Anteile</th>
-      <th>Startdatum</th>
-      <th>Enddatum</th>
-      <th>Verteilerstelle</th>
-      <th>Probezeit</th>
-      <th colspan="3"></th>
-    </tr>
+  <tr>
+    <th>ID</th>
+    <th>Anteile</th>
+    <th>Startdatum</th>
+    <th>Enddatum</th>
+    <th>Verteilerstelle</th>
+    <th>Probezeit</th>
+    <th>Anteilspreis</th>
+    <th>Preis pro Monat</th>
+    <th>Eingegangene Zahlungen</th>
+    <th colspan="3"></th>
+  </tr>
   </thead>
 
   <tbody>
-    <% @memberships.each do |membership| %>
-      <tr>
-        <td><%= membership.id %></td>
-        <td><%= membership.shares %></td>
-        <td><%= membership.startDate %></td>
-        <td><%= membership.endDate %></td>
-        <td><%= membership.distributionPoint %></td>
-        <td><%= membership.is_trial_membership? %></td>
-        <td><%= link_to 'Details', membership %></td>
-        <td><%= link_to 'Bearbeiten', edit_membership_path(membership) %></td>
-        <td><%= link_to 'Löschen', membership, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
+  <% @memberships.each do |membership| %>
+    <tr>
+      <td><%= membership.id %></td>
+      <td><%= membership.shares %></td>
+      <td><%= membership.startDate %></td>
+      <td><%= membership.endDate %></td>
+      <td><%= membership.distributionPoint %></td>
+      <td><%= membership.is_trial_membership? %></td>
+      <td><%= membership.prices.find_by(year: 2021).amount %></td>
+      <td><%= membership.prices.find_by(year: 2021).amount * membership.shares %></td>
+      <td><%= membership.payments.where(year: 2021).sum(:amount) %></td>
+      <td><%= link_to 'Details', membership %></td>
+      <td><%= link_to 'Bearbeiten', edit_membership_path(membership) %></td>
+      <td><%= link_to 'Löschen', membership, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
   </tbody>
 </table>
 

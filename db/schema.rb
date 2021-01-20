@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 2021_01_20_100501) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["membership_id"], name: "index_prices_on_membership_id"
+    t.index ["year", "membership_id"], name: "prices_unique", unique: true
   end
 
   create_table "transactions", force: :cascade do |t|

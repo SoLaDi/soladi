@@ -1,4 +1,6 @@
 class MembershipsController < ApplicationController
+  require 'active_support/all'
+
   before_action :authenticate_user!
   before_action :set_membership, only: [:show, :edit, :update, :destroy]
 
@@ -6,6 +8,11 @@ class MembershipsController < ApplicationController
   # GET /memberships.json
   def index
     @memberships = Membership.all
+    @fem = Membership.all.map { |m|
+      #TODO: add total payments here
+      MembershipFrontend.new(m, m.total_cost_since_joined, 23)
+    }
+
   end
 
   # GET /memberships/1
@@ -71,6 +78,6 @@ class MembershipsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def membership_params
-    params.require(:membership).permit(:shares, :startDate, :endDate, :distributionPoint)
+    params.require(:membership).permit(:startDate, :endDate, :distributionPoint)
   end
 end

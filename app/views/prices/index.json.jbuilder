@@ -1,1 +1,1 @@
-json.array! @prices, partial: "prices/price", as: :price
+json.array! @fem, partial: "prices/price", as: :price

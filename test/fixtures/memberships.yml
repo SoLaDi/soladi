@@ -3,7 +3,6 @@
 # Table name: memberships
 #
 #  id                :integer          not null, primary key
-#  shares            :integer
 #  startDate         :date
 #  endDate           :date
 #  distributionPoint :string
@@ -12,13 +11,11 @@
 #
 
 one:
-  shares: 1
   startDate: 2020-11-30 22:21:25
   endDate: 2020-11-30 22:21:25
   distributionPoint: MyString
 
 two:
-  shares: 1
   startDate: 2020-11-30 22:21:25
   endDate: 2020-11-30 22:21:25
   distributionPoint: MyString

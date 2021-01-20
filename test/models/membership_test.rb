@@ -3,7 +3,6 @@
 # Table name: memberships
 #
 #  id                :integer          not null, primary key
-#  shares            :integer
 #  startDate         :date
 #  endDate           :date
 #  distributionPoint :string

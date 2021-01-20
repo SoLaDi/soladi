@@ -16,7 +16,6 @@ class MembershipsTest < ApplicationSystemTestCase
 
     fill_in "Distributionpoint", with: @membership.distributionPoint
     fill_in "Enddate", with: @membership.endDate
-    fill_in "Shares", with: @membership.shares
     fill_in "Startdate", with: @membership.startDate
     click_on "Create Membership"
 
@@ -30,7 +29,6 @@ class MembershipsTest < ApplicationSystemTestCase
 
     fill_in "Distributionpoint", with: @membership.distributionPoint
     fill_in "Enddate", with: @membership.endDate
-    fill_in "Shares", with: @membership.shares
     fill_in "Startdate", with: @membership.startDate
     click_on "Update Membership"
 

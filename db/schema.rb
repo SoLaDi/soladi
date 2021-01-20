@@ -25,7 +25,6 @@ ActiveRecord::Schema.define(version: 2021_01_20_100501) do
   end
 
   create_table "memberships", force: :cascade do |t|
-    t.integer "shares"
     t.date "startDate"
     t.date "endDate"
     t.string "distributionPoint"
@@ -45,13 +44,15 @@ ActiveRecord::Schema.define(version: 2021_01_20_100501) do
   end
 
   create_table "prices", force: :cascade do |t|
+    t.integer "month"
     t.integer "year"
+    t.integer "shares"
     t.decimal "amount"
     t.integer "membership_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["membership_id"], name: "index_prices_on_membership_id"
-    t.index ["year", "membership_id"], name: "prices_unique", unique: true
+    t.index ["year", "month", "membership_id"], name: "prices_unique", unique: true
   end
 
   create_table "transactions", force: :cascade do |t|

@@ -62,13 +62,14 @@ class PricesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_price
-      @price = Price.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def price_params
-      params.require(:price).permit(:year, :amount, :membership_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_price
+    @price = Price.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def price_params
+    params.require(:price).permit(:month, :year, :shares, :amount, :membership_id)
+  end
 end

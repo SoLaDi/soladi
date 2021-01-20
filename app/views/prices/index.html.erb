@@ -6,6 +6,8 @@
   <thead>
     <tr>
       <th>Year</th>
+      <th>Month</th>
+      <th>Shares</th>
       <th>Amount</th>
       <th>Memberships</th>
       <th colspan="3"></th>
@@ -16,6 +18,8 @@
     <% @prices.each do |price| %>
       <tr>
         <td><%= price.year %></td>
+        <td><%= price.month %></td>
+        <td><%= price.shares %></td>
         <td><%= price.amount %></td>
         <td><%= price.membership_id %></td>
         <td><%= link_to 'Show', price %></td>

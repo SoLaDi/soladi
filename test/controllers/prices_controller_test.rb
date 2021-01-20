@@ -17,7 +17,7 @@ class PricesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create price" do
     assert_difference('Price.count') do
-      post prices_url, params: { price: { amount: @price.amount, memberships_id: @price.memberships_id, year: @price.year } }
+      post prices_url, params: { price: { amount: @price.amount, membership_id: @price.membership_id, year: @price.year } }
     end
 
     assert_redirected_to price_url(Price.last)
@@ -34,7 +34,7 @@ class PricesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update price" do
-    patch price_url(@price), params: { price: { amount: @price.amount, memberships_id: @price.memberships_id, year: @price.year } }
+    patch price_url(@price), params: { price: { amount: @price.amount, membership_id: @price.membership_id, year: @price.year } }
     assert_redirected_to price_url(@price)
   end
 

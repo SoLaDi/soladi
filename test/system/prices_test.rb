@@ -15,7 +15,7 @@ class PricesTest < ApplicationSystemTestCase
     click_on "New Price"
 
     fill_in "Amount", with: @price.amount
-    fill_in "Memberships", with: @price.memberships_id
+    fill_in "Memberships", with: @price.membership_id
     fill_in "Year", with: @price.year
     click_on "Create Price"
 
@@ -28,7 +28,7 @@ class PricesTest < ApplicationSystemTestCase
     click_on "Edit", match: :first
 
     fill_in "Amount", with: @price.amount
-    fill_in "Memberships", with: @price.memberships_id
+    fill_in "Memberships", with: @price.membership_id
     fill_in "Year", with: @price.year
     click_on "Update Price"
 

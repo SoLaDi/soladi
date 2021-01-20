@@ -3,7 +3,8 @@
 # Table name: payments
 #
 #  id            :integer          not null, primary key
-#  month         :date
+#  month         :integer
+#  year          :integer
 #  amount        :decimal(, )
 #  membership_id :integer          not null
 #  created_at    :datetime         not null

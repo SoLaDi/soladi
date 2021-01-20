@@ -15,7 +15,7 @@ class PaymentsTest < ApplicationSystemTestCase
     click_on "New Payment"
 
     fill_in "Amount", with: @payment.amount
-    fill_in "Memberships", with: @payment.memberships_id
+    fill_in "Memberships", with: @payment.membership_id
     fill_in "Month", with: @payment.month
     click_on "Create Payment"
 
@@ -28,7 +28,7 @@ class PaymentsTest < ApplicationSystemTestCase
     click_on "Edit", match: :first
 
     fill_in "Amount", with: @payment.amount
-    fill_in "Memberships", with: @payment.memberships_id
+    fill_in "Memberships", with: @payment.membership_id
     fill_in "Month", with: @payment.month
     click_on "Update Payment"
 

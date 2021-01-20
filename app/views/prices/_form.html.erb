@@ -1,10 +1,10 @@
-<%= form_with(model: payment, local: true) do |form| %>
-  <% if payment.errors.any? %>
+<%= form_with(model: price, local: true) do |form| %>
+  <% if price.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(payment.errors.count, "error") %> prohibited this payment from being saved:</h2>
+      <h2><%= pluralize(price.errors.count, "error") %> prohibited this price from being saved:</h2>
 
       <ul>
-        <% payment.errors.full_messages.each do |message| %>
+        <% price.errors.full_messages.each do |message| %>
           <li><%= message %></li>
         <% end %>
       </ul>
@@ -12,8 +12,8 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :month %>
-    <%= form.date_select :month %>
+    <%= form.label :year %>
+    <%= form.number_field :year %>
   </div>
 
   <div class="field">

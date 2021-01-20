@@ -1,19 +1,14 @@
 # == Schema Information
 #
-# Table name: payments
+# Table name: prices
 #
 #  id            :integer          not null, primary key
-#  month         :integer
 #  year          :integer
 #  amount        :decimal(, )
 #  membership_id :integer          not null
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #
-require 'test_helper'
-
-class PaymentTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+class Price < ApplicationRecord
+  belongs_to :membership
 end

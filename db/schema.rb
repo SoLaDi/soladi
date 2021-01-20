@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_11_164557) do
+ActiveRecord::Schema.define(version: 2021_01_20_100501) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -42,6 +42,16 @@ ActiveRecord::Schema.define(version: 2021_01_11_164557) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["membership_id"], name: "index_payments_on_membership_id"
     t.index ["month", "year", "membership_id"], name: "payments_unique", unique: true
+  end
+
+  create_table "prices", force: :cascade do |t|
+    t.integer "year"
+    t.decimal "amount"
+    t.integer "membership_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["membership_id"], name: "index_prices_on_membership_id"
+    t.index ["year", "membership_id"], name: "prices_unique", unique: true
   end
 
   create_table "transactions", force: :cascade do |t|
@@ -81,5 +91,6 @@ ActiveRecord::Schema.define(version: 2021_01_11_164557) do
   end
 
   add_foreign_key "payments", "memberships"
+  add_foreign_key "prices", "memberships"
   add_foreign_key "transactions", "memberships"
 end

@@ -1,9 +1,8 @@
 # == Schema Information
 #
-# Table name: payments
+# Table name: prices
 #
 #  id            :integer          not null, primary key
-#  month         :integer
 #  year          :integer
 #  amount        :decimal(, )
 #  membership_id :integer          not null
@@ -12,7 +11,7 @@
 #
 require 'test_helper'
 
-class PaymentTest < ActiveSupport::TestCase
+class PriceTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

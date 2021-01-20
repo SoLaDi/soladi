@@ -13,11 +13,12 @@ require 'date'
 #  updated_at        :datetime         not null
 #
 class Membership < ApplicationRecord
-    has_many :transactions
-    has_many :payments
+  has_many :transactions
+  has_many :payments
+  has_many :prices
 
-    def is_trial_membership?
-        diff = endDate - startDate
-        diff.to_i < 90
-    end
+  def is_trial_membership?
+    diff = endDate - startDate
+    diff.to_i < 90
+  end
 end

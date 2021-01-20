@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_11_164557) do
+ActiveRecord::Schema.define(version: 2021_01_20_100501) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -26,8 +26,8 @@ ActiveRecord::Schema.define(version: 2021_01_11_164557) do
 
   create_table "memberships", force: :cascade do |t|
     t.integer "shares"
-    t.datetime "startDate"
-    t.datetime "endDate"
+    t.date "startDate"
+    t.date "endDate"
     t.string "distributionPoint"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -44,6 +44,15 @@ ActiveRecord::Schema.define(version: 2021_01_11_164557) do
     t.index ["month", "year", "membership_id"], name: "payments_unique", unique: true
   end
 
+  create_table "prices", force: :cascade do |t|
+    t.integer "year"
+    t.decimal "amount"
+    t.integer "membership_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["membership_id"], name: "index_prices_on_membership_id"
+  end
+
   create_table "transactions", force: :cascade do |t|
     t.date "entry_date"
     t.string "sender"
@@ -53,6 +62,7 @@ ActiveRecord::Schema.define(version: 2021_01_11_164557) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "membership_id"
+    t.index ["entry_date", "sender", "description", "amount", "currency"], name: "transactions_unique", unique: true
     t.index ["membership_id"], name: "index_transactions_on_membership_id"
   end
 
@@ -80,5 +90,6 @@ ActiveRecord::Schema.define(version: 2021_01_11_164557) do
   end
 
   add_foreign_key "payments", "memberships"
+  add_foreign_key "prices", "memberships"
   add_foreign_key "transactions", "memberships"
 end

@@ -12,6 +12,7 @@
     <th>Probezeit</th>
     <th>Totale Kosten</th>
     <th>Eingegangene Zahlungen</th>
+    <th>Differenz</th>
     <th colspan="3"></th>
   </tr>
   </thead>
@@ -23,9 +24,10 @@
       <td><%= fem.membership.startDate %></td>
       <td><%= fem.membership.endDate %></td>
       <td><%= fem.membership.distributionPoint %></td>
-      <td><%= fem.membership.is_trial_membership? %></td>
+      <td><%= fem.membership.is_trial_membership? ? "ja":"nein" %></td>
       <td><%= fem.total_cost_since_joined %></td>
       <td><%= fem.total_payments %></td>
+      <td><%= fem.total_payments - fem.total_cost_since_joined %></td>
 
       <td><%= link_to 'Details', fem.membership %></td>
       <td><%= link_to 'Bearbeiten', edit_membership_path(fem.membership) %></td>

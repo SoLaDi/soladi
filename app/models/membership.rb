@@ -33,6 +33,10 @@ class Membership < ApplicationRecord
     }
   end
 
+  def total_payments_since_joined
+    self.payments.all.sum(:amount)
+  end
+
   def is_trial_membership?
     diff = endDate - startDate
     diff.to_i < 90

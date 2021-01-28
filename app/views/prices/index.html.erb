@@ -2,7 +2,15 @@
 
 <h1>Preise</h1>
 
-<table class="table table-striped table-bordered">
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#rich-table').dataTable({
+            "ordering": true
+        });
+    });
+</script>
+
+<table id="rich-table" class="table table-striped table-bordered">
   <thead>
     <tr>
       <th>Jahr</th>
@@ -10,7 +18,9 @@
       <th>Anteile</th>
       <th>Betrag</th>
       <th>Mitgliedschafts-ID</th>
-      <th colspan="3"></th>
+      <th></th>
+      <th></th>
+      <th></th>
     </tr>
   </thead>
 

@@ -2,7 +2,15 @@
 
 <h1>Mitgliedschaften</h1>
 
-<table class="table table-striped table-bordered">
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#rich-table').dataTable({
+            "ordering": true
+        });
+    });
+</script>
+
+<table id="rich-table" class="table table-striped table-bordered">
   <thead>
   <tr>
     <th>ID</th>
@@ -13,7 +21,9 @@
     <th>Totale Kosten</th>
     <th>Eingegangene Zahlungen</th>
     <th>Differenz</th>
-    <th colspan="3"></th>
+    <th>Details</th>
+    <th>Bearbeiten</th>
+    <th>Löschen</th>
   </tr>
   </thead>
 

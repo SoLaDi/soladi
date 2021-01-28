@@ -7,9 +7,14 @@ require("@rails/ujs").start()
 require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
+require('datatables.net-bs4')
 
 import "bootstrap";
 import "../stylesheets/application"
+
+import $ from 'jquery';
+
+global.$ = jQuery;
 
 document.addEventListener("turbolinks:load", () => {
     $('[data-toggle="tooltip"]').tooltip()

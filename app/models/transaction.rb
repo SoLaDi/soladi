@@ -31,7 +31,7 @@ class Transaction < ApplicationRecord
     duplicate_rows = []
     invalid_rows = []
 
-    CSV.foreach(file.path, headers: false, col_sep: ";") do |row|
+    CSV.foreach(file.path,"r",  headers: false, col_sep: ";", encoding: "windows-1252:utf-8") do |row|
       total_rows_count += 1
 
       # filter header lines

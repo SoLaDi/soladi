@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Entry date:</strong>
+  <strong>Buchungsdatum:</strong>
   <%= @transaction.entry_date %>
 </p>
 
@@ -11,18 +11,28 @@
 </p>
 
 <p>
-  <strong>Description:</strong>
+  <strong>Buchungstext:</strong>
   <%= @transaction.description %>
 </p>
 
 <p>
-  <strong>Amount:</strong>
+  <strong>Betrag:</strong>
   <%= @transaction.amount %>
 </p>
 
 <p>
-  <strong>Currency:</strong>
+  <strong>Währung:</strong>
   <%= @transaction.currency %>
+</p>
+
+<p>
+  <strong>Mitgliedschafts-ID:</strong>
+  <%= @transaction.membership_id %>
+</p>
+
+<p>
+  <strong>Fehler:</strong>
+  <%= @transaction.status_message %>
 </p>
 
 <%= link_to 'Edit', edit_transaction_path(@transaction) %> |

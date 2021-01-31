@@ -31,7 +31,7 @@ class Transaction < ApplicationRecord
     duplicate_rows = []
     invalid_rows = []
 
-    CSV.foreach(file.path,"r",  headers: false, col_sep: ";", encoding: "windows-1252:utf-8") do |row|
+    CSV.foreach(file.path, "r", headers: false, col_sep: ";", encoding: "windows-1252:utf-8") do |row|
       total_rows_count += 1
 
       # filter header lines
@@ -49,15 +49,19 @@ class Transaction < ApplicationRecord
           # filter for incoming transactions (S == soll == outgoing / H == haben == incoming)
           if type == "H"
             begin
-
               transaction = Transaction.new(
                 entry_date: row.at(0),
                 sender: row.at(4),
                 description: row.at(7),
-                amount: amount.tr(',','.').to_d,
-                currency: row.at(9),
-                membership_id: extract_membership_id(row.at(7))
+                amount: amount.tr(',', '.').to_d,
+                currency: row.at(9)
               )
+
+              begin
+                transaction.membership_id = extract_membership_id(row.at(7))
+              rescue ParserError => e
+                transaction.status_message = e.message
+              end
 
               puts transaction.inspect
 
@@ -88,12 +92,14 @@ class Transaction < ApplicationRecord
 
   def self.extract_membership_id(description)
     matches = description.scan(/\d{4}/)
-    maybe_membership_id = matches.length == 1 ? matches.first : nil
-
-    if Membership.exists?(maybe_membership_id)
-      maybe_membership_id
+    if matches.length == 1
+      if Membership.exists?(matches.first)
+        matches.first
+      else
+        raise ParserError.new("Mitgliedschaft nicht gefunden")
+      end
     else
-      nil
+      raise ParserError.new("Es wurden mehrere Möglichkeiten für die Mitgliedschaftsnummer gefunden: #{matches}")
     end
   end
 end

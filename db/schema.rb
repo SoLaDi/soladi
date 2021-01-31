@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(version: 2021_01_20_100501) do
     t.string "description"
     t.decimal "amount"
     t.string "currency"
+    t.string "status_message"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "membership_id"

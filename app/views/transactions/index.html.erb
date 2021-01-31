@@ -15,10 +15,11 @@
     <tr>
       <th>Buchungsdatum</th>
       <th>Sender</th>
-      <th>Beschreibung</th>
+      <th>Buchungstext</th>
       <th>Betrag</th>
       <th>Währung</th>
       <th>Mitgliedschafts-ID</th>
+      <th>Fehler</th>
       <th></th>
       <th></th>
       <th></th>
@@ -34,6 +35,7 @@
         <td><%= transaction.amount %></td>
         <td><%= transaction.currency %></td>
         <td><%= transaction.membership_id %></td>
+        <td><%= transaction.status_message %></td>
         <td><%= link_to 'Show', transaction %></td>
         <td><%= link_to 'Edit', edit_transaction_path(transaction) %></td>
         <td><%= link_to 'Destroy', transaction, method: :delete, data: { confirm: 'Are you sure?' } %></td>

@@ -8,6 +8,7 @@ require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
 require('datatables.net-bs4')
+require('datatables.net-rowgroup')
 
 import "bootstrap";
 import "../stylesheets/application"

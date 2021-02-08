@@ -14,7 +14,7 @@ end
 puts "Creating 10 memberships"
 10.times do |i|
   membership_id = 1000 + i
-  ms = Membership.create(id: membership_id, startDate: Date.new(2020, 1, 8), endDate: Date.new(2022, 1, 8), distributionPoint: "Berlin")
+  ms = Membership.create(id: membership_id, startDate: Date.new(2020, 1, 8), endDate: nil, distributionPoint: "Berlin")
   unless ms
     puts ms.errors.inspect
   end

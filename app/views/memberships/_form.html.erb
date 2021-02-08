@@ -13,12 +13,12 @@
 
   <div class="field">
     <%= form.label :startDate %>
-    <%= form.date_select :startDate %>
+    <%= form.date_select :startDate, :discard_day => true %>
   </div>
 
   <div class="field">
     <%= form.label :endDate %>
-    <%= form.date_select :endDate %>
+    <%= form.date_select :endDate, { :discard_day => true, :include_blank => true } %>
   </div>
 
   <div class="field">

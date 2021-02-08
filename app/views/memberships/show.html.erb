@@ -2,12 +2,12 @@
 
 <p>
   <strong>Startdatum:</strong>
-  <%= @membership.startDate %>
+  <%= @membership.startDate.strftime("%b %Y") %>
 </p>
 
 <p>
   <strong>Enddatum:</strong>
-  <%= @membership.endDate %>
+  <%= @membership.endDate.strftime("%b %Y") %>
 </p>
 
 <p>

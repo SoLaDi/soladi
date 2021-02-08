@@ -31,13 +31,13 @@
   <% @fem.each do |fem| %>
     <tr>
       <td><%= fem.membership.id %></td>
-      <td><%= fem.membership.startDate %></td>
-      <td><%= fem.membership.endDate %></td>
+      <td><%= fem.membership.startDate.strftime("%b %Y") %></td>
+      <td><%= fem.membership.endDate ? fem.membership.endDate.strftime("%b %Y") : "" %></td>
       <td><%= fem.membership.distributionPoint %></td>
       <td><%= fem.membership.is_trial_membership? ? "ja":"nein" %></td>
-      <td><%= fem.total_cost_since_joined %> EUR</td>
+      <td><%= fem.total_cost %> EUR</td>
       <td><%= fem.total_payments %></td>
-      <td><%= fem.total_payments - fem.total_cost_since_joined %></td>
+      <td><%= fem.total_payments - fem.total_cost %></td>
 
       <td><%= link_to 'Details', fem.membership %></td>
       <td><%= link_to 'Bearbeiten', edit_membership_path(fem.membership) %></td>

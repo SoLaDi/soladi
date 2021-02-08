@@ -21,6 +21,11 @@ class PricesController < ApplicationController
   def edit
   end
 
+  def batch_update
+
+
+  end
+
   # POST /prices
   # POST /prices.json
   def create
@@ -71,5 +76,9 @@ class PricesController < ApplicationController
   # Only allow a list of trusted parameters through.
   def price_params
     params.require(:price).permit(:month, :year, :shares, :amount, :membership_id)
+  end
+
+  def price_update_params
+    params.require(:price).permit(:month, :year, :shares, :amount)
   end
 end

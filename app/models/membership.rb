@@ -16,13 +16,19 @@ class Membership < ApplicationRecord
   has_many :payments
   has_many :prices
 
+  validates_with MembershipValidator
+
+  # Return a list of date for every month a membership has been active
   # @return [Array<Date>]
-  def months_since_joined
-    (self.startDate..Date.today).uniq { |d| "#{d.month}-#{d.year}" }
+  def total_months
+    now = Date.today
+    endDate = self.endDate && self.endDate < now ? self.endDate : now
+    months = (self.startDate..endDate).uniq { |d| "#{d.month}-#{d.year}" }
+    months
   end
 
-  def total_cost_since_joined
-    months_since_joined.inject(0) { |sum, date|
+  def total_cost
+    cost = total_months.inject(0) { |sum, date|
       price = self.prices.find_by(year: date.year, month: date.month)
       #TODO: we should handle the case that there is no price set for an existing membership
       if price
@@ -31,14 +37,19 @@ class Membership < ApplicationRecord
         sum
       end
     }
+    puts "COSTTTTTTTTTT"
+    puts cost
+    cost
   end
 
   def total_payments_since_joined
-    self.payments.all.sum(:amount)
+    payments = self.payments.all.sum(:amount)
+    payments
   end
 
   def is_trial_membership?
-    diff = endDate - startDate
+
+    diff = Date.today - startDate
     diff.to_i < 90
   end
 end

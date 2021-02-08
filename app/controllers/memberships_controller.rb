@@ -9,8 +9,11 @@ class MembershipsController < ApplicationController
   def index
     @memberships = Membership.all
     @fem = Membership.all.map { |m|
-      #TODO: add total payments here
-      MembershipFrontend.new(m, m.total_cost_since_joined, m.total_payments_since_joined)
+      cost = m.total_cost
+      pay = m.total_payments_since_joined
+      puts cost
+      puts pay
+      MembershipFrontend.new(m, cost, pay)
     }
 
   end

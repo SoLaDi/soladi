@@ -1,0 +1,2 @@
+class DistributionPoint < ApplicationRecord
+end

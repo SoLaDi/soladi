@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @distribution_point.name %>
+</p>
+
+<p>
+  <strong>Street:</strong>
+  <%= @distribution_point.street %>
+</p>
+
+<p>
+  <strong>Housenumber:</strong>
+  <%= @distribution_point.housenumber %>
+</p>
+
+<p>
+  <strong>Zipcode:</strong>
+  <%= @distribution_point.zipcode %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @distribution_point.city %>
+</p>
+
+<p>
+  <strong>Contact name:</strong>
+  <%= @distribution_point.contact_name %>
+</p>
+
+<%= link_to 'Edit', edit_distribution_point_path(@distribution_point) %> |
+<%= link_to 'Back', distribution_points_path %>

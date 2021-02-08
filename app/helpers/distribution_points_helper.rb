@@ -1,0 +1,2 @@
+module DistributionPointsHelper
+end

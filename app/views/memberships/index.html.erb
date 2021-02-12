@@ -21,9 +21,9 @@
     <th>Totale Kosten</th>
     <th>Eingegangene Zahlungen</th>
     <th>Differenz</th>
-    <th>Details</th>
-    <th>Bearbeiten</th>
-    <th>Löschen</th>
+    <th></th>
+    <th></th>
+    <th></th>
   </tr>
   </thead>
 
@@ -33,7 +33,7 @@
       <td><%= fem.membership.id %></td>
       <td><%= fem.membership.startDate.strftime("%b %Y") %></td>
       <td><%= fem.membership.endDate ? fem.membership.endDate.strftime("%b %Y") : "" %></td>
-      <td><%= fem.membership.distributionPoint %></td>
+      <td><%= fem.membership.distribution_point.name %></td>
       <td><%= fem.membership.is_trial_membership? ? "ja":"nein" %></td>
       <td><%= fem.total_cost %> EUR</td>
       <td><%= fem.total_payments %></td>

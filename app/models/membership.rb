@@ -4,17 +4,18 @@ require 'date'
 #
 # Table name: memberships
 #
-#  id                :integer          not null, primary key
-#  startDate         :date
-#  endDate           :date
-#  distributionPoint :string
-#  created_at        :datetime         not null
-#  updated_at        :datetime         not null
+#  id                    :integer          not null, primary key
+#  startDate             :date
+#  endDate               :date
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  distribution_point_id :integer          not null
 #
 class Membership < ApplicationRecord
   has_many :transactions
   has_many :payments
   has_many :prices
+  belongs_to :distribution_point
 
   validates_with MembershipValidator
 

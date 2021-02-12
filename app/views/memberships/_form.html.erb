@@ -23,7 +23,8 @@
 
   <div class="field">
     <%= form.label :distributionPoint %>
-    <%= form.text_field :distributionPoint %>
+    <%= form.collection_select(:distribution_point_id, DistributionPoint.all, :id, :name) %>
+
   </div>
 
   <div class="actions">

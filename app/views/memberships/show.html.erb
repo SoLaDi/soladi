@@ -7,12 +7,12 @@
 
 <p>
   <strong>Enddatum:</strong>
-  <%= @membership.endDate.strftime("%b %Y") %>
+  <%= @membership.endDate ? @membership.endDate.strftime("%b %Y") : "" %>
 </p>
 
 <p>
   <strong>Verteilerstelle:</strong>
-  <%= @membership.distributionPoint %>
+  <%= @membership.distribution_point.name %>
 </p>
 
 <p>

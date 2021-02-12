@@ -81,6 +81,6 @@ class MembershipsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def membership_params
-    params.require(:membership).permit(:startDate, :endDate, :distributionPoint)
+    params.require(:membership).permit(:startDate, :endDate, :distribution_point_id)
   end
 end

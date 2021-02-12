@@ -11,10 +11,13 @@ unless user
   puts user.errors.inspect
 end
 
+dp_mahlsdorf = DistributionPoint.create(name: "Mahlsdorf Süd", street: "Musterstraße", housenumber: "123", zipcode: "12345", city: "Berlin")
+dp_treptow = DistributionPoint.create(name: "Treptow", street: "Teststraße", housenumber: "234", zipcode: "23456", city: "Berlin")
+
 puts "Creating 10 memberships"
 10.times do |i|
   membership_id = 1000 + i
-  ms = Membership.create(id: membership_id, startDate: Date.new(2020, 1, 8), endDate: nil, distributionPoint: "Berlin")
+  ms = Membership.create(id: membership_id, startDate: Date.new(2020, 1, 8), endDate: nil, distribution_point_id: dp_mahlsdorf.id)
   unless ms
     puts ms.errors.inspect
   end

@@ -89,6 +89,8 @@ class Transaction < ApplicationRecord
     puts "imported rows: #{imported_rows.length}"
     puts "duplicate rows: #{duplicate_rows.length}"
     puts "invalid rows: #{invalid_rows.length}"
+
+    Payment.generate
   end
 
   def self.extract_membership_id(description)

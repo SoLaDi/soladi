@@ -95,11 +95,13 @@ class Transaction < ApplicationRecord
 
   def self.extract_membership_id(description)
     matches = description.scan(/\d{4}/)
-    if matches.length == 1
+    if matches.length == 0
+        raise ParserError.new("Keine Mitgliedschaftsnummer gefunden")
+    elsif matches.length == 1
       if Membership.exists?(matches.first)
         matches.first
       else
-        raise ParserError.new("Mitgliedschaft nicht gefunden")
+        raise ParserError.new("Mitgliedschaft mit der Nummer #{matches.first} nicht im System gefunden")
       end
     else
       raise ParserError.new("Es wurden mehrere Möglichkeiten für die Mitgliedschaftsnummer gefunden: #{matches}")

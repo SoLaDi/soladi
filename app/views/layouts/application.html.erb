@@ -14,6 +14,17 @@
     <header>
       <%= render "layouts/navigation" %>
     </header>
+    <% flash.each do |type, msg| %>
+      <% if type == "alert" %>
+        <div class="alert alert-danger" role="alert">
+          <%= msg %>
+        </div>
+      <% else %>
+        <div class="alert alert-info" role="alert">
+          <%= msg %>
+        </div>
+      <% end %>
+    <% end %>
     <main class="container-xl">
       <div class="row">
         <div class="col">

@@ -24,8 +24,7 @@ class Membership < ApplicationRecord
   def total_months
     now = Date.today
     endDate = self.endDate && self.endDate < now ? self.endDate : now
-    months = (self.startDate..endDate).uniq { |d| "#{d.month}-#{d.year}" }
-    months
+    (self.startDate..endDate).uniq { |d| "#{d.month}-#{d.year}" }
   end
 
   def total_cost

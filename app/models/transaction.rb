@@ -75,8 +75,7 @@ class Transaction < ApplicationRecord
 
             rescue ActiveRecord::RecordNotUnique
               duplicate_rows.push row
-              puts transaction.errors.inspect
-              puts "Record already exists"
+              puts "Record already exists: #{transaction.inspect}"
             end
           else
             invalid_rows.push row
@@ -90,7 +89,10 @@ class Transaction < ApplicationRecord
     puts "duplicate rows: #{duplicate_rows.length}"
     puts "invalid rows: #{invalid_rows.length}"
 
+    import_status = ImportStatus.new(total_rows_count, imported_rows.length, duplicate_rows.length, invalid_rows.length)
+
     Payment.generate
+     import_status
   end
 
   def self.extract_membership_id(description)

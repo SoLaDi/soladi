@@ -7,7 +7,6 @@ class MembershipsController < ApplicationController
   # GET /memberships
   # GET /memberships.json
   def index
-    @memberships = Membership.all
     @fem = Membership.all.map { |m|
       cost = m.total_cost
       pay = m.total_payments_since_joined

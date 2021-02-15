@@ -17,9 +17,9 @@ class TransactionsController < ApplicationController
       import_status = Transaction.import(params[:file])
       puts import_status.message
       if import_status.invalid_rows > 0
-        redirect_to :transactions, alert: "Import fehlerhaft\n#{import_status.message}"
+        redirect_to :transactions, alert: "Import fehlerhaft! #{import_status.message}"
       else
-        redirect_to :transactions, notice: "Import abgeschlossen\n#{import_status.message}"
+        redirect_to :transactions, notice: "Import abgeschlossen! #{import_status.message}"
       end
     rescue Exception => e
       redirect_to :transactions, notice: "Import fehlgeschlagen: #{e.message}"

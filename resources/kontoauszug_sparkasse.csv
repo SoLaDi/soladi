@@ -8,7 +8,7 @@ siehe Anlage";17,85 S;EUR;;772,16 H;
 10.09.2020;10.09.2020;;FOLGELASTSCHRIFT;"Drillisch Online GmbH
 ";;;C123456 U123432234 B234453345 goood Rechnung;27,83 S;EUR;;710,38 H;
 28.09.2020;28.09.2020;;GUTSCHR. UEBERWEISUNG;"Eric Deere
-";;;Mitgliedsbeitrag für Nr. 1000 August und September 2020;150,00 H;EUR;;1.160,38 H;
+";;;Mitgliedsbeitrag für Nr. S1000 August und September 2020;150,00 H;EUR;;1.160,38 H;
 01.10.2020;01.10.2020;;ENTGELTABSCHLUSS;"
 ";;;"Abrechnung 30.09.2020
 siehe Anlage";15,12 S;EUR;;1.145,26 H;
@@ -20,18 +20,26 @@ siehe Anlage";15,12 S;EUR;;1.145,26 H;
 ";;;"Abrechnung 30.10.2020
 siehe Anlage";15,51 S;EUR;;1.207,96 H;
 12.11.2020;12.11.2020;;GUTSCHR. UEBERWEISUNG;"Eric Deere
-";;;Mitgliedsbeitrag für 1000 OKT und NOV 2020;300,00 H;EUR;;1.472,60 H;
+";;;Mitgliedsbeitrag für S1000 OKT und NOV 2020;300,00 H;EUR;;1.472,60 H;
 
 01.12.2020;01.12.2020;;ENTGELTABSCHLUSS;"
 ";;;"Abrechnung 30.11.2020
 siehe Anlage";16,46 S;EUR;;1.360,16 H;
 02.12.2020;02.12.2020;;GUTSCHR. UEBERWEISUNG;"Eric Deere
-";;;Mitgliedsbeitrag für Nr. 1000 November und Dezember;150,00 H;EUR;;1.160,38 H;
+";;;Mitgliedsbeitrag für Nr. S1000 November und Dezember;150,00 H;EUR;;1.160,38 H;
+
 03.12.2020;03.12.2020;;KARTENZAHLUNG;"EDEKA Foerster
 ";;;2020-12-02T18.45 Debitk.0 2023-12;28,42 S;EUR;;1.295,66 H;
 03.12.2020;03.12.2020;;KARTENZAHLUNG;"EDEKA Foerster
 ";;;2020-12-02T17.44 Debitk.0 2023-12;10,19 S;EUR;;1.285,47 H;
+02.01.2021;02.01.2021;;GUTSCHR. UEBERWEISUNG;"Eric Deere
+";;;Mitgliedsbeitrag für Nr. S1000 Januar;90,00 H;EUR;;1.160,38 H;
+02.01.2021;02.01.2021;;GUTSCHR. UEBERWEISUNG;"Max Mustermann
+";;;Mitgliedsbeitrag für Nr. S1234 Januar;90,00 H;EUR;;1.160,38 H;
+03.01.2021;03.01.2021;;GUTSCHR. UEBERWEISUNG;"Karla Kolumna
+";;;Mitgliedsbeitrag für Nr. 1000 Januar;90,00 H;EUR;;1.160,38 H;
 ;;;;;;;;Summe 495,46 H;;;;
 "
 Anzahl: 18";;;;;;;;;;;;
-07.12.2020;;13:49;;;;SFIRM;;;;;;1 von 1
+07.01.2021;;13:49;;;;SFIRM;;;;;;1 von 1
+

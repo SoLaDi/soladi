@@ -30,6 +30,7 @@ class Transaction < ApplicationRecord
     total_rows_count = 0
     imported_rows = []
     duplicate_rows = []
+    ignored_rows = []
     invalid_rows = []
 
     CSV.foreach(file.path, "r", headers: false, col_sep: ";", encoding: "windows-1252:utf-8") do |row|
@@ -37,12 +38,12 @@ class Transaction < ApplicationRecord
 
       # filter header lines
       if row.at(0).nil? || row.at(0) == "Buchung"
-        invalid_rows.push row
+        ignored_rows.push row
       else
 
         # filter lines with empty amounts
         if row.at(8).nil?
-          invalid_rows.push row
+          ignored_rows.push row
         else
           amount, type = row.at(8).strip.split
 
@@ -64,11 +65,10 @@ class Transaction < ApplicationRecord
                 transaction.status_message = e.message
               end
 
-              puts transaction.inspect
-
               if transaction.save
                 imported_rows.push row
               else
+                puts "############ BROKEN TRANSACTION BELOW ############"
                 puts transaction.errors.full_messages
                 invalid_rows.push row
               end
@@ -78,7 +78,7 @@ class Transaction < ApplicationRecord
               puts "Record already exists: #{transaction.inspect}"
             end
           else
-            invalid_rows.push row
+            ignored_rows.push row
           end
         end
       end
@@ -87,23 +87,25 @@ class Transaction < ApplicationRecord
     puts "total rows: #{total_rows_count}"
     puts "imported rows: #{imported_rows.length}"
     puts "duplicate rows: #{duplicate_rows.length}"
+    puts "ignored rows: #{ignored_rows.length}"
     puts "invalid rows: #{invalid_rows.length}"
 
-    import_status = ImportStatus.new(total_rows_count, imported_rows.length, duplicate_rows.length, invalid_rows.length)
+    import_status = ImportStatus.new(total_rows_count, imported_rows.length, duplicate_rows.length, ignored_rows.length, invalid_rows.length)
 
     Payment.generate
-     import_status
+    import_status
   end
 
   def self.extract_membership_id(description)
-    matches = description.scan(/\d{4}/)
+    matches = description.scan(/S\d{4}/)
     if matches.length == 0
-        raise ParserError.new("Keine Mitgliedschaftsnummer gefunden")
+      raise ParserError.new("Keine Mitgliedschaftsnummer gefunden")
     elsif matches.length == 1
-      if Membership.exists?(matches.first)
-        matches.first
+      id = matches.first[1..-1]
+      if Membership.exists?(id)
+        id
       else
-        raise ParserError.new("Mitgliedschaft mit der Nummer #{matches.first} nicht im System gefunden")
+        raise ParserError.new("Mitgliedschaft mit der Nummer S#{id} nicht im System gefunden")
       end
     else
       raise ParserError.new("Es wurden mehrere Möglichkeiten für die Mitgliedschaftsnummer gefunden: #{matches}")

@@ -24,11 +24,21 @@ class Membership < ApplicationRecord
   def total_months
     now = Date.today
     endDate = self.endDate && self.endDate < now ? self.endDate : now
-    (self.startDate..endDate).uniq { |d| "#{d.month}-#{d.year}" }
+    range_to_months(self.startDate, endDate)
+  end
+
+  def range_to_months(startDate, endDate)
+    (startDate..endDate).uniq { |d| "#{d.month}-#{d.year}" }
+  end
+
+  def year_to_month_range(year)
+    start_date = Date.new(year, 4, 1)
+    end_date = Date.new(year + 1, 3, 1)
+    range_to_months(start_date, end_date)
   end
 
   def total_cost
-    cost = total_months.inject(0) { |sum, date|
+    total_months.inject(0) { |sum, date|
       price = self.prices.find_by(year: date.year, month: date.month)
       #TODO: we should handle the case that there is no price set for an existing membership
       if price
@@ -37,18 +47,35 @@ class Membership < ApplicationRecord
         sum
       end
     }
-    puts "COSTTTTTTTTTT"
-    puts cost
-    cost
+  end
+
+  def cost_for_fiscal_year(year)
+    year_to_month_range(year).inject(0) { |sum, date|
+      price = self.prices.find_by(year: date.year, month: date.month)
+      if price
+        sum + price.total
+      else
+        sum
+      end
+    }
   end
 
   def total_payments_since_joined
-    payments = self.payments.all.sum(:amount)
-    payments
+    self.payments.all.sum(:amount)
+  end
+
+  def payments_for_fiscal_year(year)
+    year_to_month_range(year).inject(0) { |sum, date|
+      payment = self.payments.find_by(year: date.year, month: date.month)
+      if payment
+        sum + payment.amount
+      else
+        sum
+      end
+    }
   end
 
   def is_trial_membership?
-
     diff = Date.today - startDate
     diff.to_i < 90
   end

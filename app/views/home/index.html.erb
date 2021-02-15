@@ -1,4 +1,42 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Home</h1>
+<h1>Übersicht</h1>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      <div class="card">
+        <div class="card-body">
+          <h3>Gesamt</h3>
+          <p>Erwartet: <%= @data.total_cost %> €</p>
+          <p>Erhalten: <%= @data.total_payments %> €</p>
+          <p>Differenz: <%= @data.total_payments - @data.total_cost %> €</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm">
+      <div class="card">
+        <div class="card-body">
+          <h3>Wirtschaftsjahr 2020</h3>
+          <p>Erwartet: <%= @data.current_year_cost %> €</p>
+          <p>Erhalten: <%= @data.current_year_payments %> €</p>
+          <p>Differenz: <%= @data.current_year_payments - @data.current_year_cost %> €</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm">
+      <div class="card">
+        <div class="card-body">
+          <h3>Eine andere tolle Grafik</h3>
+          <p>Mehr info</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
 

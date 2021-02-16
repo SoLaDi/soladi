@@ -3,7 +3,10 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $('#rich-table').dataTable({
-            "ordering": true
+            ordering: true,
+            rowGroup: {
+                dataSrc: 3
+            }
         });
     });
 </script>

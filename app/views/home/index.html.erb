@@ -11,6 +11,32 @@
           <p>Erwartet: <%= @data.total_cost %> €</p>
           <p>Erhalten: <%= @data.total_payments %> €</p>
           <p>Differenz: <%= @data.total_payments - @data.total_cost %> €</p>
+          <div style="width: 400px">
+            <canvas id="totalPieChart"></canvas>
+          </div>
+          <script>
+              var ctx = document.getElementById('totalPieChart').getContext('2d');
+              var myDoughnutChart = new Chart(ctx, {
+                  type: 'doughnut',
+                  data: {
+                      datasets: [{
+                          data: [
+                              <%= @data.total_cost - @data.total_payments %>,
+                              <%= @data.total_payments %>,
+                          ],
+                          backgroundColor: [
+                              '#ED561B',
+                              '#50B432'
+                          ]
+                      }],
+                      labels: [
+                          'Ausstehend',
+                          'Erhalten',
+                      ],
+
+                  }
+              });
+          </script>
         </div>
       </div>
     </div>
@@ -22,6 +48,32 @@
           <p>Erwartet: <%= @data.current_year_cost %> €</p>
           <p>Erhalten: <%= @data.current_year_payments %> €</p>
           <p>Differenz: <%= @data.current_year_payments - @data.current_year_cost %> €</p>
+          <div style="width: 400px">
+            <canvas id="currentYearPieChart"></canvas>
+          </div>
+          <script>
+              var ctx = document.getElementById('currentYearPieChart').getContext('2d');
+              var myDoughnutChart = new Chart(ctx, {
+                  type: 'doughnut',
+                  data: {
+                      datasets: [{
+                          data: [
+                              <%= @data.current_year_cost - @data.current_year_payments %>,
+                              <%= @data.current_year_payments %>,
+                          ],
+                          backgroundColor: [
+                              '#ED561B',
+                              '#50B432'
+                          ]
+                      }],
+                      labels: [
+                          'Ausstehend',
+                          'Erhalten',
+                      ],
+
+                  }
+              });
+          </script>
         </div>
       </div>
     </div>

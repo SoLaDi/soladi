@@ -1,7 +1,6 @@
 class MembershipsController < ApplicationController
   require 'active_support/all'
 
-  before_action :authenticate_user!
   before_action :set_membership, only: [:show, :edit, :update, :destroy]
 
   # GET /memberships

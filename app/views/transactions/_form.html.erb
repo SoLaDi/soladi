@@ -12,28 +12,8 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :entry_date %>
-    <%= form.date_select :entry_date %>
-  </div>
-
-  <div class="field">
-    <%= form.label :sender %>
-    <%= form.text_field :sender %>
-  </div>
-
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_field :description %>
-  </div>
-
-  <div class="field">
-    <%= form.label :amount %>
-    <%= form.text_field :amount %>
-  </div>
-
-  <div class="field">
-    <%= form.label :currency %>
-    <%= form.text_field :currency %>
+    <%= form.label :status_message %>
+    <%= form.text_area :status_message %>
   </div>
 
   <div class="field">

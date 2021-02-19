@@ -1,19 +1,22 @@
 class HomeController < ApplicationController
   def index
-    total_payments, total_cost = calculate_totals
-    current_year_payments, current_year_cost = calculate_current_year_totals
-    @data = DashboardData.new(total_cost, total_payments, current_year_cost, current_year_payments)
+    @data = DashboardData.new(
+      calculate_totals,
+      calculate_current_year_totals,
+      calculate_this_month_totals,
+      calculate_last_month_totals
+    )
   end
 
   def calculate_totals
-    total_payments = 0
-    total_cost = 0
+    payments = 0
+    cost = 0
     Membership.all.each do |membership|
-      total_payments += membership.total_payments_since_joined
-      total_cost += membership.total_cost
+      payments += membership.total_payments_since_joined
+      cost += membership.total_cost
     end
 
-    [total_payments, total_cost]
+    Balance.new(cost, payments)
   end
 
   def calculate_current_year_totals
@@ -24,6 +27,22 @@ class HomeController < ApplicationController
       cost += membership.cost_for_fiscal_year(2020)
     end
 
-    [payments, cost]
+    Balance.new(cost, payments)
+  end
+
+  def calculate_this_month_totals
+    now = Date.today
+    payments = Payment.where(year: now.year, month: now.month).sum(:amount)
+    cost = Price.where(year: now.year, month: now.month).sum(:amount)
+
+    Balance.new(cost, payments)
+  end
+
+  def calculate_last_month_totals
+    last_month = Date.today - 1.month
+    payments = Payment.where(year: last_month.year, month: last_month.month).sum(:amount)
+    cost = Price.where(year: last_month.year, month: last_month.month).sum(:amount)
+
+    Balance.new(cost, payments)
   end
 end

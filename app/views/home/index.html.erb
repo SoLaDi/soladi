@@ -8,10 +8,10 @@
       <div class="card">
         <div class="card-body">
           <h3>Gesamt</h3>
-          <p>Erwartet: <%= @data.total_cost %> €</p>
-          <p>Erhalten: <%= @data.total_payments %> €</p>
-          <p>Differenz: <%= @data.total_payments - @data.total_cost %> €</p>
-          <div style="width: 400px">
+          <p>Erwartet: <%= @data.total_balance.cost %> €</p>
+          <p>Erhalten: <%= @data.total_balance.payments %> €</p>
+          <p>Differenz: <%= @data.total_balance.payments - @data.total_balance.cost %> €</p>
+          <div style="width: 250px">
             <canvas id="totalPieChart"></canvas>
           </div>
           <script>
@@ -21,8 +21,8 @@
                   data: {
                       datasets: [{
                           data: [
-                              <%= @data.total_cost - @data.total_payments %>,
-                              <%= @data.total_payments %>,
+                              <%= @data.total_balance.cost - @data.total_balance.payments %>,
+                              <%= @data.total_balance.payments %>,
                           ],
                           backgroundColor: [
                               '#ED561B',
@@ -45,10 +45,10 @@
       <div class="card">
         <div class="card-body">
           <h3>Wirtschaftsjahr 2020</h3>
-          <p>Erwartet: <%= @data.current_year_cost %> €</p>
-          <p>Erhalten: <%= @data.current_year_payments %> €</p>
-          <p>Differenz: <%= @data.current_year_payments - @data.current_year_cost %> €</p>
-          <div style="width: 400px">
+          <p>Erwartet: <%= @data.current_year_balance.cost %> €</p>
+          <p>Erhalten: <%= @data.current_year_balance.payments %> €</p>
+          <p>Differenz: <%= @data.current_year_balance.payments - @data.current_year_balance.cost %> €</p>
+          <div style="width: 250px">
             <canvas id="currentYearPieChart"></canvas>
           </div>
           <script>
@@ -58,8 +58,8 @@
                   data: {
                       datasets: [{
                           data: [
-                              <%= @data.current_year_cost - @data.current_year_payments %>,
-                              <%= @data.current_year_payments %>,
+                              <%= @data.current_year_balance.cost - @data.current_year_balance.payments %>,
+                              <%= @data.current_year_balance.payments %>
                           ],
                           backgroundColor: [
                               '#ED561B',
@@ -81,12 +81,78 @@
     <div class="col-sm">
       <div class="card">
         <div class="card-body">
-          <h3>Eine andere tolle Grafik</h3>
-          <p>Mehr info</p>
+          <h3>Im letzten Monat</h3>
+          <p>Erwartet: <%= @data.last_month_balance.cost %> €</p>
+          <p>Erhalten: <%= @data.last_month_balance.payments %> €</p>
+          <p>Differenz: <%= @data.last_month_balance.payments - @data.last_month_balance.cost %> €</p>
+          <div style="width: 250px">
+            <canvas id="lastMonthPieChart"></canvas>
+          </div>
+          <script>
+              var ctx = document.getElementById('lastMonthPieChart').getContext('2d');
+              var myDoughnutChart = new Chart(ctx, {
+                  type: 'doughnut',
+                  data: {
+                      datasets: [{
+                          data: [
+                              <%= @data.last_month_balance.cost - @data.last_month_balance.payments %>,
+                              <%= @data.last_month_balance.payments %>
+                          ],
+                          backgroundColor: [
+                              '#ED561B',
+                              '#50B432'
+                          ]
+                      }],
+                      labels: [
+                          'Ausstehend',
+                          'Erhalten',
+                      ],
+
+                  }
+              });
+          </script>
         </div>
       </div>
-
     </div>
+
+    <div class="col-sm">
+      <div class="card">
+        <div class="card-body">
+          <h3>In diesem Monat</h3>
+          <p>Erwartet: <%= @data.this_month_balance.cost %> €</p>
+          <p>Erhalten: <%= @data.this_month_balance.payments %> €</p>
+          <p>Differenz: <%= @data.this_month_balance.payments - @data.this_month_balance.cost %> €</p>
+          <div style="width: 250px">
+            <canvas id="currentMonthPieChart"></canvas>
+          </div>
+          <script>
+              var ctx = document.getElementById('currentMonthPieChart').getContext('2d');
+              var myDoughnutChart = new Chart(ctx, {
+                  type: 'doughnut',
+                  data: {
+                      datasets: [{
+                          data: [
+                              <%= @data.this_month_balance.cost - @data.this_month_balance.payments %>,
+                              <%= @data.this_month_balance.payments %>
+                          ],
+                          backgroundColor: [
+                              '#ED561B',
+                              '#50B432'
+                          ]
+                      }],
+                      labels: [
+                          'Ausstehend',
+                          'Erhalten',
+                      ],
+
+                  }
+              });
+          </script>
+        </div>
+      </div>
+    </div>
+
+
   </div>
 </div>
 

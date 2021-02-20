@@ -10,12 +10,12 @@ jobs:
           keys:
             - v1-{{ .Branch }}
           paths:
-            - /caches/app.tar
+            - /caches/soladi.tar
       - run:
           name: Load Docker image layer cache
           command: |
             set +o pipefail
-            docker load -i /caches/app.tar | true
+            docker load -i /caches/soladi.tar | true
       - run:
           name: Build application Docker image
           command: |
@@ -24,8 +24,8 @@ jobs:
           name: Save Docker image layer cache
           command: |
             mkdir -p /caches
-            docker save -o /caches/app.tar app
+            docker save -o /caches/soladi.tar soladi
       - save_cache:
           key: v1-{{ .Branch }}-{{ epoch }}
           paths:
-            - /caches/app.tar
+            - /caches/soladi.tar

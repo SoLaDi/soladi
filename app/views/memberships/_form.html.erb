@@ -27,6 +27,17 @@
 
   </div>
 
+  <%= form.fields_for :prices, @membership.prices.build do |prices_fields| %>
+    <div class="field">
+      <%= form.label "Anteile" %>
+      <%= prices_fields.number_field :shares %>
+    </div>
+    <div class="field">
+      <%= form.label "Preis" %>
+      <%= prices_fields.number_field :amount, step: :any %>
+    </div>
+  <% end %>
+
   <div class="actions">
     <%= form.submit %>
   </div>

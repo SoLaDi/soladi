@@ -85,7 +85,6 @@
     <th>Monat</th>
     <th>Anteile</th>
     <th>Betrag</th>
-    <th>Mitgliedschafts-ID</th>
     <th></th>
     <th></th>
     <th></th>
@@ -99,7 +98,6 @@
       <td><%= price.month %></td>
       <td><%= price.shares %></td>
       <td><%= price.amount %></td>
-      <td><%= price.membership_id %></td>
       <td><%= link_to 'Show', price %></td>
       <td><%= link_to 'Edit', edit_price_path(price) %></td>
       <td><%= link_to 'Destroy', price, method: :delete, data: { confirm: 'Are you sure?' } %></td>

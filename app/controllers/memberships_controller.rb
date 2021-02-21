@@ -24,6 +24,7 @@ class MembershipsController < ApplicationController
   # GET /memberships/new
   def new
     @membership = Membership.new
+    @membership.prices.build(shares: 20)
   end
 
   # GET /memberships/1/edit
@@ -34,6 +35,13 @@ class MembershipsController < ApplicationController
   # POST /memberships.json
   def create
     @membership = Membership.new(membership_params)
+
+    price = @membership.prices[0]
+    @membership.prices = []
+    start_fiscal_year = @membership.date_to_fiscal_year(@membership.startDate)
+    @membership.fiscal_year_to_month_range(start_fiscal_year).each do |date|
+      @membership.prices.build(amount: price.amount, shares: price.shares, month: date.month, year: date.year)
+    end
 
     respond_to do |format|
       if @membership.save
@@ -79,6 +87,6 @@ class MembershipsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def membership_params
-    params.require(:membership).permit(:startDate, :endDate, :distribution_point_id)
+    params.require(:membership).permit(:startDate, :endDate, :distribution_point_id, prices_attributes: [:month, :year, :shares, :amount])
   end
 end

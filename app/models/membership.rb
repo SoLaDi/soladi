@@ -24,12 +24,12 @@ class Membership < ApplicationRecord
   # @return [Array<Date>]
   def total_months
     now = Date.today
-    endDate = self.endDate && self.endDate < now ? self.endDate : now
-    range_to_months(self.startDate, endDate)
+    end_date = self.endDate && self.endDate < now ? self.endDate : now
+    range_to_months(self.startDate, end_date)
   end
 
-  def range_to_months(startDate, endDate)
-    (startDate..endDate).uniq { |d| "#{d.month}-#{d.year}" }
+  def range_to_months(start_date, end_date)
+    (start_date..end_date).uniq { |d| "#{d.month}-#{d.year}" }
   end
 
   def fiscal_year_to_month_range(year)

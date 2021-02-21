@@ -4,7 +4,8 @@ class HomeController < ApplicationController
       calculate_totals,
       calculate_current_year_totals,
       calculate_this_month_totals,
-      calculate_last_month_totals
+      calculate_last_month_totals,
+      calculate_membership_statistics
     )
   end
 
@@ -44,5 +45,13 @@ class HomeController < ApplicationController
     cost = Price.where(year: last_month.year, month: last_month.month).sum(:amount)
 
     Balance.new(cost, payments)
+  end
+
+  def calculate_membership_statistics
+    today = Date.today
+    total = Membership.count
+    current_shares = Membership.where(endDate: Date.today..Float::INFINITY).count
+
+    MembershipStatistics.new(total, total, current_shares)
   end
 end

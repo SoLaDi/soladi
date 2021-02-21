@@ -50,7 +50,10 @@ class HomeController < ApplicationController
   def calculate_membership_statistics
     today = Date.today
     total = Membership.count
-    current_shares = Membership.where(endDate: Date.today..Float::INFINITY).count
+    [].filter
+    current_shares = Membership.where("DATE(startDate) < DATE(?) AND (endDate IS NULL OR DATE(endDate) > DATE(?))", today, today).inject(0) { |sum, membership|
+      sum + membership.prices.find_by(year: today.year, month: today.month).shares
+    }
 
     MembershipStatistics.new(total, total, current_shares)
   end

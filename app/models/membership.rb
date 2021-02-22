@@ -15,6 +15,7 @@ class Membership < ApplicationRecord
   has_many :transactions
   has_many :payments
   has_many :prices
+  has_many :people
   belongs_to :distribution_point
   accepts_nested_attributes_for :prices
 

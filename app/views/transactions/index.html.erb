@@ -1,8 +1,7 @@
-
 <h1>Transaktionen</h1>
 
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#rich-table').dataTable({
             "ordering": true
         });
@@ -11,43 +10,47 @@
 
 <table id="rich-table" class="table table-striped table-bordered">
   <thead>
-    <tr>
-      <th>Buchungsdatum</th>
-      <th>Sender</th>
-      <th>Buchungstext</th>
-      <th>Betrag</th>
-      <th>Währung</th>
-      <th>Mitgliedschafts-ID</th>
-      <th>Fehler</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
+  <tr>
+    <th>Buchungsdatum</th>
+    <th>Sender</th>
+    <th>Buchungstext</th>
+    <th>Betrag</th>
+    <th>Währung</th>
+    <th>Mitgliedschafts-ID</th>
+    <th>Fehler</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
   </thead>
 
   <tbody>
-    <% @transactions.each do |transaction| %>
-      <tr>
-        <td><%= transaction.entry_date %></td>
-        <td><%= transaction.sender %></td>
-        <td><%= transaction.description %></td>
-        <td><%= transaction.amount %></td>
-        <td><%= transaction.currency %></td>
-        <td><%= transaction.membership_id %></td>
-        <td><%= transaction.status_message %></td>
-        <td><%= link_to 'Show', transaction %></td>
-        <td><%= link_to 'Edit', edit_transaction_path(transaction) %></td>
-        <td><%= link_to 'Destroy', transaction, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
+  <% @transactions.each do |transaction| %>
+    <tr>
+      <td><%= transaction.entry_date %></td>
+      <td><%= transaction.sender %></td>
+      <td><%= transaction.description %></td>
+      <td><%= transaction.amount %></td>
+      <td><%= transaction.currency %></td>
+      <%- if transaction.membership_id.nil? %>
+        <td/>
+      <% else %>
+        <td><%= link_to "#{transaction.membership_id}", membership_url(transaction.membership_id) %></td>
+      <% end %>
+      <td><%= transaction.status_message %></td>
+      <td><%= link_to 'Show', transaction %></td>
+      <td><%= link_to 'Edit', edit_transaction_path(transaction) %></td>
+      <td><%= link_to 'Destroy', transaction, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
   </tbody>
 </table>
 <div>
-      <h4>Import transactions</h4>
-      <%= form_tag import_transactions_path, multipart: true do %>
-        <%= file_field_tag :file %>
-        <%= submit_tag "Import CSV" %>
-      <% end %>
+  <h4>Import transactions</h4>
+  <%= form_tag import_transactions_path, multipart: true do %>
+    <%= file_field_tag :file %>
+    <%= submit_tag "Import CSV" %>
+  <% end %>
 </div>
 
 <br>

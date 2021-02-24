@@ -1,31 +1,28 @@
 version: 2.1
+
+workflows:
+  my-workflow:
+    jobs:
+      - build:
+          context:
+            - docker-hub
+
 jobs:
   build:
     docker:
-      - image: docker:17.05.0-ce-git
+      - image: docker:20.10.2-ce-git
     steps:
       - checkout
-      - setup_remote_docker
-      - restore_cache:
-          keys:
-            - v1-{{ .Branch }}
-          paths:
-            - /caches/soladi.tar
-      - run:
-          name: Load Docker image layer cache
-          command: |
-            set +o pipefail
-            docker load -i /caches/soladi.tar | true
+      - setup_remote_docker:
+          version: 20.10.2
+          docker_layer_caching: true
       - run:
           name: Build application Docker image
           command: |
-            docker build -t soladi:latest .
-      - run:
-          name: Save Docker image layer cache
-          command: |
-            mkdir -p /caches
-            docker save -o /caches/soladi.tar soladi
-      - save_cache:
-          key: v1-{{ .Branch }}-{{ epoch }}
-          paths:
-            - /caches/soladi.tar
+            docker build -t soladi/soladi:$CIRCLE_BUILD_NUM .
+            docker tag soladi/soladi:$CIRCLE_BUILD_NUM soladi/soladi:latest
+      - run: |
+          TAG=$CIRCLE_BUILD_NUM
+          echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+          docker push soladi/soladi:$CIRCLE_BUILD_NUM
+          docker push soladi/soladi:latest

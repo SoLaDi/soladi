@@ -1,0 +1,17 @@
+version: "3.8"
+services:
+  app:
+    image: soladi/soladi:17
+    restart: always
+    environment:
+      SECRET_KEY_BASE: "some-secret"
+      DATABASE_HOST: "db"
+    ports:
+      - 3000:3000
+  db:
+    image: library/postgres:13.2
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres
+
+

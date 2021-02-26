@@ -12,6 +12,8 @@ services:
     image: library/postgres:13.2
     restart: always
     environment:
+      POSTGRES_USERNAME: postgres
       POSTGRES_PASSWORD: postgres
+      POSTGRES_HOST: postgres
 
 

@@ -1,13 +1,12 @@
 version: "3.3"
 services:
   app:
-    image: soladi/soladi:20
+    image: docker.io/library/soladi:latest
     restart: always
     environment:
       SECRET_KEY_BASE: "some-secret"
-      DB_HOST: "db"
-      DB_USERNAME: "postgres"
-      DB_PASSWORD: "postgres"
+      DB_URL: "postgresql://postgres:postgres@db:5432/soladi"
+      RAILS_SERVE_STATIC_FILES: "true"
     ports:
       - 3000:3000
 

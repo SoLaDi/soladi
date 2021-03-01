@@ -15,11 +15,13 @@
     "datatables.net-rowgroup-dt": "^1.1.2",
     "jquery": "^3.5.1",
     "popper.js": "^1.16.1",
+    "post-loader": "^2.0.0",
+    "style-loader": "^2.0.0",
     "turbolinks": "^5.2.0"
   },
   "version": "0.1.0",
   "devDependencies": {
-    "css-loader": "^5.0.1",
+    "css-loader": "^5.1.1",
     "expose-loader": "^1.0.3",
     "imports-loader": "^1.2.0",
     "webpack-dev-server": "^3.11.2"

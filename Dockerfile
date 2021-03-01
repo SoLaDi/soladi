@@ -13,8 +13,7 @@ COPY . .
 
 RUN bundle install
 RUN yarn install
-RUN RAILS_ENV=production rake assets:precompile
-RUN RAILS_ENV=production RACK_ENV=production NODE_ENV=production bin/webpack
+RUN rails assets:precompile
 
 EXPOSE 3000
 

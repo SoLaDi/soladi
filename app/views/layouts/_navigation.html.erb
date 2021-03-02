@@ -15,4 +15,7 @@
       <li class="nav-item"><%= link_to "Verteilerstellen", distribution_points_url, { :class => "nav-link" } %></li>
     </ul>
   </div>
+  <% if user_signed_in? %>
+    <%= button_to "Log out", destroy_user_session_path, method: :delete %>
+  <% end %>
 </nav>

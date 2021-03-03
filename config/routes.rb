@@ -44,9 +44,8 @@ Rails.application.routes.draw do
   resources :distribution_points
   resources :prices
   resources :payments do collection {post :generate} end
-  devise_for :admins
-  devise_for :users
   resources :transactions do collection {post :import} end
   resources :memberships
+  devise_for :users
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

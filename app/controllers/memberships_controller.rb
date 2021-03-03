@@ -9,8 +9,6 @@ class MembershipsController < ApplicationController
     @fem = Membership.all.map { |m|
       cost = m.total_cost
       pay = m.total_payments_since_joined
-      puts cost
-      puts pay
       MembershipFrontend.new(m, cost, pay)
     }
 

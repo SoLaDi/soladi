@@ -11,7 +11,10 @@ WORKDIR /app
 
 COPY . .
 
-RUN bundle install
+ARG RAILS_ENV=production
+ARG SECRET_KEY_BASE=some-secret
+
+RUN bundle install --without development test
 RUN yarn install
 RUN rails assets:precompile
 

@@ -11,7 +11,8 @@ require('datatables.net-bs4')
 require('datatables.net-rowgroup')
 require('chart.js')
 
-import "bootstrap";
+import 'bootstrap/dist/js/bootstrap'
+import 'bootstrap/dist/css/bootstrap'
 import "../stylesheets/application"
 
 import $ from 'jquery';

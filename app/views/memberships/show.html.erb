@@ -106,7 +106,7 @@
   </tbody>
 </table>
 
-<h2>Preise</h2>
+<h2>Gebote</h2>
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -119,26 +119,19 @@
 <table id="rich-table-prices" class="table table-striped table-bordered">
   <thead>
   <tr>
-    <th>Jahr</th>
-    <th>Monat</th>
-    <th>Anteile</th>
-    <th>Betrag</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th>Start</th>
+    <th>Ende</th>
+    <th>Preis</th>
   </tr>
   </thead>
 
   <tbody>
-  <% @membership.prices.each do |price| %>
+  <% @membership.prices_grouped.each do |price| %>
+    <% puts price.inspect %>
     <tr>
-      <td><%= price.year %></td>
-      <td><%= price.month %></td>
-      <td><%= price.shares %></td>
-      <td><%= price.amount %></td>
-      <td><%= link_to 'Show', price %></td>
-      <td><%= link_to 'Edit', edit_price_path(price) %></td>
-      <td><%= link_to 'Destroy', price, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <td><%= price["start_date"].strftime("%b %Y") %></td>
+      <td><%= price["end_date"].strftime("%b %Y") %></td>
+      <td><%= price["amount"] %></td>
     </tr>
   <% end %>
   </tbody>

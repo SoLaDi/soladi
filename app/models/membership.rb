@@ -111,6 +111,16 @@ class Membership < ApplicationRecord
     }
   end
 
+  def prices_grouped
+    self.prices.all.group_by(&:amount).map { |amount, group|
+      start_date, end_date = group.map { |p|
+        Date.new(p.year, p.month, 1)
+      }.sort.values_at(0, -1)
+
+      { "amount" => amount, "start_date" => start_date, "end_date" => end_date }
+    }
+  end
+
   def is_trial_membership?
     diff = Date.today - startDate
     diff.to_i < 90

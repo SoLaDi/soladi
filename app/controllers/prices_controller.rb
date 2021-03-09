@@ -1,6 +1,20 @@
 class PricesController < ApplicationController
   before_action :set_price, only: [:show, :edit, :update, :destroy]
 
+  def import
+    begin
+      import_status = Price.import(params[:file])
+      puts import_status.message
+      if import_status.invalid_rows > 0
+        redirect_to :prices, alert: "Import fehlerhaft! #{import_status.message}"
+      else
+        redirect_to :prices, notice: "Import abgeschlossen! #{import_status.message}"
+      end
+    rescue Exception => e
+      redirect_to :prices, notice: "Import fehlgeschlagen: #{e.message}"
+    end
+  end
+
   # GET /prices
   # GET /prices.json
   def index

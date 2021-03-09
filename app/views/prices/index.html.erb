@@ -1,4 +1,4 @@
-<h1>Konditionen</h1>
+<h1>Gebote</h1>
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -43,4 +43,15 @@
 
 <br>
 
-<%= link_to 'New Price', new_price_path %>
+<%= link_to 'Neues Gebot anlegen', new_price_path %>
+
+<br>
+<br>
+
+<div>
+  <h3>Gebote importieren</h3>
+  <%= form_tag import_prices_path, multipart: true do %>
+    <%= file_field_tag :file %>
+    <%= submit_tag "CSV importieren" %>
+  <% end %>
+</div>

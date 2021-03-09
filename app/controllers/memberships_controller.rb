@@ -3,6 +3,21 @@ class MembershipsController < ApplicationController
 
   before_action :set_membership, only: [:show, :edit, :update, :destroy]
 
+  def import
+    begin
+      import_status = Membership.import(params[:file])
+      puts import_status.message
+      if import_status.invalid_rows > 0
+        redirect_to :memberships, alert: "Import fehlerhaft! #{import_status.message}"
+      else
+        redirect_to :memberships, notice: "Import abgeschlossen! #{import_status.message}"
+      end
+    rescue Exception => e
+      redirect_to :memberships, notice: "Import fehlgeschlagen: #{e.message}"
+    end
+  end
+
+
   # GET /memberships
   # GET /memberships.json
   def index
@@ -22,7 +37,7 @@ class MembershipsController < ApplicationController
   # GET /memberships/new
   def new
     @membership = Membership.new
-    @membership.prices.build(shares: 20)
+    @membership.prices.build(shares: 1)
   end
 
   # GET /memberships/1/edit

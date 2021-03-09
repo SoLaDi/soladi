@@ -42,10 +42,10 @@ Rails.application.routes.draw do
   root :to => 'home#index'
   resources :people
   resources :distribution_points
-  resources :prices
+  resources :prices do collection {post :import} end
   resources :payments do collection {post :generate} end
   resources :transactions do collection {post :import} end
-  resources :memberships
+  resources :memberships do collection {post :import} end
   devise_for :users
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

@@ -21,6 +21,32 @@ class Membership < ApplicationRecord
 
   validates_with MembershipValidator
 
+  def self.import(file)
+    total_rows_count = 0
+    imported_rows = []
+    duplicate_rows = []
+    ignored_rows = []
+    invalid_rows = []
+
+    # CSV columns: membership_id, distribution_point_id
+    CSV.foreach(file.path, "r", headers: true, col_sep: ",", encoding: "utf-8") do |row|
+      total_rows_count += 1
+
+      membership_id = row["membership_id"]
+      distribution_point_id = row["distribution_point_id"]
+
+      Membership.create(id: membership_id, startDate: Date.today, distribution_point_id: distribution_point_id)
+    end
+
+    puts "total rows: #{total_rows_count}"
+    puts "imported rows: #{imported_rows.length}"
+    puts "duplicate rows: #{duplicate_rows.length}"
+    puts "ignored rows: #{ignored_rows.length}"
+    puts "invalid rows: #{invalid_rows.length}"
+
+    ImportStatus.new(total_rows_count, imported_rows.length, duplicate_rows.length, ignored_rows.length, invalid_rows.length)
+  end
+
   # Return a list of date for every month a membership has been active
   # @return [Array<Date>]
   def total_months

@@ -1,0 +1,56 @@
+<h1>Gebote</h1>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#rich-table').dataTable({
+            "ordering": true,
+        });
+    });
+</script>
+
+<table id="rich-table" class="table table-striped table-bordered">
+  <thead>
+  <tr>
+    <th>Start</th>
+    <th>Ende</th>
+    <th>Anteile</th>
+    <th>Betrag</th>
+    <th>Vereinbarung unterschrieben</th>
+    <th>Mitgliedschaft</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @bids.each do |bid| %>
+    <tr>
+      <td><%= bid.start_date.strftime("%b %Y") %></td>
+      <td><%= bid.end_date.strftime("%b %Y") %></td>
+      <td><%= bid.shares %></td>
+      <td><%= bid.amount %></td>
+      <td><%= bid.contract_signed %></td>
+      <td><%= link_to "#{bid.membership_id}", membership_url(bid.membership_id) %></td>
+      <td><%= link_to 'Show', bid %></td>
+      <td><%= link_to 'Edit', edit_bid_path(bid) %></td>
+      <td><%= link_to 'Destroy', bid, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Neues Gebot anlegen', new_bid_path %>
+
+<br>
+<br>
+
+<div>
+  <h3>Gebote importieren</h3>
+  <%= form_tag import_bids_path, multipart: true do %>
+    <%= file_field_tag :file %>
+    <%= submit_tag "CSV importieren" %>
+  <% end %>
+</div>

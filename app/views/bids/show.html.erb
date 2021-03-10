@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Start date:</strong>
+  <%= @bid.start_date %>
+</p>
+
+<p>
+  <strong>End date:</strong>
+  <%= @bid.end_date %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @bid.amount %>
+</p>
+
+<p>
+  <strong>Shares:</strong>
+  <%= @bid.shares %>
+</p>
+
+<p>
+  <strong>Contract signed:</strong>
+  <%= @bid.contract_signed %>
+</p>
+
+<p>
+  <strong>Membership:</strong>
+  <%= @bid.membership_id %>
+</p>
+
+<%= link_to 'Edit', edit_bid_path(@bid) %> |
+<%= link_to 'Back', bids_path %>

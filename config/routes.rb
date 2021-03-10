@@ -39,10 +39,11 @@
 #                  rails_direct_uploads POST   /rails/active_storage/direct_uploads(.:format)                                           active_storage/direct_uploads#create
 
 Rails.application.routes.draw do
+  resources :bids
   root :to => 'home#index'
   resources :people
   resources :distribution_points
-  resources :prices do collection {post :import} end
+  resources :bids do collection {post :import} end
   resources :payments do collection {post :generate} end
   resources :transactions do collection {post :import} end
   resources :memberships do collection {post :import} end

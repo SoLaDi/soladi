@@ -15,24 +15,24 @@ dp_mahlsdorf = DistributionPoint.create(name: "Mahlsdorf Süd", street: "Musters
 dp_treptow = DistributionPoint.create(name: "Treptow", street: "Teststraße", housenumber: "234", zipcode: "23456", city: "Berlin")
 
 puts "Creating 10 memberships"
-10.times do |i|
+5.times do |i|
   membership_id = 1000 + i
-  ms = Membership.create(id: membership_id, startDate: Date.new(2020, 1, 8), endDate: nil, distribution_point_id: dp_mahlsdorf.id)
+  puts membership_id
+  ms = Membership.new(id: membership_id, startDate: Date.new(2020, 5, 8), endDate: nil, distribution_point_id: dp_mahlsdorf.id)
+  ms.bids.build(start_date: Date.new(2020, 4, 1), end_date: Date.new(2021, 3, 1), shares: 1, amount: 10)
+  ms.save
   unless ms
     puts ms.errors.inspect
   end
+end
 
-  (1..12).each do |m|
-    p = Price.create(year: 2020, month: m, shares: 1, amount: 10, membership_id: membership_id)
-    unless p
-      puts p.errors.inspect
-    end
-  end
-
-  (1..12).each do |m|
-    p = Price.create(year: 2021, month: m, shares: 1, amount: 20, membership_id: membership_id)
-    unless p
-      puts p.errors.inspect
-    end
+5.times do |i|
+  membership_id = 1100 + i
+  puts membership_id
+  ms = Membership.new(id: membership_id, startDate: Date.new(2020, 5, 8), endDate: nil, distribution_point_id: dp_treptow.id)
+  ms.bids.build(start_date: Date.new(2020, 4, 1), end_date: Date.new(2021, 3, 1), shares: 2, amount: 20.1)
+  ms.save
+  unless ms
+    puts ms.errors.inspect
   end
 end

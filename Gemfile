@@ -59,4 +59,3 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem "annotate", "~> 3.1"
 gem "devise"
-gem "devise_invitable", "~> 2.0.3"

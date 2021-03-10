@@ -21,7 +21,7 @@
 </p>
 
 <p>
-<strong>Probezeit:</strong>
+  <strong>Probezeit:</strong>
   <%= @membership.is_trial_membership? %>
 </p>
 <br/>
@@ -29,7 +29,7 @@
 <h2>Zugeordnete Mitglieder</h2>
 
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#rich-table-people').dataTable({
             ordering: true,
         });
@@ -67,7 +67,7 @@
 <h2>Eingegangene Zahlungen</h2>
 
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#rich-table-payments').dataTable({
             "ordering": true
         });
@@ -110,28 +110,29 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $('#rich-table-prices').dataTable({
+        $('#rich-table-bids').dataTable({
             "ordering": true,
         });
     });
 </script>
 
-<table id="rich-table-prices" class="table table-striped table-bordered">
+<table id="rich-table-bids" class="table table-striped table-bordered">
   <thead>
   <tr>
     <th>Start</th>
     <th>Ende</th>
     <th>Preis</th>
+    <th>Anteile</th>
   </tr>
   </thead>
 
   <tbody>
-  <% @membership.prices_grouped.each do |price| %>
-    <% puts price.inspect %>
+  <% @membership.bids.each do |bid| %>
     <tr>
-      <td><%= price["start_date"].strftime("%b %Y") %></td>
-      <td><%= price["end_date"].strftime("%b %Y") %></td>
-      <td><%= price["amount"] %></td>
+      <td><%= bid["start_date"].strftime("%b %Y") %></td>
+      <td><%= bid["end_date"].strftime("%b %Y") %></td>
+      <td><%= bid["amount"] %></td>
+      <td><%= bid["shares"] %></td>
     </tr>
   <% end %>
   </tbody>

@@ -33,16 +33,29 @@ class HomeController < ApplicationController
 
   def calculate_this_month_totals
     now = Date.today
-    payments = Payment.where(year: now.year, month: now.month).sum(:amount)
-    cost = Price.where(year: now.year, month: now.month).sum(:amount)
+    month_start = Date.new(now.year, now.month)
+    month_end = Date.new(now.year, now.month + 1) - 1.day
+    payments = Transaction.where(entry_date: month_start..month_end).sum(:amount)
+    bids = Bid.where(start_date: ..month_start, end_date: month_end..)
+    puts bids.inspect
+    cost = bids.inject(0) do |sum, bid|
+      sum + bid.total_amount
+    end
 
     Balance.new(cost, payments)
   end
 
   def calculate_last_month_totals
     last_month = Date.today - 1.month
-    payments = Payment.where(year: last_month.year, month: last_month.month).sum(:amount)
-    cost = Price.where(year: last_month.year, month: last_month.month).sum(:amount)
+    month_start = Date.new(last_month.year, last_month.month)
+    month_end = Date.new(last_month.year, last_month.month + 1) - 1.day
+    payments = Transaction.where(entry_date: month_start..month_end).sum(:amount)
+
+    bids = Bid.where(start_date: ..month_start, end_date: month_end..)
+    puts bids.inspect
+    cost = bids.inject(0) do |sum, bid|
+      sum + bid.total_amount
+    end
 
     Balance.new(cost, payments)
   end

@@ -90,10 +90,7 @@ class Transaction < ApplicationRecord
     puts "ignored rows: #{ignored_rows.length}"
     puts "invalid rows: #{invalid_rows.length}"
 
-    import_status = ImportStatus.new(total_rows_count, imported_rows.length, duplicate_rows.length, ignored_rows.length, invalid_rows.length)
-
-    Payment.generate
-    import_status
+    ImportStatus.new(total_rows_count, imported_rows.length, duplicate_rows.length, ignored_rows.length, invalid_rows.length)
   end
 
   def self.extract_membership_id(description)

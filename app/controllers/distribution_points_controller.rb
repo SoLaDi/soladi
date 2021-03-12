@@ -69,6 +69,6 @@ class DistributionPointsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def distribution_point_params
-      params.require(:distribution_point).permit(:name, :street, :housenumber, :zipcode, :city, :contact_name)
+      params.require(:distribution_point).permit(:name, :street, :housenumber, :zipcode, :city, :person_id)
     end
 end

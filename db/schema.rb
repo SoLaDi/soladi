@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_10_191058) do
+ActiveRecord::Schema.define(version: 2021_03_12_084144) do
 
   create_table "bids", force: :cascade do |t|
     t.date "start_date"
@@ -30,9 +30,10 @@ ActiveRecord::Schema.define(version: 2021_03_10_191058) do
     t.string "housenumber"
     t.string "zipcode"
     t.string "city"
-    t.integer "contact_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "person_id"
+    t.index ["person_id"], name: "index_distribution_points_on_person_id"
   end
 
   create_table "memberships", force: :cascade do |t|
@@ -91,6 +92,7 @@ ActiveRecord::Schema.define(version: 2021_03_10_191058) do
   end
 
   add_foreign_key "bids", "memberships"
+  add_foreign_key "distribution_points", "people"
   add_foreign_key "memberships", "distribution_points"
   add_foreign_key "people", "memberships"
   add_foreign_key "transactions", "memberships"

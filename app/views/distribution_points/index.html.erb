@@ -1,7 +1,7 @@
 <h1>Verteilerstellen</h1>
 
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#rich-table').dataTable({
             "ordering": true
         });
@@ -10,33 +10,37 @@
 
 <table id="rich-table" class="table table-striped table-bordered">
   <thead>
-    <tr>
-      <th>Name</th>
-      <th>Straße</th>
-      <th>Hausnummer</th>
-      <th>Postleitzahl</th>
-      <th>Stadt</th>
-      <th>Ansprechpartner</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
+  <tr>
+    <th>Name</th>
+    <th>Straße</th>
+    <th>Hausnummer</th>
+    <th>Postleitzahl</th>
+    <th>Stadt</th>
+    <th>Ansprechpartner/in</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
   </thead>
 
   <tbody>
-    <% @distribution_points.each do |distribution_point| %>
-      <tr>
-        <td><%= distribution_point.name %></td>
-        <td><%= distribution_point.street %></td>
-        <td><%= distribution_point.housenumber %></td>
-        <td><%= distribution_point.zipcode %></td>
-        <td><%= distribution_point.city %></td>
-        <td><%= distribution_point.contact_name %></td>
-        <td><%= link_to 'Show', distribution_point %></td>
-        <td><%= link_to 'Edit', edit_distribution_point_path(distribution_point) %></td>
-        <td><%= link_to 'Destroy', distribution_point, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
+  <% @distribution_points.each do |distribution_point| %>
+    <tr>
+      <td><%= distribution_point.name %></td>
+      <td><%= distribution_point.street %></td>
+      <td><%= distribution_point.housenumber %></td>
+      <td><%= distribution_point.zipcode %></td>
+      <td><%= distribution_point.city %></td>
+      <td>
+        <% if distribution_point.person %>
+          <%= link_to "#{distribution_point.person.full_name}", person_url(distribution_point.person.id) %>
+        <% end %>
+      </td>
+      <td><%= link_to 'Show', distribution_point %></td>
+      <td><%= link_to 'Edit', edit_distribution_point_path(distribution_point) %></td>
+      <td><%= link_to 'Destroy', distribution_point, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
   </tbody>
 </table>
 

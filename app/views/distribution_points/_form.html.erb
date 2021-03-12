@@ -37,8 +37,9 @@
   </div>
 
   <div class="field">
-    <%= form.label :contact_name %>
-    <%= form.number_field :contact_name %>
+    <%= form.label "Ansprechpartner/in" %>
+    <%= form.collection_select(:person_id, Person.all, :id, :full_name) %>
+
   </div>
 
   <div class="actions">

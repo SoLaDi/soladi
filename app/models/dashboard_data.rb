@@ -9,8 +9,8 @@ class Balance
 end
 
 class MembershipStatistics
-  def initialize(total, currently_active, current_shares)
-    @total = total
+  def initialize(total_amount, currently_active, current_shares)
+    @total_amount = total_amount
     @currently_active = currently_active
     @current_shares = current_shares
   end
@@ -21,11 +21,12 @@ class MembershipStatistics
 end
 
 class DashboardData
-  def initialize(total_balance, current_year_balance, this_month_balance, last_month_balance, membership_stats)
+  def initialize(total_balance, current_year_balance, this_month_balance, last_month_balance, next_month_balance, membership_stats)
     @total_balance = total_balance
     @current_year_balance = current_year_balance
     @this_month_balance = this_month_balance
     @last_month_balance = last_month_balance
+    @next_month_balance = next_month_balance
     @membership_stats = membership_stats
   end
 
@@ -33,5 +34,6 @@ class DashboardData
   attr_reader :current_year_balance
   attr_reader :this_month_balance
   attr_reader :last_month_balance
+  attr_reader :next_month_balance
   attr_reader :membership_stats
 end

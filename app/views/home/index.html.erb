@@ -81,6 +81,17 @@
     <div class="col-sm">
       <div class="card">
         <div class="card-body">
+          <h3>Mitgliedschaften</h3>
+          <p>Total: <%= @data.membership_stats.total_amount %></p>
+          <p>Aktiv: <%= @data.membership_stats.currently_active %></p>
+          <p>vergebene Anteile: <%= @data.membership_stats.current_shares %></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm">
+      <div class="card">
+        <div class="card-body">
           <h3>Im letzten Monat</h3>
           <p>Erwartet: <%= @data.last_month_balance.cost %> €</p>
           <p>Erhalten: <%= @data.last_month_balance.payments %> €</p>
@@ -155,10 +166,36 @@
     <div class="col-sm">
       <div class="card">
         <div class="card-body">
-          <h3>Mitgliedschaften</h3>
-          <p>Total: <%= @data.membership_stats.total_amount %></p>
-          <p>Aktiv: <%= @data.membership_stats.currently_active %></p>
-          <p>vergebene Anteile: <%= @data.membership_stats.current_shares %></p>
+          <h3>Nächsten Monat</h3>
+          <p>Erwartet: <%= @data.next_month_balance.cost %> €</p>
+          <p>Erhalten: <%= @data.next_month_balance.payments %> €</p>
+          <p>Differenz: <%= @data.next_month_balance.payments - @data.next_month_balance.cost %> €</p>
+          <div style="width: 250px">
+            <canvas id="nextMonthPieChart"></canvas>
+          </div>
+          <script>
+              var ctx = document.getElementById('nextMonthPieChart').getContext('2d');
+              var myDoughnutChart = new Chart(ctx, {
+                  type: 'doughnut',
+                  data: {
+                      datasets: [{
+                          data: [
+                              <%= @data.next_month_balance.cost - @data.next_month_balance.payments %>,
+                              <%= @data.next_month_balance.payments %>
+                          ],
+                          backgroundColor: [
+                              '#ED561B',
+                              '#50B432'
+                          ]
+                      }],
+                      labels: [
+                          'Ausstehend',
+                          'Erhalten',
+                      ],
+
+                  }
+              });
+          </script>
         </div>
       </div>
     </div>

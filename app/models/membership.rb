@@ -92,8 +92,9 @@ class Membership < ApplicationRecord
   end
 
   def cost_for_fiscal_year(year)
-    #TODO: fix
-    100
+    self.bids.where(start_date: Date.new(year, 4)).inject(0) do |sum, bid|
+      sum + bid.total_amount
+    end
   end
 
   def total_payments_since_joined

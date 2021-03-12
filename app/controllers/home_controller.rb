@@ -25,8 +25,8 @@ class HomeController < ApplicationController
     payments = 0
     cost = 0
     Membership.all.each do |membership|
-      payments += membership.payments_for_fiscal_year(2020)
-      cost += membership.cost_for_fiscal_year(2020)
+      payments += membership.payments_for_fiscal_year(2021)
+      cost += membership.cost_for_fiscal_year(2021)
     end
 
     Balance.new(cost, payments)

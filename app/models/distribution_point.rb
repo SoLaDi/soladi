@@ -14,5 +14,5 @@
 #
 class DistributionPoint < ApplicationRecord
     has_many :memberships
-    belongs_to :person
+    belongs_to :person, optional: true
 end

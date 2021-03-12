@@ -38,7 +38,7 @@
 
   <div class="field">
     <%= form.label "Ansprechpartner/in" %>
-    <%= form.collection_select(:person_id, Person.all, :id, :full_name) %>
+    <%= form.collection_select(:person_id, Person.order('name ASC'), :id, :full_name, { include_blank: true }) %>
 
   </div>
 

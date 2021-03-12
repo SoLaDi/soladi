@@ -31,11 +31,18 @@ class Bid < ApplicationRecord
       shares = row["shares"]
       price_per_share = row["price_per_share"]
 
-      # startDate should be beginning of fiscal year
-      @membership = Membership.find(membership_id)
-      @membership.bids.build(start_date: Date.new(fiscal_year, 4, 1), end_date: Date.new(fiscal_year + 1, 3, 1), amount: price_per_share, shares: shares)
-
-      @membership.save
+      bid = Bid.new(membership_id: membership_id, start_date: Date.new(fiscal_year, 4, 1), end_date: Date.new(fiscal_year + 1, 3, 1), amount: price_per_share, shares: shares)
+      begin
+        if bid.save
+          imported_rows.push row
+        else
+          puts "############ BROKEN TRANSACTION BELOW ############"
+          puts bid.errors.full_messages
+          invalid_rows.push row
+        end
+      rescue ActiveRecord::RecordNotUnique
+        duplicate_rows.push row
+      end
     end
 
     puts "total rows: #{total_rows_count}"

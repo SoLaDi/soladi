@@ -35,7 +35,18 @@ class Membership < ApplicationRecord
       membership_id = row["membership_id"]
       distribution_point_id = row["distribution_point_id"]
 
-      Membership.create(id: membership_id, startDate: Date.today, distribution_point_id: distribution_point_id)
+      if Membership.exists?(membership_id)
+        duplicate_rows.push row
+      else
+        membership = Membership.new(id: membership_id, startDate: Date.new(2021, 4), distribution_point_id: distribution_point_id)
+        if membership.save
+          imported_rows.push row
+        else
+          puts "############ BROKEN TRANSACTION BELOW ############"
+          puts membership.errors.full_messages
+          invalid_rows.push row
+        end
+      end
     end
 
     puts "total rows: #{total_rows_count}"

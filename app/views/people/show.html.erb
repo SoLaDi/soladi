@@ -12,7 +12,7 @@
 
 <p>
   <strong>E-Mail:</strong>
-  <%= @person.email %>
+  <%= mail_to(@person.email) %>
 </p>
 
 <p>
@@ -22,7 +22,7 @@
 
 <p>
   <strong>Mitgliedschaft:</strong>
-  <%= @person.membership_id %>
+  <%= link_to "#{@person.membership_id}", membership_url(@person.membership_id) %>
 </p>
 
 <%= link_to 'Edit', edit_person_path(@person) %> |

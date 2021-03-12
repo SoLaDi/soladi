@@ -27,7 +27,7 @@
       <tr>
         <td><%= person.name %></td>
         <td><%= person.surname %></td>
-        <td><%= person.email %></td>
+        <td><%= mail_to(person.email) %></td>
         <td><%= person.phone %></td>
         <td><%= link_to "#{person.membership_id}", membership_url(person.membership_id) %></td>
         <td><%= link_to 'Show', person %></td>

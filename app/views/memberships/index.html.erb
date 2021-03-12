@@ -57,6 +57,9 @@
 
 <div>
   <h3>Mitgliedschaften importieren</h3>
+  <div class="alert alert-info" role="alert">
+    CSV Datei (komma-getrennt) mit Feldern: membership_id, distribution_point_id
+  </div>
   <%= form_tag import_memberships_path, multipart: true do %>
     <%= file_field_tag :file %>
     <%= submit_tag "CSV importieren" %>

@@ -44,7 +44,6 @@ Rails.application.routes.draw do
   resources :people
   resources :distribution_points
   resources :bids do collection {post :import} end
-  resources :payments do collection {post :generate} end
   resources :transactions do collection {post :import} end
   resources :memberships do collection {post :import} end
   devise_for :users

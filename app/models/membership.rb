@@ -43,6 +43,7 @@ class Membership < ApplicationRecord
           imported_rows.push row
         else
           puts "############ BROKEN TRANSACTION BELOW ############"
+          puts membership.inspect
           puts membership.errors.full_messages
           invalid_rows.push row
         end

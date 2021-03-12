@@ -27,13 +27,15 @@
 
 <p>
   <strong>Ansprechpartner:</strong>
-  <%= @distribution_point.person.full_name %>
+  <% if @distribution_point.person %>
+    <%= link_to "#{@distribution_point.person.full_name}", person_url(@distribution_point.person.id) %>
+  <% end %>
 </p>
 
 <h1>Zugeordnete Mitgliedschaften</h1>
 
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#rich-table').dataTable({
             ordering: true,
             rowGroup: {
@@ -62,7 +64,7 @@
       <td><%= membership.id %></td>
       <td><%= membership.startDate.strftime("%b %Y") %></td>
       <td><%= membership.endDate ? membership.endDate.strftime("%b %Y") : "" %></td>
-      <td><%= membership.is_trial_membership? ? "ja":"nein" %></td>
+      <td><%= membership.is_trial_membership? ? "ja" : "nein" %></td>
       <td><%= link_to 'Details', membership %></td>
       <td><%= link_to 'Bearbeiten', edit_membership_path(membership) %></td>
       <td><%= link_to 'Löschen', membership, method: :delete, data: { confirm: 'Are you sure?' } %></td>

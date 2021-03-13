@@ -7,12 +7,15 @@ require("@rails/ujs").start()
 require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
-require('datatables.net-bs4')
-require('datatables.net-rowgroup')
 require('datatables.net-dt')
+require('datatables.net-select-dt')
+require('datatables.net-searchpanes-dt')
 require('chart.js')
 
 import 'datatables.net-dt/css/jquery.dataTables.css'
+import 'datatables.net-select-dt/css/select.dataTables.css'
+import 'datatables.net-searchpanes-dt/css/searchPanes.dataTables.css'
+
 import 'bootstrap/dist/js/bootstrap'
 import 'bootstrap/dist/css/bootstrap'
 import "../stylesheets/application"

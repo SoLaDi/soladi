@@ -3,7 +3,10 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $('#rich-table').dataTable({
-            ordering: true,
+            searchPanes: {
+                columns: [1,2,3]
+            },
+            dom: 'Pfrtip',
         });
     });
 </script>

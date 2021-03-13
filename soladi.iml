@@ -69,7 +69,6 @@
     <orderEntry type="library" scope="PROVIDED" name="nio4r (v2.5.7, RVM: ruby-2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="nokogiri (v1.11.1, RVM: ruby-2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="orm_adapter (v0.5.0, RVM: ruby-2.7.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="pg (v1.2.3, RVM: ruby-2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="public_suffix (v4.0.6, RVM: ruby-2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="puma (v4.3.7, RVM: ruby-2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="racc (v1.5.2, RVM: ruby-2.7.2) [gem]" level="application" />
@@ -209,38 +208,6 @@
       <RakeTaskImpl id="rake">
         <subtasks>
           <RakeTaskImpl description="List versions of all Rails frameworks and the environment" fullCommand="about" id="about" />
-          <RakeTaskImpl id="action_mailbox">
-            <subtasks>
-              <RakeTaskImpl id="ingress">
-                <subtasks>
-                  <RakeTaskImpl description="Relay an inbound email from Exim to Action Mailbox (URL and INGRESS_PASSWORD required)" fullCommand="action_mailbox:ingress:exim" id="exim" />
-                  <RakeTaskImpl description="Relay an inbound email from Postfix to Action Mailbox (URL and INGRESS_PASSWORD required)" fullCommand="action_mailbox:ingress:postfix" id="postfix" />
-                  <RakeTaskImpl description="Relay an inbound email from Qmail to Action Mailbox (URL and INGRESS_PASSWORD required)" fullCommand="action_mailbox:ingress:qmail" id="qmail" />
-                  <RakeTaskImpl description="" fullCommand="action_mailbox:ingress:environment" id="environment" />
-                </subtasks>
-              </RakeTaskImpl>
-              <RakeTaskImpl description="Copy over the migration" fullCommand="action_mailbox:install" id="install" />
-              <RakeTaskImpl description="" fullCommand="action_mailbox:copy_migrations" id="copy_migrations" />
-              <RakeTaskImpl id="install">
-                <subtasks>
-                  <RakeTaskImpl description="" fullCommand="action_mailbox:install:migrations" id="migrations" />
-                </subtasks>
-              </RakeTaskImpl>
-              <RakeTaskImpl description="" fullCommand="action_mailbox:run_installer" id="run_installer" />
-            </subtasks>
-          </RakeTaskImpl>
-          <RakeTaskImpl id="action_text">
-            <subtasks>
-              <RakeTaskImpl description="Copy over the migration, stylesheet, and JavaScript files" fullCommand="action_text:install" id="install" />
-              <RakeTaskImpl description="" fullCommand="action_text:copy_migrations" id="copy_migrations" />
-              <RakeTaskImpl id="install">
-                <subtasks>
-                  <RakeTaskImpl description="" fullCommand="action_text:install:migrations" id="migrations" />
-                </subtasks>
-              </RakeTaskImpl>
-              <RakeTaskImpl description="" fullCommand="action_text:run_installer" id="run_installer" />
-            </subtasks>
-          </RakeTaskImpl>
           <RakeTaskImpl id="active_storage">
             <subtasks>
               <RakeTaskImpl description="Copy over the migration needed to the application" fullCommand="active_storage:install" id="install" />

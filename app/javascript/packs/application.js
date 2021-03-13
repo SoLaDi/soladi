@@ -9,8 +9,10 @@ require("@rails/activestorage").start()
 require("channels")
 require('datatables.net-bs4')
 require('datatables.net-rowgroup')
+require('datatables.net-dt')
 require('chart.js')
 
+import 'datatables.net-dt/css/jquery.dataTables.css'
 import 'bootstrap/dist/js/bootstrap'
 import 'bootstrap/dist/css/bootstrap'
 import "../stylesheets/application"

@@ -33,9 +33,9 @@
         <td><%= mail_to(person.email) %></td>
         <td><%= person.phone %></td>
         <td><%= link_to "#{person.membership_id}", membership_url(person.membership_id) %></td>
-        <td><%= link_to 'Show', person %></td>
-        <td><%= link_to 'Edit', edit_person_path(person) %></td>
-        <td><%= link_to 'Destroy', person, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Details', person %></td>
+        <td><%= link_to 'Bearbeiten', edit_person_path(person) %></td>
+        <td><%= link_to 'Löschen', person, method: :delete, data: { confirm: 'Bist du sicher?' } %></td>
       </tr>
     <% end %>
   </tbody>

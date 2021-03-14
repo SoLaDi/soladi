@@ -12,17 +12,17 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :startDate %>
+    <%= form.label "Start" %>
     <%= form.date_select :startDate, :discard_day => true %>
   </div>
 
   <div class="field">
-    <%= form.label :endDate %>
+    <%= form.label "Ende" %>
     <%= form.date_select :endDate, { :discard_day => true, :include_blank => true } %>
   </div>
 
   <div class="field">
-    <%= form.label :distributionPoint %>
+    <%= form.label "Verteilerstelle" %>
     <%= form.collection_select(:distribution_point_id, DistributionPoint.all, :id, :name) %>
 
   </div>

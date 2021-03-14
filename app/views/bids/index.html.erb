@@ -32,9 +32,9 @@
       <td><%= bid.shares %></td>
       <td><%= bid.amount %></td>
       <td><%= bid.contract_signed ? "Ja" : "Nein" %></td>
-      <td><%= link_to 'Show', bid %></td>
-      <td><%= link_to 'Edit', edit_bid_path(bid) %></td>
-      <td><%= link_to 'Destroy', bid, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <td><%= link_to 'Details', bid %></td>
+      <td><%= link_to 'Bearbeiten', edit_bid_path(bid) %></td>
+      <td><%= link_to 'Löschen', bid, method: :delete, data: { confirm: 'Bist du sicher?' } %></td>
     </tr>
   <% end %>
   </tbody>

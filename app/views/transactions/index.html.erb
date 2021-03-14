@@ -38,21 +38,18 @@
         <td><%= link_to "#{transaction.membership_id}", membership_url(transaction.membership_id) %></td>
       <% end %>
       <td><%= transaction.status_message %></td>
-      <td><%= link_to 'Show', transaction %></td>
-      <td><%= link_to 'Edit', edit_transaction_path(transaction) %></td>
-      <td><%= link_to 'Destroy', transaction, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <td><%= link_to 'Details', transaction %></td>
+      <td><%= link_to 'Bearbeiten', edit_transaction_path(transaction) %></td>
+      <td><%= link_to 'Löschen', transaction, method: :delete, data: { confirm: 'Bist du sicher?' } %></td>
     </tr>
   <% end %>
   </tbody>
 </table>
+<br>
 <div>
-  <h4>Import transactions</h4>
+  <h4>Bankumsätze importieren (CSV der Sparkasse)</h4>
   <%= form_tag import_transactions_path, multipart: true do %>
     <%= file_field_tag :file %>
     <%= submit_tag "Import CSV" %>
   <% end %>
 </div>
-
-<br>
-
-<%= link_to 'New Transaction', new_transaction_path %>

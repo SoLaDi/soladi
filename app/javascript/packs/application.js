@@ -3,26 +3,21 @@
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
 
+import $ from 'jquery';
+global.$ = jQuery;
+
 require("@rails/ujs").start()
 require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
 require('datatables.net-bs4')
-require('datatables.net-select-bs4')
-require('datatables.net-searchpanes-bs4')
 require('chart.js')
-
-import 'datatables.net-bs4/css/dataTables.bootstrap4.css'
-import 'datatables.net-select-bs4/css/select.bootstrap4.css'
-import 'datatables.net-searchpanes-bs4/css/searchPanes.bootstrap4.css'
 
 import 'bootstrap/dist/js/bootstrap'
 import 'bootstrap/dist/css/bootstrap'
 import "../stylesheets/application"
 
-import $ from 'jquery';
-
-global.$ = jQuery;
+import 'datatables.net-bs4/css/dataTables.bootstrap4.css'
 
 document.addEventListener("turbolinks:load", () => {
     $('[data-toggle="tooltip"]').tooltip()

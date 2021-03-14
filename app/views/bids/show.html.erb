@@ -1,33 +1,33 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Start date:</strong>
-  <%= @bid.start_date %>
+  <strong>Start:</strong>
+  <%= @bid.start_date.strftime("%b %Y") %>
 </p>
 
 <p>
-  <strong>End date:</strong>
-  <%= @bid.end_date %>
+  <strong>Ende:</strong>
+  <%= @bid.end_date.strftime("%b %Y") %>
 </p>
 
 <p>
-  <strong>Amount:</strong>
-  <%= @bid.amount %>
+  <strong>Betrag pro Anteil:</strong>
+  <%= @bid.amount %> EUR
 </p>
 
 <p>
-  <strong>Shares:</strong>
+  <strong>Anteile:</strong>
   <%= @bid.shares %>
 </p>
 
 <p>
-  <strong>Contract signed:</strong>
-  <%= @bid.contract_signed %>
+  <strong>Vereinbarung unterschrieben:</strong>
+  <%= @bid.contract_signed ? "Ja" : "Nein" %>
 </p>
 
 <p>
-  <strong>Membership:</strong>
-  <%= @bid.membership_id %>
+  <strong>Mitgliedschaft:</strong>
+  <%= link_to "#{@bid.membership_id}", membership_url(@bid.membership_id) %>
 </p>
 
 <%= link_to 'Edit', edit_bid_path(@bid) %> |

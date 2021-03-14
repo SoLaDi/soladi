@@ -14,6 +14,15 @@
 #
 class Bid < ApplicationRecord
   belongs_to :membership
+  validates_with BidValidator
+
+  def overlaps?(other)
+    id == other.id && start_date <= other.end_date && other.start_date <= end_date
+  end
+
+  def period
+    start_date..end_date
+  end
 
   def self.import(file)
     total_rows_count = 0

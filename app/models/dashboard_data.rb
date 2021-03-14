@@ -15,7 +15,7 @@ class MembershipStatistics
     @current_shares = current_shares
   end
 
-  attr_reader :total_amount
+  attr_reader :monthly_amount
   attr_reader :currently_active
   attr_reader :current_shares
 end

@@ -86,14 +86,21 @@ class Membership < ApplicationRecord
   end
 
   def total_cost
-    self.bids.all.inject(0) do |sum, bid|
-      sum + bid.total_amount
+    today = Date.today
+    self.bids.all.inject(0) do |total_sum, bid|
+      total_sum + bid.expand_to_months.inject(0) do |bid_sum, bid_month|
+        if bid_month < today
+          bid_sum + bid.monthly_amount
+        else
+          bid_sum
+        end
+      end
     end
   end
 
   def cost_for_fiscal_year(year)
     self.bids.where(start_date: Date.new(year, 4)).inject(0) do |sum, bid|
-      sum + bid.total_amount
+      sum + bid.monthly_amount
     end
   end
 

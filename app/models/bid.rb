@@ -72,7 +72,15 @@ class Bid < ApplicationRecord
     valid
   end
 
-  def total_amount
+  def monthly_amount
     self.amount * self.shares
+  end
+
+  def range_to_months(start_date, end_date)
+    (start_date..end_date).uniq { |d| "#{d.month}-#{d.year}" }
+  end
+
+  def expand_to_months
+    range_to_months(self.start_date, self.end_date)
   end
 end

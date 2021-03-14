@@ -55,7 +55,7 @@ class HomeController < ApplicationController
     bids = Bid.where(start_date: ..month_start, end_date: month_end..)
     puts bids.inspect
     cost = bids.inject(0) do |sum, bid|
-      sum + bid.total_amount
+      sum + bid.monthly_amount
     end
 
     Balance.new(cost, payments)

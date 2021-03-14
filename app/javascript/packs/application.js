@@ -9,12 +9,12 @@ require("@rails/activestorage").start()
 require("channels")
 require('datatables.net-bs4')
 require('datatables.net-select-bs4')
-require('datatables.net-searchpanes')
+require('datatables.net-searchpanes-bs4')
 require('chart.js')
 
 import 'datatables.net-bs4/css/dataTables.bootstrap4.css'
 import 'datatables.net-select-bs4/css/select.bootstrap4.css'
-import 'datatables.net-searchpanes-dt/css/searchPanes.dataTables.css'
+import 'datatables.net-searchpanes-bs4/css/searchPanes.bootstrap4.css'
 
 import 'bootstrap/dist/js/bootstrap'
 import 'bootstrap/dist/css/bootstrap'

@@ -15,7 +15,6 @@
     <th>Startdatum</th>
     <th>Enddatum</th>
     <th>Verteilerstelle</th>
-    <th>Probezeit</th>
     <th>Soll (Gesamt)</th>
     <th>Ist (Gesamt)</th>
     <th>Kontostand</th>
@@ -32,7 +31,6 @@
       <td><%= fem.membership.startDate.strftime("%b %Y") %></td>
       <td><%= fem.membership.endDate ? fem.membership.endDate.strftime("%b %Y") : "" %></td>
       <td><%= link_to "#{fem.membership.distribution_point.name}", distribution_point_url(fem.membership.distribution_point.id) %></td>
-      <td><%= fem.membership.is_trial_membership? ? "ja":"nein" %></td>
       <td><%= fem.total_cost %> EUR</td>
       <td><%= fem.total_payments %> EUR</td>
       <td><%= fem.total_payments - fem.total_cost %> EUR</td>

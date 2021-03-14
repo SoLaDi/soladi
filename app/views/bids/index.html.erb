@@ -31,7 +31,7 @@
       <td><%= bid.end_date.strftime("%b %Y") %></td>
       <td><%= bid.shares %></td>
       <td><%= bid.amount %></td>
-      <td><%= bid.contract_signed %></td>
+      <td><%= bid.contract_signed ? "Ja" : "Nein" %></td>
       <td><%= link_to 'Show', bid %></td>
       <td><%= link_to 'Edit', edit_bid_path(bid) %></td>
       <td><%= link_to 'Destroy', bid, method: :delete, data: { confirm: 'Are you sure?' } %></td>

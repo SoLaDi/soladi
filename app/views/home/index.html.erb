@@ -200,6 +200,43 @@
       </div>
     </div>
 
+    <div class="col-sm">
+      <div class="card">
+        <div class="card-body">
+          <h3>Monatliche Einnahmen</h3>
+          <div style="width: 600px">
+            <canvas id="monthlyIncome"></canvas>
+          </div>
+          <script>
+              var ctx = document.getElementById('monthlyIncome').getContext('2d');
+              var myBarChart = new Chart(ctx, {
+                  type: 'bar',
+                  data: {
+                      labels: <%= @data.monthly_income[0].to_json.html_safe %>,
+                      datasets: [
+                          {
+                              backgroundColor: '#ED561B',
+                              borderWidth: 1,
+                              label: "Einnahmen",
+                              data: <%= @data.monthly_income[1].to_json.html_safe %>
+                          }
+                      ],
+                  },
+                  options: {
+                      scales: {
+                          yAxes: [{
+                              ticks: {
+                                  beginAtZero: true
+                              }
+                          }]
+                      }
+                  }
+              });
+          </script>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 

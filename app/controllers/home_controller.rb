@@ -6,8 +6,19 @@ class HomeController < ApplicationController
       calculate_this_month_totals,
       calculate_last_month_totals,
       calculate_next_month_totals,
-      calculate_membership_stats
+      calculate_membership_stats,
+      calculate_monthly_income
     )
+  end
+
+  def calculate_monthly_income
+    Transaction.all.group_by { |transaction|
+      Date.new(transaction.entry_date.year, transaction.entry_date.month)
+    }.sort_by { |d, _|
+      d
+    }.map { |date, transactions|
+      [date.strftime("%b %Y"), transactions.inject(0) { |sum, t| sum + t.amount }]
+    }.transpose
   end
 
   def calculate_totals
@@ -53,7 +64,6 @@ class HomeController < ApplicationController
     payments = Transaction.where(entry_date: month_start..month_end).sum(:amount)
 
     bids = Bid.where(start_date: ..month_start, end_date: month_end..)
-    puts bids.inspect
     cost = bids.inject(0) do |sum, bid|
       sum + bid.monthly_amount
     end

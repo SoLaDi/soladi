@@ -59,3 +59,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem "annotate", "~> 3.1"
 gem "devise"
+
+gem "faraday", "~> 1.3"
+
+gem "faraday_middleware", "~> 1.0"

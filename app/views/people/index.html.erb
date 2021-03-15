@@ -14,6 +14,7 @@
 <table id="rich-table" class="table table-striped table-bordered">
   <thead>
     <tr>
+      <th>ID</th>
       <th>Vorname</th>
       <th>Nachname</th>
       <th>E-Mail</th>
@@ -28,6 +29,7 @@
   <tbody>
     <% @people.each do |person| %>
       <tr>
+        <td><%= person.id %></td>
         <td><%= person.name %></td>
         <td><%= person.surname %></td>
         <td><%= mail_to(person.email) %></td>
@@ -44,3 +46,14 @@
 <br>
 
 <%= link_to 'Neues Mitglied anlegen', new_person_path %>
+
+<br>
+<br>
+
+<div>
+  <h3>Mitglieder aus der Webseite übernehmen</h3>
+  <div class="alert alert-info" role="alert">
+    Hiermit können alle auf der Webseite soladi.gaertnerei-apfeltraum.de registrierten Benutzer in das System übernommen werden.
+  </div>
+  <%= button_to "Importieren", import_people_path %>
+</div>

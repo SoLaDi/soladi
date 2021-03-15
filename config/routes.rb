@@ -59,7 +59,7 @@
 
 Rails.application.routes.draw do
   root :to => 'home#index'
-  resources :people
+  resources :people do collection {post :import} end
   resources :distribution_points
   resources :bids do collection {post :import} end
   resources :transactions do collection {post :import} end

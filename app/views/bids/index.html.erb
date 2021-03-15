@@ -30,7 +30,7 @@
       <td><%= bid.start_date.strftime("%b %Y") %></td>
       <td><%= bid.end_date.strftime("%b %Y") %></td>
       <td><%= bid.shares %></td>
-      <td><%= bid.amount %></td>
+      <td><%= format_currency_value(bid.amount) %></td>
       <td><%= bid.contract_signed ? "Ja" : "Nein" %></td>
       <td><%= link_to 'Details', bid %></td>
       <td><%= link_to 'Bearbeiten', edit_bid_path(bid) %></td>

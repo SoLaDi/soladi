@@ -45,7 +45,7 @@ class Person < ApplicationRecord
           name: user["first_name"],
           surname: user["last_name"],
           email: user["email"],
-          phone: user["meta"]["phone"],
+          phone: user["meta"]["phone_number"],
           membership_id: user["meta"]["membership_id"][1..-1]
         )
 

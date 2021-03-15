@@ -1,34 +1,37 @@
-<p id="notice"><%= notice %></p>
+<div class="card">
+  <h3 class="card-header">Details des Gebots</h3>
+  <div class="card-body">
+    <p>
+      <strong>Start:</strong>
+      <%= @bid.start_date.strftime("%b %Y") %>
+    </p>
 
-<p>
-  <strong>Start:</strong>
-  <%= @bid.start_date.strftime("%b %Y") %>
-</p>
+    <p>
+      <strong>Ende:</strong>
+      <%= @bid.end_date.strftime("%b %Y") %>
+    </p>
 
-<p>
-  <strong>Ende:</strong>
-  <%= @bid.end_date.strftime("%b %Y") %>
-</p>
+    <p>
+      <strong>Betrag pro Anteil:</strong>
+      <%= @bid.amount %> EUR
+    </p>
 
-<p>
-  <strong>Betrag pro Anteil:</strong>
-  <%= @bid.amount %> EUR
-</p>
+    <p>
+      <strong>Anteile:</strong>
+      <%= @bid.shares %>
+    </p>
 
-<p>
-  <strong>Anteile:</strong>
-  <%= @bid.shares %>
-</p>
+    <p>
+      <strong>Vereinbarung unterschrieben:</strong>
+      <%= @bid.contract_signed ? "Ja" : "Nein" %>
+    </p>
 
-<p>
-  <strong>Vereinbarung unterschrieben:</strong>
-  <%= @bid.contract_signed ? "Ja" : "Nein" %>
-</p>
+    <p>
+      <strong>Mitgliedschaft:</strong>
+      <%= link_to "#{@bid.membership_id}", membership_url(@bid.membership_id) %>
+    </p>
 
-<p>
-  <strong>Mitgliedschaft:</strong>
-  <%= link_to "#{@bid.membership_id}", membership_url(@bid.membership_id) %>
-</p>
-
-<%= link_to 'Edit', edit_bid_path(@bid) %> |
-<%= link_to 'Back', bids_path %>
+    <%= link_to 'Bearbeiten', edit_bid_path(@bid) %> |
+    <%= link_to 'Zurück', bids_path %>
+  </div>
+</div>

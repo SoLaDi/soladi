@@ -1,77 +1,78 @@
-<h1>Daten der Verteilerstelle</h1>
+<div class="card">
+  <h3 class="card-header">Daten der Verteilerstelle</h3>
+  <div class="card-body">
+    <p>
+      <strong>Name:</strong>
+      <%= @distribution_point.name %>
+    </p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @distribution_point.name %>
-</p>
+    <p>
+      <strong>Straße:</strong>
+      <%= @distribution_point.street %>
+    </p>
 
-<p>
-  <strong>Straße:</strong>
-  <%= @distribution_point.street %>
-</p>
+    <p>
+      <strong>Hausnummer:</strong>
+      <%= @distribution_point.housenumber %>
+    </p>
 
-<p>
-  <strong>Hausnummer:</strong>
-  <%= @distribution_point.housenumber %>
-</p>
+    <p>
+      <strong>Postleitzahl:</strong>
+      <%= @distribution_point.zipcode %>
+    </p>
 
-<p>
-  <strong>Postleitzahl:</strong>
-  <%= @distribution_point.zipcode %>
-</p>
+    <p>
+      <strong>Stadt:</strong>
+      <%= @distribution_point.city %>
+    </p>
 
-<p>
-  <strong>Stadt:</strong>
-  <%= @distribution_point.city %>
-</p>
+    <p>
+      <strong>Ansprechpartner:</strong>
+      <% if @distribution_point.person %>
+        <%= link_to "#{@distribution_point.person.full_name}", person_url(@distribution_point.person.id) %>
+      <% end %>
+    </p>
 
-<p>
-  <strong>Ansprechpartner:</strong>
-  <% if @distribution_point.person %>
-    <%= link_to "#{@distribution_point.person.full_name}", person_url(@distribution_point.person.id) %>
-  <% end %>
-</p>
+    <%= link_to 'Bearbeiten', edit_distribution_point_path(@distribution_point) %> |
+    <%= link_to 'Zurück', distribution_points_path %>
+  </div>
+</div>
 
-<h1>Zugeordnete Mitgliedschaften</h1>
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#rich-table').dataTable({
-            ordering: true,
-            rowGroup: {
-                dataSrc: 3
-            }
+<div class="card">
+  <h3 class="card-header">Zugeordnete Mitgliedschaften</h3>
+  <div class="card-body">
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#rich-table').dataTable({
+                ordering: true,
+                rowGroup: {
+                    dataSrc: 3
+                }
+            });
         });
-    });
-</script>
+    </script>
 
-<table id="rich-table" class="table table-striped table-bordered">
-  <thead>
-  <tr>
-    <th>ID</th>
-    <th>Startdatum</th>
-    <th>Enddatum</th>
-    <th>Probezeit</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-  </thead>
+    <table id="rich-table" class="table table-striped table-bordered">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Startdatum</th>
+        <th>Enddatum</th>
+      </tr>
+      </thead>
 
-  <tbody>
-  <% @distribution_point.memberships.each do |membership| %>
-    <tr>
-      <td><%= membership.id %></td>
-      <td><%= membership.startDate.strftime("%b %Y") %></td>
-      <td><%= membership.endDate ? membership.endDate.strftime("%b %Y") : "" %></td>
-      <td><%= membership.is_trial_membership? ? "ja" : "nein" %></td>
-      <td><%= link_to 'Details', membership %></td>
-      <td><%= link_to 'Bearbeiten', edit_membership_path(membership) %></td>
-      <td><%= link_to 'Löschen', membership, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-    </tr>
-  <% end %>
-  </tbody>
-</table>
+      <tbody>
+      <% @distribution_point.memberships.each do |membership| %>
+        <tr>
+          <td><%= link_to "#{membership.id}", membership_url(membership.id) %></td>
+          <td><%= membership.startDate.strftime("%b %Y") %></td>
+          <td><%= membership.endDate ? membership.endDate.strftime("%b %Y") : "" %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
 
-<%= link_to 'Edit', edit_distribution_point_path(@distribution_point) %> |
-<%= link_to 'Back', distribution_points_path %>
+
+

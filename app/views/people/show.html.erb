@@ -1,29 +1,32 @@
-<h1>Daten des Mitglieds</h1>
+<div class="card">
+  <h3 class="card-header">Details des Mitglieds</h3>
+  <div class="card-body">
+    <p>
+      <strong>Vorname:</strong>
+      <%= @person.name %>
+    </p>
 
-<p>
-  <strong>Vorname:</strong>
-  <%= @person.name %>
-</p>
+    <p>
+      <strong>Nachname:</strong>
+      <%= @person.surname %>
+    </p>
 
-<p>
-  <strong>Nachname:</strong>
-  <%= @person.surname %>
-</p>
+    <p>
+      <strong>E-Mail:</strong>
+      <%= mail_to(@person.email) %>
+    </p>
 
-<p>
-  <strong>E-Mail:</strong>
-  <%= mail_to(@person.email) %>
-</p>
+    <p>
+      <strong>Telefon:</strong>
+      <%= @person.phone %>
+    </p>
 
-<p>
-  <strong>Telefon:</strong>
-  <%= @person.phone %>
-</p>
+    <p>
+      <strong>Mitgliedschaft:</strong>
+      <%= link_to "#{@person.membership_id}", membership_url(@person.membership_id) %>
+    </p>
 
-<p>
-  <strong>Mitgliedschaft:</strong>
-  <%= link_to "#{@person.membership_id}", membership_url(@person.membership_id) %>
-</p>
-
-<%= link_to 'Edit', edit_person_path(@person) %> |
-<%= link_to 'Back', people_path %>
+    <%= link_to 'Bearbeiten', edit_person_path(@person) %> |
+    <%= link_to 'Zurück', people_path %>
+  </div>
+</div>

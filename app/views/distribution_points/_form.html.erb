@@ -11,32 +11,32 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :name %>
     <%= form.text_field :name %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :street %>
     <%= form.text_field :street %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :housenumber %>
     <%= form.text_field :housenumber %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :zipcode %>
     <%= form.text_field :zipcode %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :city %>
     <%= form.text_field :city %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label "Ansprechpartner/in" %>
     <%= form.collection_select(:person_id, Person.order('name ASC'), :id, :full_name, { include_blank: true }) %>
 

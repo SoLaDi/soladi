@@ -1,6 +1,9 @@
-<h1>Editing Person</h1>
+<div class="card">
+  <h3 class="card-header">Mitglied bearbeiten</h3>
+  <div class="card-body">
+    <%= render 'form', person: @person %>
 
-<%= render 'form', person: @person %>
-
-<%= link_to 'Show', @person %> |
-<%= link_to 'Back', people_path %>
+    <%= link_to 'Anzeigen', @person %> |
+    <%= link_to 'Zurück', people_path %>
+  </div>
+</div>

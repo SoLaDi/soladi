@@ -1,6 +1,9 @@
-<h1>Editing Transaction</h1>
+<div class="card">
+  <h3 class="card-header">Transaktion bearbeiten</h3>
+  <div class="card-body">
+    <%= render 'form', transaction: @transaction %>
 
-<%= render 'form', transaction: @transaction %>
-
-<%= link_to 'Show', @transaction %> |
-<%= link_to 'Back', transactions_path %>
+    <%= link_to 'Details', @transaction %> |
+    <%= link_to 'Zurück', transactions_path %>
+  </div>
+</div>

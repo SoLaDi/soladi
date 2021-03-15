@@ -11,32 +11,32 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label "Start" %>
     <%= form.date_select :start_date, :discard_day => true %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label "Ende" %>
     <%= form.date_select :end_date, :discard_day => true %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label "Betrag pro Anteil und Monat" %>
     <%= form.text_field :amount %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label "Anteile" %>
     <%= form.number_field :shares %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label "Vereinbarung unterschrieben" %>
     <%= form.check_box :contract_signed %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label "Mitgliedschaftsnummer" %>
     <%= form.text_field :membership_id %>
   </div>

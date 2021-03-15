@@ -1,6 +1,10 @@
-<h1>Editing Membership</h1>
+<div class="card">
+  <h3 class="card-header">Mitgliedschaft bearbeiten</h3>
+  <div class="card-body">
 
-<%= render 'form_edit', membership: @membership %>
+    <%= render 'form_edit', membership: @membership %>
 
-<%= link_to 'Show', @membership %> |
-<%= link_to 'Back', memberships_path %>
+    <%= link_to 'Details', @membership %> |
+    <%= link_to 'Zurück', memberships_path %>
+  </div>
+</div>

@@ -1,6 +1,10 @@
-<h1>Editing Bid</h1>
+<div class="card">
+  <h3 class="card-header">Gebot bearbeiten</h3>
+  <div class="card-body">
 
-<%= render 'form', bid: @bid %>
+    <%= render 'form', bid: @bid %>
 
-<%= link_to 'Show', @bid %> |
-<%= link_to 'Back', bids_path %>
+    <%= link_to 'Details', @bid %> |
+    <%= link_to 'Zurück', bids_path %>
+  </div>
+</div>

@@ -46,38 +46,38 @@ class HomeController < ApplicationController
   end
 
   def calculate_totals
-    date_range_io_statistics(Date.new(1900, 1), Date.today)
+    date_range_revenue_statistics(Date.new(1900, 1), Date.today)
   end
 
   def calculate_current_year_totals
     now = Date.today
-    date_range_io_statistics(Date.new(now.year, 4), Date.new(now.year + 1, 3))
+    date_range_revenue_statistics(Date.new(now.year, 4), Date.new(now.year + 1, 3))
   end
 
   def calculate_this_month_totals
     now = Date.today
-    self.monthly_io_statistics(now)
+    self.monthly_revenue_statistics(now)
   end
 
   def calculate_last_month_totals
     last_month = Date.today - 1.month
-    self.monthly_io_statistics(last_month)
+    self.monthly_revenue_statistics(last_month)
   end
 
   def calculate_next_month_totals
     next_month = Date.today + 1.month
-    self.monthly_io_statistics(next_month)
+    self.monthly_revenue_statistics(next_month)
   end
 
-  def monthly_io_statistics(month)
+  def monthly_revenue_statistics(month)
 
     month_start = Date.new(month.year, month.month)
     month_end = Date.new(month.year, month.month + 1) - 1.day
 
-    date_range_io_statistics(month_start, month_end)
+    date_range_revenue_statistics(month_start, month_end)
   end
 
-  def date_range_io_statistics(start_date, end_date)
+  def date_range_revenue_statistics(start_date, end_date)
     cost = Bid.total_amount(start_date, end_date)
     payments = Transaction.total_amount(start_date, end_date)
 

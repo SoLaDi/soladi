@@ -29,8 +29,9 @@ class Bid < ApplicationRecord
   end
 
   def self.total_amount(start_date, end_date)
+    months = ApplicationHelper.range_to_months(start_date, end_date).length
     Bid.active_between(start_date, end_date).inject(0) do |sum, bid|
-      sum + bid.total_amount
+      sum + bid.monthly_amount * months
     end
   end
 

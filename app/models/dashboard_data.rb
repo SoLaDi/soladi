@@ -15,20 +15,32 @@ class MembershipStatistics
     @current_shares = current_shares
   end
 
-  attr_reader :monthly_amount
+  attr_reader :total_amount
   attr_reader :currently_active
   attr_reader :current_shares
 end
 
+class MonthlyRevenueStats
+  def initialize(revenue, expected, labels)
+    @revenue = revenue
+    @expected = expected
+    @labels = labels
+  end
+
+  attr_accessor :revenue
+  attr_accessor :expected
+  attr_accessor :labels
+end
+
 class DashboardData
-  def initialize(total_balance, current_year_balance, this_month_balance, last_month_balance, next_month_balance, membership_stats, monthly_income)
+  def initialize(total_balance, current_year_balance, this_month_balance, last_month_balance, next_month_balance, membership_stats, monthly_revenue)
     @total_balance = total_balance
     @current_year_balance = current_year_balance
     @this_month_balance = this_month_balance
     @last_month_balance = last_month_balance
     @next_month_balance = next_month_balance
     @membership_stats = membership_stats
-    @monthly_income = monthly_income
+    @monthly_revenue = monthly_revenue
   end
 
   attr_reader :total_balance
@@ -37,5 +49,5 @@ class DashboardData
   attr_reader :last_month_balance
   attr_reader :next_month_balance
   attr_reader :membership_stats
-  attr_reader :monthly_income
+  attr_reader :monthly_revenue
 end

@@ -21,6 +21,10 @@ class Membership < ApplicationRecord
 
   validates_with MembershipValidator
 
+  scope :active_between, ->(startDate, endDate) {
+    where(startDate: ..start_date, endDate: end_date..).or(where(startDate: ..start_date, endDate: nil))
+  }
+
   def self.import(file)
     total_rows_count = 0
     imported_rows = []
@@ -67,29 +71,11 @@ class Membership < ApplicationRecord
     range_to_months(self.startDate, end_date)
   end
 
-  def range_to_months(start_date, end_date)
-    (start_date..end_date).uniq { |d| "#{d.month}-#{d.year}" }
-  end
-
-  def fiscal_year_to_month_range(year)
-    start_date = Date.new(year, 4, 1)
-    end_date = Date.new(year + 1, 3, 1)
-    range_to_months(start_date, end_date)
-  end
-
-  def date_to_fiscal_year(date)
-    if date.month > 3
-      date.year
-    else
-      date.year - 1
-    end
-  end
-
   def total_cost
     today = Date.today
     self.bids.all.inject(0) do |total_sum, bid|
-      total_sum + bid.expand_to_months.inject(0) do |bid_sum, bid_month|
-        if bid_month < today
+      total_sum + bid.months.inject(0) do |bid_sum, bid_month|
+        if bid_month < today and bid_month >= self.startDate
           bid_sum + bid.monthly_amount
         else
           bid_sum
@@ -99,21 +85,51 @@ class Membership < ApplicationRecord
   end
 
   def cost_for_fiscal_year(year)
-    self.bids.where(start_date: Date.new(year, 4)).inject(0) do |sum, bid|
+    self.bids.active_between(Date.new(year, 4), Date.new(year + 1, 3)).inject(0) do |sum, bid|
       sum + bid.monthly_amount
     end
   end
 
-  def total_payments_since_joined
-    self.transactions.all.sum(:amount)
+  def payments_since_joined
+    self.transactions.where.not(membership_id: nil).sum(:amount)
   end
 
   def payments_for_fiscal_year(year)
-    self.transactions.where(entry_date: Date.new(year, 4)..Date.new(year + 1, 3)).sum(:amount)
+    self.transactions.where.not(membership_id: nil).where(entry_date: Date.new(year, 4)..Date.new(year + 1, 3)).sum(:amount)
   end
 
   def is_trial_membership?
     diff = Date.today - startDate
     diff.to_i < 90
   end
+
+  def bid_for(date)
+    self.bids.where(start_date: ..date, end_date: date..).take
+  end
+
+  def currently_active?
+    active_at(Date.today)
+  end
+
+  def active_at(date)
+    if endDate.nil?
+      startDate > date
+    else
+      startDate > date < endDate
+    end
+  end
+
+  def self.active
+    now = Date.today
+    Membership.where(startDate: ..now, endDate: now...).or(Membership.where(startDate: ..now, endDate: nil))
+  end
+
+  def self.active_count
+    self.active.count
+  end
+
+  def self.total_count
+    Membership.all.count
+  end
+
 end

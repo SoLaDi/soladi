@@ -5,5 +5,8 @@ class BidValidator < ActiveModel::Validator
       bid.period.overlaps?(other_bid.period)
     end
     bid.errors.add :base, "Das Gebot überlappt mit bereits existierenden Geboten für die Mitgliedschaft" if is_overlapping
+
+    is_ending_before_it_starts = bid.start_date >= bid.end_date
+    bid.errors.add :base, "Das Startdatum muss vor dem Enddatum liegen" if is_ending_before_it_starts
   end
 end

@@ -16,12 +16,26 @@ class Bid < ApplicationRecord
   belongs_to :membership
   validates_with BidValidator
 
+  scope :active_between, ->(start_date, end_date) {
+    where(start_date: ..start_date, end_date: end_date..)
+  }
+
   def overlaps?(other)
     id == other.id && start_date <= other.end_date && other.start_date <= end_date
   end
 
   def period
     start_date..end_date
+  end
+
+  def self.total_amount(start_date, end_date)
+    Bid.active_between(start_date, end_date).inject(0) do |sum, bid|
+      sum + bid.total_amount
+    end
+  end
+
+  def self.total_shares(date)
+    Bid.active_between(date, date).sum(:shares)
   end
 
   def self.import(file)
@@ -85,11 +99,17 @@ class Bid < ApplicationRecord
     self.amount * self.shares
   end
 
-  def range_to_months(start_date, end_date)
-    (start_date..end_date).uniq { |d| "#{d.month}-#{d.year}" }
+  def total_amount
+    months.length * self.amount
   end
 
-  def expand_to_months
-    range_to_months(self.start_date, self.end_date)
+  def months
+    ApplicationHelper.range_to_months(self.start_date, self.end_date)
+  end
+
+  def monthly_amounts
+    ApplicationHelper.range_to_months(self.start_date, self.end_date).map { |month|
+      [month, self.monthly_amount]
+    }.to_h
   end
 end

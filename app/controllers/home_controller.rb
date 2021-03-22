@@ -7,82 +7,88 @@ class HomeController < ApplicationController
       calculate_last_month_totals,
       calculate_next_month_totals,
       calculate_membership_stats,
-      calculate_monthly_income
+      calculate_monthly_revenue_graph
     )
   end
 
-  def calculate_monthly_income
-    Transaction.all.group_by { |transaction|
+  def calculate_monthly_revenue_graph
+    start_date = Date.today - 6.months
+    end_date = Date.today + 6.months
+
+    revenue = calculate_monthly_payments(start_date, end_date)
+    expected = calculate_monthly_costs(start_date, end_date)
+    labels = ApplicationHelper.range_to_months(start_date, end_date).map { |month| month.strftime("%b %Y") }
+
+    MonthlyRevenueStats.new(revenue, expected, labels)
+  end
+
+  def calculate_monthly_payments(start_date, end_date)
+    Transaction.where(entry_date: start_date..end_date).group_by { |transaction|
       Date.new(transaction.entry_date.year, transaction.entry_date.month)
-    }.sort_by { |d, _|
-      d
     }.map { |date, transactions|
-      [date.strftime("%b %Y"), transactions.inject(0) { |sum, t| sum + t.amount }]
-    }.transpose
+      [date, transactions.inject(0) { |sum, t| sum + t.amount }]
+    }.sort.to_h.values.flatten
+  end
+
+  def calculate_monthly_costs(start_date, end_date)
+    monthly_buckets = ApplicationHelper.range_to_months(start_date, end_date).map { |month| [month, 0] }.to_h
+    puts monthly_buckets
+    Bid.all.each do |bid|
+      monthly_buckets = monthly_buckets.merge(bid.monthly_amounts) { |key, oldval, newval| oldval + newval }
+    end
+
+    monthly_buckets
+      .filter { |month, value| month >= start_date && month <= end_date }
+      .sort
+      .to_h
+      .values
+      .flatten
   end
 
   def calculate_totals
-    payments = 0
-    cost = 0
-    Membership.all.each do |membership|
-      payments += membership.total_payments_since_joined
-      cost += membership.total_cost
-    end
-
-    Balance.new(cost, payments)
+    date_range_io_statistics(Date.new(1900, 1), Date.today)
   end
 
   def calculate_current_year_totals
-    payments = 0
-    cost = 0
-    Membership.all.each do |membership|
-      payments += membership.payments_for_fiscal_year(2021)
-      cost += membership.cost_for_fiscal_year(2021)
-    end
-
-    Balance.new(cost, payments)
+    now = Date.today
+    date_range_io_statistics(Date.new(now.year, 4), Date.new(now.year + 1, 3))
   end
 
   def calculate_this_month_totals
     now = Date.today
-    self.monthly_statistics(now)
+    self.monthly_io_statistics(now)
   end
 
   def calculate_last_month_totals
     last_month = Date.today - 1.month
-    self.monthly_statistics(last_month)
+    self.monthly_io_statistics(last_month)
   end
 
   def calculate_next_month_totals
     next_month = Date.today + 1.month
-    self.monthly_statistics(next_month)
+    self.monthly_io_statistics(next_month)
   end
 
-  def monthly_statistics(next_month)
-    month_start = Date.new(next_month.year, next_month.month)
-    month_end = Date.new(next_month.year, next_month.month + 1) - 1.day
-    payments = Transaction.where(entry_date: month_start..month_end).sum(:amount)
+  def monthly_io_statistics(month)
 
-    bids = Bid.where(start_date: ..month_start, end_date: month_end..)
-    cost = bids.inject(0) do |sum, bid|
-      sum + bid.monthly_amount
-    end
+    month_start = Date.new(month.year, month.month)
+    month_end = Date.new(month.year, month.month + 1) - 1.day
+
+    date_range_io_statistics(month_start, month_end)
+  end
+
+  def date_range_io_statistics(start_date, end_date)
+    cost = Bid.total_amount(start_date, end_date)
+    payments = Transaction.total_amount(start_date, end_date)
 
     Balance.new(cost, payments)
   end
 
   def calculate_membership_stats
-    today = Date.today
-    total = Membership.count
-    shares = Bid.all.inject(0) do |sum, bid|
-      sum += bid.shares
-    end
+    total = Membership.total_count
+    active = Membership.active_count
+    shares = Bid.total_shares(Date.today)
 
-    [].filter
-    # current_shares = Membership.where("DATE(startDate) < DATE(?) AND (endDate IS NULL OR DATE(endDate) > DATE(?))", today, today).inject(0) { |sum, membership|
-    #   sum + membership.prices.find_by(year: today.year, month: today.month).shares
-    # }
-
-    MembershipStatistics.new(total, total, shares)
+    MembershipStatistics.new(total, active, shares)
   end
 end

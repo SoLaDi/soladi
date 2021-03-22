@@ -26,6 +26,10 @@ class Transaction < ApplicationRecord
   require 'bigdecimal'
   require 'bigdecimal/util'
 
+  def self.total_amount(start_date, end_date)
+    Transaction.where.not(membership_id: nil).where(entry_date: start_date..end_date).sum(:amount)
+  end
+
   def self.import(file)
     total_rows_count = 0
     imported_rows = []

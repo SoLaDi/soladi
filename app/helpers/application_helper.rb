@@ -1,8 +1,4 @@
 module ApplicationHelper
-  def format_currency_value(number)
-    number_to_currency(number, unit: "€", separator: ",", delimiter: ".", format: "%n %u")
-  end
-
   def self.range_to_months(start_date, end_date)
     (start_date..end_date).uniq { |d| "#{d.month}-#{d.year}" }
   end

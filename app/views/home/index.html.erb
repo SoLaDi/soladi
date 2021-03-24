@@ -6,9 +6,9 @@
       <div class="card">
         <div class="card-body">
           <h3>Gesamt</h3>
-          <p>Erwartet: <%= format_currency_value(@data.total_balance.cost) %></p>
-          <p>Erhalten: <%= format_currency_value(@data.total_balance.payments) %></p>
-          <p>Differenz: <%= format_currency_value(@data.total_balance.payments - @data.total_balance.cost) %></p>
+          <p>Erwartet: <%= number_to_currency(@data.total_balance.cost) %></p>
+          <p>Erhalten: <%= number_to_currency(@data.total_balance.payments) %></p>
+          <p>Differenz: <%= number_to_currency(@data.total_balance.payments - @data.total_balance.cost) %></p>
           <div style="width: 250px">
             <canvas id="totalPieChart"></canvas>
           </div>
@@ -43,9 +43,9 @@
       <div class="card">
         <div class="card-body">
           <h3>Wirtschaftsjahr 2021</h3>
-          <p>Erwartet: <%= format_currency_value(@data.current_year_balance.cost) %></p>
-          <p>Erhalten: <%= format_currency_value(@data.current_year_balance.payments) %></p>
-          <p>Differenz: <%= format_currency_value(@data.current_year_balance.payments - @data.current_year_balance.cost) %></p>
+          <p>Erwartet: <%= number_to_currency(@data.current_year_balance.cost) %></p>
+          <p>Erhalten: <%= number_to_currency(@data.current_year_balance.payments) %></p>
+          <p>Differenz: <%= number_to_currency(@data.current_year_balance.payments - @data.current_year_balance.cost) %></p>
           <div style="width: 250px">
             <canvas id="currentYearPieChart"></canvas>
           </div>
@@ -91,9 +91,9 @@
       <div class="card">
         <div class="card-body">
           <h3>Im letzten Monat</h3>
-          <p>Erwartet: <%= format_currency_value(@data.last_month_balance.cost) %></p>
-          <p>Erhalten: <%= format_currency_value(@data.last_month_balance.payments) %></p>
-          <p>Differenz: <%= format_currency_value(@data.last_month_balance.payments - @data.last_month_balance.cost) %></p>
+          <p>Erwartet: <%= number_to_currency(@data.last_month_balance.cost) %></p>
+          <p>Erhalten: <%= number_to_currency(@data.last_month_balance.payments) %></p>
+          <p>Differenz: <%= number_to_currency(@data.last_month_balance.payments - @data.last_month_balance.cost) %></p>
           <div style="width: 250px">
             <canvas id="lastMonthPieChart"></canvas>
           </div>
@@ -128,9 +128,9 @@
       <div class="card">
         <div class="card-body">
           <h3>In diesem Monat</h3>
-          <p>Erwartet: <%= format_currency_value(@data.this_month_balance.cost) %></p>
-          <p>Erhalten: <%= format_currency_value(@data.this_month_balance.payments) %></p>
-          <p>Differenz: <%= format_currency_value(@data.this_month_balance.payments - @data.this_month_balance.cost) %></p>
+          <p>Erwartet: <%= number_to_currency(@data.this_month_balance.cost) %></p>
+          <p>Erhalten: <%= number_to_currency(@data.this_month_balance.payments) %></p>
+          <p>Differenz: <%= number_to_currency(@data.this_month_balance.payments - @data.this_month_balance.cost) %></p>
           <div style="width: 250px">
             <canvas id="currentMonthPieChart"></canvas>
           </div>
@@ -165,9 +165,9 @@
       <div class="card">
         <div class="card-body">
           <h3>Nächsten Monat</h3>
-          <p>Erwartet: <%= format_currency_value(@data.next_month_balance.cost) %></p>
-          <p>Erhalten: <%= format_currency_value(@data.next_month_balance.payments) %></p>
-          <p>Differenz: <%= format_currency_value(@data.next_month_balance.payments - @data.next_month_balance.cost) %></p>
+          <p>Erwartet: <%= number_to_currency(@data.next_month_balance.cost) %></p>
+          <p>Erhalten: <%= number_to_currency(@data.next_month_balance.payments) %></p>
+          <p>Differenz: <%= number_to_currency(@data.next_month_balance.payments - @data.next_month_balance.cost) %></p>
           <div style="width: 250px">
             <canvas id="nextMonthPieChart"></canvas>
           </div>

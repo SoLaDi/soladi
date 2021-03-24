@@ -31,9 +31,9 @@
       <td><%= fem.membership.startDate.strftime("%b %Y") %></td>
       <td><%= fem.membership.endDate ? fem.membership.endDate.strftime("%b %Y") : "" %></td>
       <td><%= link_to "#{fem.membership.distribution_point.name}", distribution_point_url(fem.membership.distribution_point.id) %></td>
-      <td><%= format_currency_value(fem.total_cost) %></td>
-      <td><%= format_currency_value(fem.total_payments) %></td>
-      <td><%= format_currency_value(fem.total_payments - fem.total_cost) %></td>
+      <td><%= number_to_currency(fem.total_cost) %></td>
+      <td><%= number_to_currency(fem.total_payments) %></td>
+      <td><%= number_to_currency(fem.total_payments - fem.total_cost) %></td>
 
       <td><%= link_to 'Details', fem.membership %></td>
       <td><%= link_to 'Bearbeiten', edit_membership_path(fem.membership) %></td>

@@ -153,7 +153,7 @@
         <tr>
           <td><%= bid.start_date.strftime("%b %Y") %></td>
           <td><%= bid.end_date.strftime("%b %Y") %></td>
-          <td><%= format_currency_value(bid.amount) %></td>
+          <td><%= number_to_currency(bid.amount) %></td>
           <td><%= bid["shares"] %></td>
         </tr>
       <% end %>

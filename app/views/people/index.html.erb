@@ -20,6 +20,7 @@
       <th>E-Mail</th>
       <th>Telefon</th>
       <th>Mitgliedschaft</th>
+      <th>Status auf der Webseite</th>
       <th></th>
       <th></th>
       <th></th>
@@ -35,6 +36,7 @@
         <td><%= mail_to(person.email) %></td>
         <td><%= person.phone %></td>
         <td><%= link_to "#{person.membership_id}", membership_url(person.membership_id) %></td>
+        <td><%= person.website_account_status %></td>
         <td><%= link_to 'Details', person %></td>
         <td><%= link_to 'Bearbeiten', edit_person_path(person) %></td>
         <td><%= link_to 'Löschen', person, method: :delete, data: { confirm: 'Bist du sicher?' } %></td>

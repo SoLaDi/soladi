@@ -2,14 +2,15 @@
 #
 # Table name: people
 #
-#  id            :integer          not null, primary key
-#  name          :string
-#  surname       :string
-#  email         :string
-#  phone         :string
-#  membership_id :integer          not null
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
+#  id                     :integer          not null, primary key
+#  name                   :string
+#  surname                :string
+#  email                  :string
+#  phone                  :string
+#  membership_id          :integer          not null
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  website_account_status :string
 #
 class Person < ApplicationRecord
   belongs_to :membership
@@ -40,23 +41,43 @@ class Person < ApplicationRecord
       break if users_chunk.length == 0 || index > 30
 
       users_chunk.each do |user|
-        member = Person.new(
-          id: user["id"],
-          name: user["first_name"],
-          surname: user["last_name"],
-          email: user["email"],
-          phone: user["meta"]["phone_number"],
-          membership_id: user["meta"]["membership_id"][1..-1]
-        )
+        user_id = user["id"]
 
-        begin
-          if member.save
-            puts "Successfully persisted wp user as member: #{member.inspect}"
+        if Person.exists?(user_id)
+          existing_person = Person.find(user_id)
+          if existing_person.update(
+            id: user["id"],
+            name: user["first_name"],
+            surname: user["last_name"],
+            email: user["email"],
+            phone: user["meta"]["phone_number"],
+            website_account_status: user["meta"]["account_status"],
+            membership_id: user["meta"]["membership_id"][1..-1]
+          )
+            puts "Successfully updated wp user as member: #{existing_person.inspect}"
           else
-            puts "Failed to persist wp user as member: #{member.errors.inspect}"
+            puts "Failed to update member: #{existing_person.errors.inspect}"
           end
-        rescue ActiveRecord::RecordNotUnique
-          puts "Member already exists: #{member.inspect}"
+        else
+          member = Person.new(
+            id: user["id"],
+            name: user["first_name"],
+            surname: user["last_name"],
+            email: user["email"],
+            phone: user["meta"]["phone_number"],
+            website_account_status: user["meta"]["account_status"],
+            membership_id: user["meta"]["membership_id"][1..-1]
+          )
+
+          begin
+            if member.save
+              puts "Successfully persisted wp user as member: #{member.inspect}"
+            else
+              puts "Failed to persist wp user as member: #{member.errors.inspect}"
+            end
+          rescue ActiveRecord::RecordNotUnique
+            puts "Member already exists: #{member.inspect}"
+          end
         end
       end
     end

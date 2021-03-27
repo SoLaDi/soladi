@@ -2,14 +2,15 @@
 #
 # Table name: people
 #
-#  id            :integer          not null, primary key
-#  name          :string
-#  surname       :string
-#  email         :string
-#  phone         :string
-#  membership_id :integer          not null
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
+#  id                     :integer          not null, primary key
+#  name                   :string
+#  surname                :string
+#  email                  :string
+#  phone                  :string
+#  membership_id          :integer          not null
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  website_account_status :string
 #
 require 'test_helper'
 

@@ -53,6 +53,7 @@
         <th>Nachname</th>
         <th>E-Mail</th>
         <th>Telefon</th>
+        <th>Status auf der Webseite</th>
         <th></th>
         <th></th>
         <th></th>
@@ -66,6 +67,7 @@
           <td><%= person.surname %></td>
           <td><%= person.email %></td>
           <td><%= person.phone %></td>
+          <td><%= person.website_account_status %></td>
           <td><%= link_to 'Show', person %></td>
           <td><%= link_to 'Edit', edit_person_path(person) %></td>
           <td><%= link_to 'Destroy', person, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -145,6 +147,9 @@
         <th>Ende</th>
         <th>Preis</th>
         <th>Anteile</th>
+        <th></th>
+        <th></th>
+        <th></th>
       </tr>
       </thead>
 
@@ -155,6 +160,9 @@
           <td><%= bid.end_date.strftime("%b %Y") %></td>
           <td><%= number_to_currency(bid.amount) %></td>
           <td><%= bid["shares"] %></td>
+          <td><%= link_to 'Details', bid %></td>
+          <td><%= link_to 'Bearbeiten', edit_bid_path(bid) %></td>
+          <td><%= link_to 'Löschen', bid, method: :delete, data: { confirm: 'Bist du sicher?' } %></td>
         </tr>
       <% end %>
       </tbody>

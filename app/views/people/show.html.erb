@@ -26,6 +26,11 @@
       <%= link_to "#{@person.membership_id}", membership_url(@person.membership_id) %>
     </p>
 
+    <p>
+      <strong>Status des Nutzers auf der Webseite:</strong>
+      <%= @person.website_account_status %>
+    </p>
+
     <%= link_to 'Bearbeiten', edit_person_path(@person) %> |
     <%= link_to 'Zurück', people_path %>
   </div>

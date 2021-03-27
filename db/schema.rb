@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_12_100842) do
+ActiveRecord::Schema.define(version: 2021_03_27_220842) do
 
   create_table "bids", force: :cascade do |t|
     t.date "start_date"
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 2021_03_12_100842) do
     t.integer "membership_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "website_account_status"
     t.index ["membership_id"], name: "index_people_on_membership_id"
   end
 

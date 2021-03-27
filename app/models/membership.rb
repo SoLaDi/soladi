@@ -91,11 +91,11 @@ class Membership < ApplicationRecord
   end
 
   def payments_since_joined
-    self.transactions.where.not(membership_id: nil).sum(:amount)
+    transactions.sum(:amount)
   end
 
   def payments_for_fiscal_year(year)
-    self.transactions.where.not(membership_id: nil).where(entry_date: Date.new(year, 4)..Date.new(year + 1, 3)).sum(:amount)
+    transactions.where(entry_date: Date.new(year, 4)..Date.new(year + 1, 3)).sum(:amount)
   end
 
   def is_trial_membership?

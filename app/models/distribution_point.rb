@@ -13,6 +13,12 @@
 #  person_id   :integer
 #
 class DistributionPoint < ApplicationRecord
-    has_many :memberships
-    belongs_to :person, optional: true
+  has_many :memberships
+  belongs_to :person, optional: true
+
+  def total_payments
+    memberships.inject(0) do |sum, membership|
+      sum + membership.payments_since_joined
+    end
+  end
 end

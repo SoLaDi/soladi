@@ -33,6 +33,11 @@
       <% end %>
     </p>
 
+    <p>
+      <strong>Bisher insgesamt eingegangene Zahlungen:</strong>
+      <%= number_to_currency(@distribution_point.total_payments) %>
+    </p>
+
     <%= link_to 'Bearbeiten', edit_distribution_point_path(@distribution_point) %> |
     <%= link_to 'Zurück', distribution_points_path %>
   </div>

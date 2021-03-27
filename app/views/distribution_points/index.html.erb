@@ -18,6 +18,7 @@
     <th>Postleitzahl</th>
     <th>Stadt</th>
     <th>Ansprechpartner/in</th>
+    <th>Einnahmen insgesamt</th>
     <th></th>
     <th></th>
     <th></th>
@@ -38,6 +39,7 @@
           <%= link_to "#{distribution_point.person.full_name}", person_url(distribution_point.person.id) %>
         <% end %>
       </td>
+      <td><%= number_to_currency(distribution_point.total_payments) %></td>
       <td><%= link_to 'Details', distribution_point %></td>
       <td><%= link_to 'Bearbeiten', edit_distribution_point_path(distribution_point) %></td>
       <td><%= link_to 'Löschen', distribution_point, method: :delete, data: { confirm: 'Bist du sicher?' } %></td>

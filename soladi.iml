@@ -73,7 +73,6 @@
     <orderEntry type="library" scope="PROVIDED" name="nio4r (v2.5.7, RVM: ruby-2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="nokogiri (v1.11.2, RVM: ruby-2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="orm_adapter (v0.5.0, RVM: ruby-2.7.2) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="pg (v1.2.3, RVM: ruby-2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="public_suffix (v4.0.6, RVM: ruby-2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="puma (v4.3.7, RVM: ruby-2.7.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="racc (v1.5.2, RVM: ruby-2.7.2) [gem]" level="application" />
@@ -125,7 +124,6 @@
       <list>
         <option value="active_record:application_record" />
         <option value="active_record:devise" />
-        <option value="active_record:devise_invitable" />
         <option value="annotate:install" />
         <option value="application_record" />
         <option value="assets" />
@@ -135,12 +133,6 @@
         <option value="devise:controllers" />
         <option value="devise:install" />
         <option value="devise:views" />
-        <option value="devise_invitable" />
-        <option value="devise_invitable:form_for" />
-        <option value="devise_invitable:install" />
-        <option value="devise_invitable:invitation_views" />
-        <option value="devise_invitable:simple_form_for" />
-        <option value="devise_invitable:views" />
         <option value="generator" />
         <option value="helper" />
         <option value="integration_test" />
@@ -151,7 +143,6 @@
         <option value="migration" />
         <option value="model" />
         <option value="mongoid:devise" />
-        <option value="mongoid:devise_invitable" />
         <option value="resource" />
         <option value="responders:install" />
         <option value="responders_controller" />
@@ -169,7 +160,6 @@
       <list>
         <option value="active_record:application_record" />
         <option value="active_record:devise" />
-        <option value="active_record:devise_invitable" />
         <option value="annotate:install" />
         <option value="application_record" />
         <option value="assets" />
@@ -179,12 +169,6 @@
         <option value="devise:controllers" />
         <option value="devise:install" />
         <option value="devise:views" />
-        <option value="devise_invitable" />
-        <option value="devise_invitable:form_for" />
-        <option value="devise_invitable:install" />
-        <option value="devise_invitable:invitation_views" />
-        <option value="devise_invitable:simple_form_for" />
-        <option value="devise_invitable:views" />
         <option value="generator" />
         <option value="helper" />
         <option value="integration_test" />
@@ -195,7 +179,6 @@
         <option value="migration" />
         <option value="model" />
         <option value="mongoid:devise" />
-        <option value="mongoid:devise_invitable" />
         <option value="resource" />
         <option value="responders:install" />
         <option value="responders_controller" />

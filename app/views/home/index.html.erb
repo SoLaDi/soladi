@@ -206,7 +206,7 @@
             <canvas id="monthlyRevenue"></canvas>
           </div>
           <script>
-              var formatter = new Intl.NumberFormat('de-DE', {
+              var currency_formatter = new Intl.NumberFormat('de-DE', {
                   style: 'currency',
                   currency: 'EUR',
               });
@@ -218,18 +218,19 @@
                       labels: <%= @data.monthly_revenue.labels.to_json.html_safe %>,
                       datasets: [
                           {
+                              yAxisID: 'A',
                               backgroundColor: '#ED561B',
+                              borderColor: '#ED561B',
                               borderWidth: 1,
                               label: "Einnahmen",
                               data: <%= @data.monthly_revenue.revenue.to_json.html_safe %>
                           },
                           {
+                              yAxisID: 'A',
                               backgroundColor: '#50B432',
+                              borderColor: '#50B432',
                               borderWidth: 1,
                               label: "Erwartet",
-                              type: 'line',
-                              fill: false,
-                              borderColor: '#50B432',
                               data: <%= @data.monthly_revenue.expected.to_json.html_safe %>
                           }
                       ],
@@ -237,20 +238,25 @@
                   options: {
                       tooltips: {
                           callbacks: {
-                              label: function(tooltipItem, data) {
-                                  return formatter.format(tooltipItem.yLabel);
+                              label: function (tooltipItem, data) {
+                                  return currency_formatter.format(tooltipItem.yLabel);
                               }
                           }
                       },
                       scales: {
-                          yAxes: [{
-                              ticks: {
-                                  beginAtZero: true,
-                                  callback: function(value, index, values) {
-                                      return formatter.format(value);
+                          yAxes: [
+                              {
+                                  id: 'A',
+                                  type: 'linear',
+                                  position: 'left',
+                                  ticks: {
+                                      beginAtZero: true,
+                                      callback: function (value, index, values) {
+                                          return currency_formatter.format(value);
+                                      }
                                   }
                               }
-                          }]
+                          ]
                       }
                   }
               });
@@ -259,6 +265,36 @@
       </div>
     </div>
 
+    <div class="col-sm">
+      <div class="card">
+        <div class="card-body">
+          <h3>Vergebene Anteile pro Monat</h3>
+          <div style="width: 100%">
+            <canvas id="monthlyShares"></canvas>
+          </div>
+          <script>
+
+              var ctx = document.getElementById('monthlyShares').getContext('2d');
+              var myBarChart = new Chart(ctx, {
+                  type: 'line',
+                  data: {
+                      labels: <%= @data.monthly_shares.labels.to_json.html_safe %>,
+                      datasets: [
+                          {
+                              backgroundColor: 'purple',
+                              borderColor: 'purple',
+                              borderWidth: 2,
+                              label: "Anteile",
+                              fill: false,
+                              data: <%= @data.monthly_shares.shares.to_json.html_safe %>
+                          }
+                      ],
+                  },
+              });
+          </script>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 

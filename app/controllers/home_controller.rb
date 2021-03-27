@@ -7,7 +7,8 @@ class HomeController < ApplicationController
       calculate_last_month_totals,
       calculate_next_month_totals,
       calculate_membership_stats,
-      calculate_monthly_revenue_graph
+      calculate_monthly_revenue_graph,
+      calculate_monthly_shares
     )
   end
 
@@ -32,7 +33,6 @@ class HomeController < ApplicationController
 
   def calculate_monthly_costs(start_date, end_date)
     monthly_buckets = ApplicationHelper.range_to_months(start_date, end_date).map { |month| [month, 0] }.to_h
-    puts monthly_buckets
     Bid.all.each do |bid|
       monthly_buckets = monthly_buckets.merge(bid.monthly_amounts) { |key, oldval, newval| oldval + newval }
     end
@@ -43,6 +43,16 @@ class HomeController < ApplicationController
       .to_h
       .values
       .flatten
+  end
+
+  def calculate_monthly_shares
+    start_date = Date.today - 6.months
+    end_date = Date.today + 6.months
+    months = ApplicationHelper.range_to_months(start_date, end_date)
+    labels = months.map { |month| month.strftime("%b %Y") }
+    shares = months.map { |month| Bid.total_shares(month) }
+
+    MonthlyShares.new(shares, labels)
   end
 
   def calculate_totals

@@ -24,11 +24,17 @@ class HomeController < ApplicationController
   end
 
   def calculate_monthly_payments(start_date, end_date)
+    monthly_buckets = ApplicationHelper.range_to_months(start_date, end_date).map { |month| [month, 0] }.to_h
     Transaction.where(entry_date: start_date..end_date).group_by { |transaction|
       Date.new(transaction.entry_date.year, transaction.entry_date.month)
-    }.map { |date, transactions|
-      [date, transactions.inject(0) { |sum, t| sum + t.amount }]
-    }.sort.to_h.values.flatten
+    }.each { |date, transactions|
+      monthly_buckets[date] = transactions.inject(0) { |sum, t| sum + t.amount }
+    }
+
+    monthly_buckets
+      .sort
+      .to_h
+      .values
   end
 
   def calculate_monthly_costs(start_date, end_date)

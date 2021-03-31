@@ -13,10 +13,6 @@
   <tr>
     <th>ID</th>
     <th>Name</th>
-    <th>Straße</th>
-    <th>Hausnummer</th>
-    <th>Postleitzahl</th>
-    <th>Stadt</th>
     <th>Ansprechpartner/in</th>
     <th>Einnahmen insgesamt</th>
     <th></th>
@@ -30,10 +26,6 @@
     <tr>
       <td><%= distribution_point.id %></td>
       <td><%= distribution_point.name %></td>
-      <td><%= distribution_point.street %></td>
-      <td><%= distribution_point.housenumber %></td>
-      <td><%= distribution_point.zipcode %></td>
-      <td><%= distribution_point.city %></td>
       <td>
         <% if distribution_point.person %>
           <%= link_to "#{distribution_point.person.full_name}", person_url(distribution_point.person.id) %>

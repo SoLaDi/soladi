@@ -18,7 +18,7 @@ puts "Creating 10 memberships"
 5.times do |i|
   membership_id = 1000 + i
   puts membership_id
-  ms = Membership.new(id: membership_id, startDate: Date.new(2020, 5, 8), endDate: nil, distribution_point_id: dp_mahlsdorf.id)
+  ms = Membership.new(id: membership_id, distribution_point_id: dp_mahlsdorf.id)
   ms.bids.build(start_date: Date.new(2020, 4, 1), end_date: Date.new(2021, 3, 1), shares: 1, amount: 10)
   ms.save
   unless ms
@@ -29,7 +29,7 @@ end
 5.times do |i|
   membership_id = 1100 + i
   puts membership_id
-  ms = Membership.new(id: membership_id, startDate: Date.new(2020, 5, 8), endDate: nil, distribution_point_id: dp_treptow.id)
+  ms = Membership.new(id: membership_id, distribution_point_id: dp_treptow.id)
   ms.bids.build(start_date: Date.new(2020, 4, 1), end_date: Date.new(2021, 3, 1), shares: 2, amount: 20.1)
   ms.save
   unless ms

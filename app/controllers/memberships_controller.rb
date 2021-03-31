@@ -36,7 +36,7 @@ class MembershipsController < ApplicationController
   # GET /memberships/new
   def new
     @membership = Membership.new
-    @membership.bids.build(shares: 1)
+    @membership.bids.build()
   end
 
   # GET /memberships/1/edit
@@ -47,14 +47,6 @@ class MembershipsController < ApplicationController
   # POST /memberships.json
   def create
     @membership = Membership.new(membership_params)
-
-    start_fiscal_year = @membership.date_to_fiscal_year(@membership.startDate)
-    start_date = Date.new(start_fiscal_year, 4, 1)
-    end_date = Date.new(start_fiscal_year + 1, 3, 1)
-    bid = @membership.bids[0]
-    @membership.bids = []
-    @membership.bids.build(start_date: start_date, end_date: end_date, amount: bid.amount, shares: bid.shares)
-
     respond_to do |format|
       if @membership.save
         format.html { redirect_to @membership, notice: 'Membership was successfully created.' }
@@ -99,6 +91,6 @@ class MembershipsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def membership_params
-    params.require(:membership).permit(:startDate, :endDate, :distribution_point_id, bids_attributes: [:shares, :amount])
+    params.require(:membership).permit(:terminated, :distribution_point_id, bids_attributes: [:shares, :amount, :start_date])
   end
 end

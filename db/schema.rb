@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_27_220842) do
+ActiveRecord::Schema.define(version: 2021_03_31_194944) do
 
   create_table "bids", force: :cascade do |t|
     t.date "start_date"
@@ -38,11 +38,10 @@ ActiveRecord::Schema.define(version: 2021_03_27_220842) do
   end
 
   create_table "memberships", force: :cascade do |t|
-    t.date "startDate"
-    t.date "endDate"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "distribution_point_id", null: false
+    t.boolean "terminated", default: false, null: false
     t.index ["distribution_point_id"], name: "index_memberships_on_distribution_point_id"
   end
 

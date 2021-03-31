@@ -14,9 +14,7 @@ class MembershipsTest < ApplicationSystemTestCase
     visit memberships_url
     click_on "New Membership"
 
-    fill_in "Distributionpoint", with: @membership.distributionPoint
-    fill_in "Enddate", with: @membership.endDate
-    fill_in "Startdate", with: @membership.startDate
+    fill_in "Distributionpoint", with: @membership.distribution_point
     click_on "Create Membership"
 
     assert_text "Membership was successfully created"
@@ -27,9 +25,7 @@ class MembershipsTest < ApplicationSystemTestCase
     visit memberships_url
     click_on "Edit", match: :first
 
-    fill_in "Distributionpoint", with: @membership.distributionPoint
-    fill_in "Enddate", with: @membership.endDate
-    fill_in "Startdate", with: @membership.startDate
+    fill_in "Distributionpoint", with: @membership.distribution_point
     click_on "Update Membership"
 
     assert_text "Membership was successfully updated"

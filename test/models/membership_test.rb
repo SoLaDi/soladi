@@ -3,11 +3,10 @@
 # Table name: memberships
 #
 #  id                    :integer          not null, primary key
-#  startDate             :date
-#  endDate               :date
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
 #  distribution_point_id :integer          not null
+#  terminated            :boolean          default(FALSE), not null
 #
 require 'test_helper'
 

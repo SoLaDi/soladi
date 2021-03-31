@@ -1,7 +1,7 @@
 <h1>Mitgliedschaften</h1>
 
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#rich-table').dataTable({
             "ordering": true
         });
@@ -28,8 +28,8 @@
   <% @fem.each do |fem| %>
     <tr>
       <td><%= link_to "#{fem.membership.id}", membership_url(fem.membership.id) %></td>
-      <td><%= fem.membership.startDate.strftime("%b %Y") %></td>
-      <td><%= fem.membership.endDate ? fem.membership.endDate.strftime("%b %Y") : "" %></td>
+      <td><%= fem.membership.start_date ? fem.membership.start_date.strftime("%b %Y") : "" %></td>
+      <td><%= fem.membership.end_date ? fem.membership.end_date.strftime("%b %Y") : "" %></td>
       <td><%= link_to "#{fem.membership.distribution_point.name}", distribution_point_url(fem.membership.distribution_point.id) %></td>
       <td><%= number_to_currency(fem.total_cost) %></td>
       <td><%= number_to_currency(fem.total_payments) %></td>

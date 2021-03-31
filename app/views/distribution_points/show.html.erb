@@ -70,8 +70,8 @@
       <% @distribution_point.memberships.each do |membership| %>
         <tr>
           <td><%= link_to "#{membership.id}", membership_url(membership.id) %></td>
-          <td><%= membership.startDate.strftime("%b %Y") %></td>
-          <td><%= membership.endDate ? membership.endDate.strftime("%b %Y") : "" %></td>
+          <td><%= membership.start_date ? membership.start_date.strftime("%b %Y") : "" %></td>
+          <td><%= membership.end_date ? membership.end_date.strftime("%b %Y") : "" %></td>
         </tr>
       <% end %>
       </tbody>

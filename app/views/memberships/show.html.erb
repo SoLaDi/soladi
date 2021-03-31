@@ -8,13 +8,8 @@
     </p>
 
     <p>
-      <strong>Startdatum:</strong>
-      <%= @membership.startDate.strftime("%b %Y") %>
-    </p>
-
-    <p>
-      <strong>Enddatum:</strong>
-      <%= @membership.endDate ? @membership.endDate.strftime("%b %Y") : "" %>
+      <strong>Gekündigt:</strong>
+      <%= @membership.terminated ? "Ja" : "Nein" %>
     </p>
 
     <p>
@@ -22,10 +17,6 @@
       <%= @membership.distribution_point.name %>
     </p>
 
-    <p>
-      <strong>Probezeit:</strong>
-      <%= @membership.is_trial_membership? %>
-    </p>
     <br/>
     <%= link_to 'Bearbeiten', edit_membership_path(@membership) %> |
     <%= link_to 'Zurück', memberships_path %>

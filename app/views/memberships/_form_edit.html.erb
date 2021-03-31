@@ -12,19 +12,13 @@
   <% end %>
 
   <div class="form-group">
-    <%= form.label "Start" %>
-    <%= form.date_select :startDate, :discard_day => true %>
-  </div>
-
-  <div class="form-group">
-    <%= form.label "Ende" %>
-    <%= form.date_select :endDate, { :discard_day => true, :include_blank => true } %>
+    <%= form.label "Gekündigt" %>
+    <%= form.check_box :terminated %>
   </div>
 
   <div class="form-group">
     <%= form.label "Verteilerstelle" %>
     <%= form.collection_select(:distribution_point_id, DistributionPoint.all, :id, :name) %>
-
   </div>
 
   <div class="actions">

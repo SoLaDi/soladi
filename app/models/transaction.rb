@@ -26,8 +26,15 @@ class Transaction < ApplicationRecord
   require 'bigdecimal'
   require 'bigdecimal/util'
 
+  scope :membership_fees, ->() {
+    where.not(membership_id: nil)
+  }
+
   def self.total_amount(start_date, end_date)
-    Transaction.where.not(membership_id: nil).where(entry_date: start_date..end_date).sum(:amount)
+    Transaction
+      .membership_fees
+      .where(entry_date: start_date..end_date)
+      .sum(:amount)
   end
 
   def self.import(file)

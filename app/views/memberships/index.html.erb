@@ -14,6 +14,7 @@
     <th>ID</th>
     <th>Startdatum</th>
     <th>Enddatum</th>
+    <th>Gekündigt</th>
     <th>Verteilerstelle</th>
     <th>Mitglieder</th>
     <th>Gebote</th>
@@ -32,6 +33,7 @@
       <td><%= link_to "#{fem.membership.id}", membership_url(fem.membership.id) %></td>
       <td><%= fem.membership.start_date ? fem.membership.start_date.strftime("%b %Y") : "" %></td>
       <td><%= fem.membership.end_date ? fem.membership.end_date.strftime("%b %Y") : "" %></td>
+      <td><%= fem.membership.terminated ? "Ja" : "Nein" %></td>
       <td><%= link_to "#{fem.membership.distribution_point.name}", distribution_point_url(fem.membership.distribution_point.id) %></td>
       <td><%= fem.membership.people.count %></td>
       <td><%= fem.membership.bids.count %></td>

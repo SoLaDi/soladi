@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_31_194944) do
+ActiveRecord::Schema.define(version: 2021_04_08_214130) do
 
   create_table "bids", force: :cascade do |t|
     t.date "start_date"
@@ -67,6 +67,7 @@ ActiveRecord::Schema.define(version: 2021_03_31_194944) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "membership_id"
+    t.string "status", default: "ok", null: false
     t.index ["entry_date", "sender", "description", "amount", "currency"], name: "transactions_unique", unique: true
     t.index ["membership_id"], name: "index_transactions_on_membership_id"
   end

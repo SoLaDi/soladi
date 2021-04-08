@@ -18,6 +18,7 @@
     <th>Währung</th>
     <th>Mitgliedschaft</th>
     <th>Hinweise</th>
+    <th>Status</th>
     <th></th>
     <th></th>
     <th></th>
@@ -38,6 +39,7 @@
         <td><%= link_to "#{transaction.membership_id}", membership_url(transaction.membership_id) %></td>
       <% end %>
       <td><%= transaction.status_message %></td>
+      <td><%= transaction.status %></td>
       <td><%= link_to 'Details', transaction %></td>
       <td><%= link_to 'Bearbeiten', edit_transaction_path(transaction) %></td>
       <td><%= link_to 'Löschen', transaction, method: :delete, data: { confirm: 'Bist du sicher?' } %></td>

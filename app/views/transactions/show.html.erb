@@ -36,6 +36,11 @@
       <%= @transaction.status_message %>
     </p>
 
+    <p>
+      <strong>Status:</strong>
+      <%= @transaction.status %>
+    </p>
+
     <%= link_to 'Bearbeiten', edit_transaction_path(@transaction) %> |
     <%= link_to 'Zurück', transactions_path %>
   </div>

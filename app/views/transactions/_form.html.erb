@@ -12,6 +12,11 @@
   <% end %>
 
   <div class="form-group">
+    <%= form.label :status %>
+    <%= form.select :status, options_for_select(%w[ok needs_attention ignored]) %>
+  </div>
+
+  <div class="form-group">
     <%= form.label :status_message %>
     <%= form.text_area :status_message %>
   </div>
@@ -20,6 +25,7 @@
     <%= form.label :membership_id %>
     <%= form.text_field :membership_id %>
   </div>
+
 
   <div class="actions">
     <%= form.submit %>

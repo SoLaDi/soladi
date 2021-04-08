@@ -12,6 +12,7 @@
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  membership_id  :integer
+#  status         :string           default("ok"), not null
 #
 class Transaction < ApplicationRecord
   belongs_to :membership, optional: true
@@ -67,13 +68,15 @@ class Transaction < ApplicationRecord
                 sender: row.at(4),
                 description: row.at(7),
                 amount: amount.tr(',', '.').to_d,
-                currency: row.at(9)
+                currency: row.at(9),
+                status: "ok"
               )
 
               begin
                 transaction.membership_id = extract_membership_id(row.at(7))
               rescue ParserError => e
                 transaction.status_message = e.message
+                transaction.status = "needs_attention"
               end
 
               if transaction.save

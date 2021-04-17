@@ -30,9 +30,20 @@ class Transaction < ApplicationRecord
     where.not(membership_id: nil)
   }
 
+  scope :not_associated, ->() {
+    where(membership_id: nil).where.not(status: "ignored")
+  }
+
   def self.total_amount(start_date, end_date)
     Transaction
       .membership_fees
+      .where(entry_date: start_date..end_date)
+      .sum(:amount)
+  end
+
+  def self.total_amount_not_associated(start_date, end_date)
+    Transaction
+      .not_associated
       .where(entry_date: start_date..end_date)
       .sum(:amount)
   end

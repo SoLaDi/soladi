@@ -219,19 +219,30 @@
                       datasets: [
                           {
                               yAxisID: 'A',
-                              backgroundColor: '#ED561B',
-                              borderColor: '#ED561B',
-                              borderWidth: 1,
-                              label: "Einnahmen",
-                              data: <%= @data.monthly_revenue.revenue.to_json.html_safe %>
-                          },
-                          {
-                              yAxisID: 'A',
                               backgroundColor: '#50B432',
                               borderColor: '#50B432',
                               borderWidth: 1,
+                              label: "Zugeordnet",
+                              data: <%= @data.monthly_revenue.revenue.to_json.html_safe %>,
+                              stack: 'in',
+                          },
+                          {
+                              yAxisID: 'A',
+                              backgroundColor: '#ED561B',
+                              borderColor: '#ED561B',
+                              borderWidth: 1,
+                              label: "Nicht zugeordnet",
+                              data: <%= @data.monthly_revenue.not_associated_payments.to_json.html_safe %>,
+                              stack: 'in',
+                          },
+                          {
+                              yAxisID: 'A',
+                              backgroundColor: '#36a2eb',
+                              borderColor: '#36a2eb',
+                              borderWidth: 1,
                               label: "Erwartet",
-                              data: <%= @data.monthly_revenue.expected.to_json.html_safe %>
+                              data: <%= @data.monthly_revenue.expected.to_json.html_safe %>,
+                              stack: 'expected',
                           }
                       ],
                   },

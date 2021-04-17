@@ -17,16 +17,34 @@ class HomeController < ApplicationController
     end_date = Date.today + 6.months
 
     revenue = calculate_monthly_payments(start_date, end_date)
+    not_associated_payments = calculate_monthly_not_associated_payments(start_date, end_date)
     expected = calculate_monthly_costs(start_date, end_date)
     labels = ApplicationHelper.range_to_months(start_date, end_date).map { |month| month.strftime("%b %Y") }
 
-    MonthlyRevenueStats.new(revenue, expected, labels)
+    MonthlyRevenueStats.new(revenue, not_associated_payments, expected, labels)
   end
 
   def calculate_monthly_payments(start_date, end_date)
     monthly_buckets = ApplicationHelper.range_to_months(start_date, end_date).map { |month| [month, 0] }.to_h
     Transaction
       .membership_fees
+      .where(entry_date: start_date..end_date)
+      .group_by { |transaction|
+        Date.new(transaction.entry_date.year, transaction.entry_date.month)
+      }.each { |date, transactions|
+      monthly_buckets[date] = transactions.inject(0) { |sum, t| sum + t.amount }
+    }
+
+    monthly_buckets
+      .sort
+      .to_h
+      .values
+  end
+
+  def calculate_monthly_not_associated_payments(start_date, end_date)
+    monthly_buckets = ApplicationHelper.range_to_months(start_date, end_date).map { |month| [month, 0] }.to_h
+    Transaction
+      .not_associated
       .where(entry_date: start_date..end_date)
       .group_by { |transaction|
         Date.new(transaction.entry_date.year, transaction.entry_date.month)

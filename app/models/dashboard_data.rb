@@ -21,13 +21,15 @@ class MembershipStatistics
 end
 
 class MonthlyRevenueStats
-  def initialize(revenue, expected, labels)
+  def initialize(revenue, not_associated_payments, expected, labels)
     @revenue = revenue
+    @not_associated_payments = not_associated_payments
     @expected = expected
     @labels = labels
   end
 
   attr_accessor :revenue
+  attr_accessor :not_associated_payments
   attr_accessor :expected
   attr_accessor :labels
 end

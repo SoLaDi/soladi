@@ -19,7 +19,6 @@ class Transaction < ApplicationRecord
 
   validates :entry_date, presence: true
   validates :sender, presence: true
-  validates :description, presence: true
   validates :amount, presence: true
   validates :currency, presence: true
 
@@ -72,9 +71,16 @@ class Transaction < ApplicationRecord
                 status: "ok"
               )
 
+              puts transaction.inspect
+              unless transaction.description
+                puts "EMPTY_DESCRIPTION"
+                puts transaction.inspect
+              end
+
               begin
                 transaction.membership_id = extract_membership_id(row.at(7))
               rescue ParserError => e
+                puts "Parsererror for #{row.inspect}"
                 transaction.status_message = e.message
                 transaction.status = "needs_attention"
               end
@@ -108,6 +114,10 @@ class Transaction < ApplicationRecord
   end
 
   def self.extract_membership_id(description)
+    unless description
+      raise ParserError.new("Die Transaktion enthält keinen Buchungstext")
+    end
+
     matches = description.scan(/S\d{4}/)
     if matches.length == 0
       raise ParserError.new("Keine Mitgliedschaftsnummer gefunden")

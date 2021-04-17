@@ -21,6 +21,8 @@ class TransactionsController < ApplicationController
         redirect_to :transactions, notice: "Import abgeschlossen! #{import_status.message}"
       end
     rescue Exception => e
+      puts e.inspect
+      puts e.backtrace
       redirect_to :transactions, notice: "Import fehlgeschlagen: #{e.message}"
     end
   end

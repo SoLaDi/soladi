@@ -6,7 +6,7 @@ class MembershipsController < ApplicationController
   def import
     begin
       import_status = Membership.import(params[:file])
-      puts import_status.message
+      Rails.logger.info import_status.message
       if import_status.invalid_rows > 0
         redirect_to :memberships, alert: "Import fehlerhaft! #{import_status.message}"
       else

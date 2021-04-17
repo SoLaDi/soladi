@@ -65,9 +65,9 @@ class Bid < ApplicationRecord
           if bid.save
             imported_rows.push row
           else
-            puts "############ BROKEN TRANSACTION BELOW ############"
-            puts bid.inspect
-            puts bid.errors.full_messages
+            Rails.logger.info "############ BROKEN TRANSACTION BELOW ############"
+            Rails.logger.info bid.inspect
+            Rails.logger.info bid.errors.full_messages
             invalid_rows.push row
           end
         rescue ActiveRecord::RecordNotUnique
@@ -76,11 +76,11 @@ class Bid < ApplicationRecord
       end
     end
 
-    puts "total rows: #{total_rows_count}"
-    puts "imported rows: #{imported_rows.length}"
-    puts "duplicate rows: #{duplicate_rows.length}"
-    puts "ignored rows: #{ignored_rows.length}"
-    puts "invalid rows: #{invalid_rows.length}"
+    Rails.logger.info "total rows: #{total_rows_count}"
+    Rails.logger.info "imported rows: #{imported_rows.length}"
+    Rails.logger.info "duplicate rows: #{duplicate_rows.length}"
+    Rails.logger.info "ignored rows: #{ignored_rows.length}"
+    Rails.logger.info "invalid rows: #{invalid_rows.length}"
 
     ImportStatus.new(total_rows_count, imported_rows.length, duplicate_rows.length, ignored_rows.length, invalid_rows.length)
   end
@@ -88,10 +88,10 @@ class Bid < ApplicationRecord
   def self.is_valid_csv_row(membership_id, fiscal_year, shares)
     valid = (membership_id > 0 && shares > 0 && fiscal_year > 0)
     unless valid
-      puts "INVALID ROW"
-      puts "membership_id: #{membership_id}"
-      puts "fiscal_year: #{fiscal_year}"
-      puts "shares: #{shares}"
+      Rails.logger.info "INVALID ROW"
+      Rails.logger.info "membership_id: #{membership_id}"
+      Rails.logger.info "fiscal_year: #{fiscal_year}"
+      Rails.logger.info "shares: #{shares}"
     end
     valid
   end

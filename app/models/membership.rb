@@ -39,19 +39,19 @@ class Membership < ApplicationRecord
         if membership.save
           imported_rows.push row
         else
-          puts "############ BROKEN TRANSACTION BELOW ############"
-          puts membership.inspect
-          puts membership.errors.full_messages
+          Rails.logger.info "############ BROKEN TRANSACTION BELOW ############"
+          Rails.logger.info membership.inspect
+          Rails.logger.info membership.errors.full_messages
           invalid_rows.push row
         end
       end
     end
 
-    puts "total rows: #{total_rows_count}"
-    puts "imported rows: #{imported_rows.length}"
-    puts "duplicate rows: #{duplicate_rows.length}"
-    puts "ignored rows: #{ignored_rows.length}"
-    puts "invalid rows: #{invalid_rows.length}"
+    Rails.logger.info "total rows: #{total_rows_count}"
+    Rails.logger.info "imported rows: #{imported_rows.length}"
+    Rails.logger.info "duplicate rows: #{duplicate_rows.length}"
+    Rails.logger.info "ignored rows: #{ignored_rows.length}"
+    Rails.logger.info "invalid rows: #{invalid_rows.length}"
 
     ImportStatus.new(total_rows_count, imported_rows.length, duplicate_rows.length, ignored_rows.length, invalid_rows.length)
   end

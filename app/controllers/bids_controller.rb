@@ -4,7 +4,7 @@ class BidsController < ApplicationController
   def import
     begin
       import_status = Bid.import(params[:file])
-      puts import_status.message
+      Rails.logger.info import_status.message
       if import_status.invalid_rows > 0
         redirect_to :bids, alert: "Import fehlerhaft! #{import_status.message}"
       else

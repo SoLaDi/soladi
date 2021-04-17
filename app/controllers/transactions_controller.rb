@@ -14,15 +14,15 @@ class TransactionsController < ApplicationController
   def import
     begin
       import_status = Transaction.import(params[:file])
-      puts import_status.message
+      Rails.logger.info import_status.message
       if import_status.invalid_rows > 0
         redirect_to :transactions, alert: "Import fehlerhaft! #{import_status.message}"
       else
         redirect_to :transactions, notice: "Import abgeschlossen! #{import_status.message}"
       end
     rescue Exception => e
-      puts e.inspect
-      puts e.backtrace
+      Rails.logger.info e.inspect
+      Rails.logger.info e.backtrace
       redirect_to :transactions, notice: "Import fehlgeschlagen: #{e.message}"
     end
   end

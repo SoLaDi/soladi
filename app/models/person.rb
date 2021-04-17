@@ -30,7 +30,7 @@ class Person < ApplicationRecord
     end
 
     loop.with_index do |_, index|
-      puts index
+      Rails.logger.info index
       response = conn.get "#{wp_base_url}/wp-json/wp/v2/users" do |req|
         req.params['context'] = "edit"
         req.params['page'] = index +1
@@ -54,9 +54,9 @@ class Person < ApplicationRecord
             website_account_status: user["meta"]["account_status"],
             membership_id: user["meta"]["membership_id"][1..-1]
           )
-            puts "Successfully updated wp user as member: #{existing_person.inspect}"
+            Rails.logger.info "Successfully updated wp user as member: #{existing_person.inspect}"
           else
-            puts "Failed to update member: #{existing_person.errors.inspect}"
+            Rails.logger.info "Failed to update member: #{existing_person.errors.inspect}"
           end
         else
           member = Person.new(
@@ -71,12 +71,12 @@ class Person < ApplicationRecord
 
           begin
             if member.save
-              puts "Successfully persisted wp user as member: #{member.inspect}"
+              Rails.logger.info "Successfully persisted wp user as member: #{member.inspect}"
             else
-              puts "Failed to persist wp user as member: #{member.errors.inspect}"
+              Rails.logger.info "Failed to persist wp user as member: #{member.errors.inspect}"
             end
           rescue ActiveRecord::RecordNotUnique
-            puts "Member already exists: #{member.inspect}"
+            Rails.logger.info "Member already exists: #{member.inspect}"
           end
         end
       end

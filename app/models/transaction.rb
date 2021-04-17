@@ -71,16 +71,16 @@ class Transaction < ApplicationRecord
                 status: "ok"
               )
 
-              puts transaction.inspect
+              Rails.logger.info transaction.inspect
               unless transaction.description
-                puts "EMPTY_DESCRIPTION"
-                puts transaction.inspect
+                Rails.logger.info "EMPTY_DESCRIPTION"
+                Rails.logger.info transaction.inspect
               end
 
               begin
                 transaction.membership_id = extract_membership_id(row.at(7))
               rescue ParserError => e
-                puts "Parsererror for #{row.inspect}"
+                Rails.logger.info "Parsererror for #{row.inspect}"
                 transaction.status_message = e.message
                 transaction.status = "needs_attention"
               end
@@ -88,14 +88,14 @@ class Transaction < ApplicationRecord
               if transaction.save
                 imported_rows.push row
               else
-                puts "############ BROKEN TRANSACTION BELOW ############"
-                puts transaction.errors.full_messages
+                Rails.logger.info "############ BROKEN TRANSACTION BELOW ############"
+                Rails.logger.info transaction.errors.full_messages
                 invalid_rows.push row
               end
 
             rescue ActiveRecord::RecordNotUnique
               duplicate_rows.push row
-              puts "Record already exists: #{transaction.inspect}"
+              Rails.logger.info "Record already exists: #{transaction.inspect}"
             end
           else
             ignored_rows.push row
@@ -104,11 +104,11 @@ class Transaction < ApplicationRecord
       end
     end
 
-    puts "total rows: #{total_rows_count}"
-    puts "imported rows: #{imported_rows.length}"
-    puts "duplicate rows: #{duplicate_rows.length}"
-    puts "ignored rows: #{ignored_rows.length}"
-    puts "invalid rows: #{invalid_rows.length}"
+    Rails.logger.info "total rows: #{total_rows_count}"
+    Rails.logger.info "imported rows: #{imported_rows.length}"
+    Rails.logger.info "duplicate rows: #{duplicate_rows.length}"
+    Rails.logger.info "ignored rows: #{ignored_rows.length}"
+    Rails.logger.info "invalid rows: #{invalid_rows.length}"
 
     ImportStatus.new(total_rows_count, imported_rows.length, duplicate_rows.length, ignored_rows.length, invalid_rows.length)
   end

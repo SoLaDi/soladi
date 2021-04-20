@@ -105,7 +105,7 @@ class Membership < ApplicationRecord
     elsif end_date.nil?
       date > start_date
     else
-      start_date > date < end_date
+      start_date > date and date < end_date
     end
   end
 

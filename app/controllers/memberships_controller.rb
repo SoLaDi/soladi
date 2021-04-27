@@ -3,6 +3,19 @@ class MembershipsController < ApplicationController
 
   before_action :set_membership, only: [:show, :edit, :update, :destroy]
 
+  def send_payment_overdue_reminder_mails
+    recipients = Membership.overdue.map { |m| m.people }.flatten
+    Rails.logger.info("Going to send reminder mails to the following members: #{recipients}")
+
+    recipients.each do |recipient|
+      ReminderMailer.with(person: recipient).payment_overdue_reminder_mail.deliver_now
+    end
+
+    redirect_to :memberships, notice: "E-Mail Versand abgeschlossen an #{recipients.length} Empfänger!"
+  rescue Exception => e
+    redirect_to :memberships, notice: "E-Mail Versand fehlgeschlagen: #{e.message}"
+  end
+
   def import
     begin
       import_status = Membership.import(params[:file])
@@ -17,15 +30,14 @@ class MembershipsController < ApplicationController
     end
   end
 
+  def overdue
+    @memberships = Membership.overdue
+  end
+
   # GET /memberships
   # GET /memberships.json
   def index
-    @fem = Membership.all.map { |m|
-      cost = m.total_cost
-      pay = m.payments_since_joined
-      MembershipFrontend.new(m, cost, pay)
-    }
-
+    @memberships = Membership.all
   end
 
   # GET /memberships/1

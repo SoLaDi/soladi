@@ -18,7 +18,7 @@ class DistributionPoint < ApplicationRecord
 
   def total_payments
     memberships.inject(0) do |sum, membership|
-      sum + membership.payments_since_joined
+      sum + membership.total_payments
     end
   end
 end

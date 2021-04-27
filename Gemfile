@@ -69,3 +69,5 @@ gem "rails-i18n", "~> 6.0"
 gem "devise-i18n", "~> 1.9"
 
 gem "lograge", "~> 0.11.2"
+
+gem "bootstrap_form", "~> 4.5"

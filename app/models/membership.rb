@@ -83,8 +83,12 @@ class Membership < ApplicationRecord
     end
   end
 
-  def payments_since_joined
+  def total_payments
     transactions.sum(:amount)
+  end
+
+  def total_balance
+    total_payments - total_cost
   end
 
   def payments_for_fiscal_year(year)
@@ -107,6 +111,12 @@ class Membership < ApplicationRecord
     else
       start_date > date and date < end_date
     end
+  end
+
+  def self.overdue
+    Membership.all.filter { |m|
+      m.total_balance < 0
+    }
   end
 
   def self.active

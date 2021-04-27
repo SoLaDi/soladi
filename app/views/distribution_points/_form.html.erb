@@ -1,48 +1,9 @@
-<%= form_with(model: distribution_point, local: true) do |form| %>
-  <% if distribution_point.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(distribution_point.errors.count, "error") %> prohibited this distribution_point from being saved:</h2>
-
-      <ul>
-        <% distribution_point.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="form-group">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
-
-  <div class="form-group">
-    <%= form.label :street %>
-    <%= form.text_field :street %>
-  </div>
-
-  <div class="form-group">
-    <%= form.label :housenumber %>
-    <%= form.text_field :housenumber %>
-  </div>
-
-  <div class="form-group">
-    <%= form.label :zipcode %>
-    <%= form.text_field :zipcode %>
-  </div>
-
-  <div class="form-group">
-    <%= form.label :city %>
-    <%= form.text_field :city %>
-  </div>
-
-  <div class="form-group">
-    <%= form.label "Ansprechpartner/in" %>
-    <%= form.collection_select(:person_id, Person.order('name ASC'), :id, :full_name, { include_blank: true }) %>
-
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+<%= bootstrap_form_with(model: distribution_point, local: true) do |f| %>
+  <%= f.text_field "Bezeichnung" %>
+  <%= f.text_field "Straße" %>
+  <%= f.text_field "Hausnummer" %>
+  <%= f.text_field "Postleitzahl" %>
+  <%= f.text_field "Stadt" %>
+  <%= f.collection_select(:person_id, Person.order('name ASC'), :id, :full_name, { include_blank: true }) %>
+  <%= f.submit "Speichern" %>
 <% end %>

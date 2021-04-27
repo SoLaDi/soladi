@@ -28,22 +28,22 @@
   </thead>
 
   <tbody>
-  <% @fem.each do |fem| %>
+  <% @memberships.each do |membership| %>
     <tr>
-      <td><%= link_to "#{fem.membership.id}", membership_url(fem.membership.id) %></td>
-      <td><%= fem.membership.start_date ? fem.membership.start_date.strftime("%b %Y") : "" %></td>
-      <td><%= fem.membership.end_date ? fem.membership.end_date.strftime("%b %Y") : "" %></td>
-      <td><%= fem.membership.terminated ? "Ja" : "Nein" %></td>
-      <td><%= link_to "#{fem.membership.distribution_point.name}", distribution_point_url(fem.membership.distribution_point.id) %></td>
-      <td><%= fem.membership.people.count %></td>
-      <td><%= fem.membership.bids.count %></td>
-      <td><%= number_to_currency(fem.total_cost) %></td>
-      <td><%= number_to_currency(fem.total_payments) %></td>
-      <td><%= number_to_currency(fem.total_payments - fem.total_cost) %></td>
+      <td><%= link_to "#{membership.id}", membership_url(membership.id) %></td>
+      <td><%= membership.start_date ? membership.start_date.strftime("%b %Y") : "" %></td>
+      <td><%= membership.end_date ? membership.end_date.strftime("%b %Y") : "" %></td>
+      <td><%= membership.terminated ? "Ja" : "Nein" %></td>
+      <td><%= link_to "#{membership.distribution_point.name}", distribution_point_url(membership.distribution_point.id) %></td>
+      <td><%= membership.people.count %></td>
+      <td><%= membership.bids.count %></td>
+      <td><%= number_to_currency(membership.total_cost) %></td>
+      <td><%= number_to_currency(membership.total_payments) %></td>
+      <td><%= number_to_currency(membership.total_balance) %></td>
 
-      <td><%= link_to 'Details', fem.membership %></td>
-      <td><%= link_to 'Bearbeiten', edit_membership_path(fem.membership) %></td>
-      <td><%= link_to 'Löschen', fem.membership, method: :delete, data: { confirm: 'Bist du sicher?' } %></td>
+      <td><%= link_to 'Details', membership %></td>
+      <td><%= link_to 'Bearbeiten', edit_membership_path(membership) %></td>
+      <td><%= link_to 'Löschen', membership, method: :delete, data: { confirm: 'Bist du sicher?' } %></td>
     </tr>
   <% end %>
   </tbody>
@@ -51,7 +51,15 @@
 
 <br>
 
-<%= link_to 'Neue Mitgliedschaft anlegen', new_membership_path %>
+<div class="card">
+  <h3 class="card-header">Aktionen</h3>
+  <div class="card-body">
+    <%= button_to 'Neue Mitgliedschaft anlegen', new_membership_path,  { type: "button", class: 'btn btn-outline-primary', method: :get } %>
+    <%= button_to 'Säumige Mitglieder erinnern', send_payment_overdue_reminder_mails_memberships_path, { type: "button", class: 'btn btn-outline-primary', method: :post } %>
+
+  </div>
+</div>
+
 
 <br>
 <br>

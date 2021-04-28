@@ -1,0 +1,39 @@
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
+</head>
+<body>
+<h1>Überfälliger SoLaWi Mitgliedsbeitrag</h1>
+<p>
+  Hallo <%= @person.name %>
+</p>
+<p>
+  es scheint als hättest du versäumt, deinen Mitgliedsbeitrag für unsere SoLaWi zu bezahlen.
+  <br>
+  Für deine Mitgliedschaft mit der Nummer <%= "S#{@person.membership.id}" %> fehlen uns
+  aktuell <%= number_to_currency(-@person.membership.total_balance) %>!
+</p>
+<p>Bitte überweise baldmöglichst das Geld an:</p>
+<p>
+<dl>
+  <dt>Empfänger:</dt>
+  <dl>Boris Laufer</dl>
+  <dt>IBAN:</dt>
+  <dl>DE61 1705 4040 0020 0141 98</dl>
+  <dt>BIC:</dt>
+  <dl>WELADED1MOL</dl>
+  <dt>Verwendungszweck:</dt>
+  <dl><%= "#{@person.name} #{@person.surname} S#{@person.membership.id}" %></dl>
+</dl>
+</p>
+<p>
+  Solltest du den Betrag bereits überwiesen haben, kannst du diese Nachricht ignorieren.
+  <br>
+  Bei Rückfragen antworte bitte einfach auf diese E-Mail oder wende dich an:
+  <a href="mailto:boris@gaertnerei-apfeltraum.de">boris@gaertnerei-apfeltraum.de</a>.
+</p>
+<p>
+  Vielen Dank und bis bald
+</p>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table id="overdue-memberships" class="table table-striped table-bordered">
+          <thead>
+          <tr>
+            <th>ID</th>
+            <th>Soll (Gesamt)</th>
+            <th>Ist (Gesamt)</th>
+            <th>Kontostand</th>
+          </tr>
+          </thead>
+
+          <tbody>
+          <% @overdue_memberships.each do |membership| %>
+            <tr>
+              <td><%= link_to "#{membership.id}", membership_url(membership.id) %></td>
+              <td><%= number_to_currency(membership.total_cost) %></td>
+              <td><%= number_to_currency(membership.total_payments) %></td>
+              <td><%= number_to_currency(membership.total_balance) %></td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#overdue-memberships').dataTable({
+                    "ordering": true
+                });
+            });
+        </script>
+      </div>
+      <div class="modal-footer">
+        <%= button_to 'Erinnerungen senden', send_payment_overdue_reminder_mails_memberships_path, { type: "button", class: 'btn btn-outline-primary', method: :post } %>
+      </div>
+    </div>
+  </div>
+</div>

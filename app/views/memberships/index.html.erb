@@ -50,13 +50,17 @@
 </table>
 
 <br>
+<!-- Button trigger modal -->
+
+<%= render 'reminder_mail_modal' %>
 
 <div class="card">
   <h3 class="card-header">Aktionen</h3>
   <div class="card-body">
     <%= button_to 'Neue Mitgliedschaft anlegen', new_membership_path,  { type: "button", class: 'btn btn-outline-primary', method: :get } %>
-    <%= button_to 'Säumige Mitglieder erinnern', send_payment_overdue_reminder_mails_memberships_path, { type: "button", class: 'btn btn-outline-primary', method: :post } %>
-
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+      Zahlungserinnerungen verschicken
+    </button>
   </div>
 </div>
 

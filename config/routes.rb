@@ -59,11 +59,22 @@
 
 Rails.application.routes.draw do
   root :to => 'home#index'
-  resources :people do collection {post :import} end
+  resources :people do
+    collection { post :import }
+  end
   resources :distribution_points
-  resources :bids do collection {post :import} end
-  resources :transactions do collection {post :import} end
-  resources :memberships do collection {post :import} end
+  resources :bids do
+    collection { post :import }
+  end
+  resources :transactions do
+    collection { post :import }
+  end
+  resources :memberships do
+    collection {
+      post :send_payment_overdue_reminder_mails
+      post :import
+    }
+  end
   devise_for :users
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

@@ -18,6 +18,8 @@ class Membership < ApplicationRecord
   belongs_to :distribution_point
   accepts_nested_attributes_for :bids
 
+  has_paper_trail
+
   def self.import(file)
     total_rows_count = 0
     imported_rows = []

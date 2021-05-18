@@ -16,6 +16,8 @@ class Person < ApplicationRecord
   belongs_to :membership
   has_one :distribution_point
 
+  has_paper_trail
+
   def self.load_from_wordpress
     wp_user = ENV['WP_USER']
     wp_password = ENV['WP_PASSWORD']

@@ -22,6 +22,8 @@ class Transaction < ApplicationRecord
   validates :amount, presence: true
   validates :currency, presence: true
 
+  has_paper_trail
+
   require 'csv'
   require 'bigdecimal'
   require 'bigdecimal/util'

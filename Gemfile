@@ -71,3 +71,5 @@ gem "devise-i18n", "~> 1.9"
 gem "lograge", "~> 0.11.2"
 
 gem "bootstrap_form", "~> 4.5"
+
+gem "paper_trail", "~> 12.0"

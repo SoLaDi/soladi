@@ -16,6 +16,8 @@ class Bid < ApplicationRecord
   belongs_to :membership
   validates_with BidValidator
 
+  has_paper_trail
+
   scope :active_between, ->(start_date, end_date) {
     where(start_date: ..start_date, end_date: end_date..)
   }

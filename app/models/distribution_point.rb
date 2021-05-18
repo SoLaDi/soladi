@@ -16,6 +16,8 @@ class DistributionPoint < ApplicationRecord
   has_many :memberships
   belongs_to :person, optional: true
 
+  has_paper_trail
+
   def total_payments
     memberships.inject(0) do |sum, membership|
       sum + membership.total_payments

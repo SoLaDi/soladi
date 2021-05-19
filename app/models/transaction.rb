@@ -79,7 +79,7 @@ class Transaction < ApplicationRecord
                 entry_date: row.at(0),
                 sender: row.at(4),
                 description: row.at(7),
-                amount: amount.tr(',', '.').to_d,
+                amount: amount.tr('.', '').tr(',', '.').to_d,
                 currency: row.at(9),
                 status: "ok"
               )

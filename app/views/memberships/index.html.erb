@@ -3,12 +3,13 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $('#rich-table').dataTable({
-            "ordering": true
+            "ordering": true,
+            "stateSave": true
         });
     });
 </script>
 
-<table id="rich-table" class="table table-striped table-bordered">
+<table id="rich-table" class="table table-striped table-bordered" data-turbolinks="false">
   <thead>
   <tr>
     <th>ID</th>
@@ -57,7 +58,7 @@
 <div class="card">
   <h3 class="card-header">Aktionen</h3>
   <div class="card-body">
-    <%= button_to 'Neue Mitgliedschaft anlegen', new_membership_path,  { type: "button", class: 'btn btn-outline-primary', method: :get } %>
+    <%= button_to 'Neue Mitgliedschaft anlegen', new_membership_path, { type: "button", class: 'btn btn-outline-primary', method: :get } %>
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
       Zahlungserinnerungen verschicken
     </button>

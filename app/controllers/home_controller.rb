@@ -25,7 +25,7 @@ class HomeController < ApplicationController
   end
 
   def transaction_grouping_date(date)
-    if date.day >= 10
+    if date.day >= 15
       Date.new(date.year, date.month) + 1.month
     else
       Date.new(date.year, date.month)

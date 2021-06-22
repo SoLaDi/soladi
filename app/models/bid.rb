@@ -18,10 +18,6 @@ class Bid < ApplicationRecord
 
   has_paper_trail
 
-  scope :active_between, ->(start_date, end_date) {
-    where(start_date: start_date..end_date, end_date: start_date..end_date)
-  }
-
   scope :active_at, ->(date) {
     normalised_date = Date.new(date.year, date.month, 1)
     where(start_date: ..normalised_date, end_date: normalised_date..)
@@ -44,7 +40,7 @@ class Bid < ApplicationRecord
   end
 
   def self.total_shares(date)
-    Bid.active_between(date, date).sum(:shares)
+    Bid.active_at(date).sum(:shares)
   end
 
   def self.import(file)

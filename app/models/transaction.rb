@@ -29,7 +29,7 @@ class Transaction < ApplicationRecord
   require 'bigdecimal/util'
 
   scope :associated_with_membership, ->() {
-    where.not(membership_id: nil)
+    where.not(membership_id: nil).where.not(status: "ignored")
   }
 
   scope :not_associated, ->() {

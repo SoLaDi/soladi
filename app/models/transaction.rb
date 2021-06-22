@@ -28,7 +28,7 @@ class Transaction < ApplicationRecord
   require 'bigdecimal'
   require 'bigdecimal/util'
 
-  scope :membership_fees, ->() {
+  scope :associated_with_membership, ->() {
     where.not(membership_id: nil)
   }
 
@@ -38,7 +38,7 @@ class Transaction < ApplicationRecord
 
   def self.total_amount(start_date, end_date)
     Transaction
-      .membership_fees
+      .associated_with_membership
       .where(entry_date: start_date..end_date)
       .sum(:amount)
   end

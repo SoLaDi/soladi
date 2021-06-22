@@ -24,13 +24,21 @@ class HomeController < ApplicationController
     MonthlyRevenueStats.new(revenue, not_associated_payments, expected, labels)
   end
 
+  def transaction_grouping_date(date)
+    if date.day >= 10
+      Date.new(date.year, date.month) + 1.month
+    else
+      Date.new(date.year, date.month)
+    end
+  end
+
   def calculate_monthly_payments(start_date, end_date)
     monthly_buckets = ApplicationHelper.range_to_months(start_date, end_date).map { |month| [month, 0] }.to_h
     Transaction
-      .membership_fees
+      .associated_with_membership
       .where(entry_date: start_date..end_date)
       .group_by { |transaction|
-        Date.new(transaction.entry_date.year, transaction.entry_date.month)
+        transaction_grouping_date(transaction.entry_date)
       }.each { |date, transactions|
       monthly_buckets[date] = transactions.inject(0) { |sum, t| sum + t.amount }
     }
@@ -47,7 +55,7 @@ class HomeController < ApplicationController
       .not_associated
       .where(entry_date: start_date..end_date)
       .group_by { |transaction|
-        Date.new(transaction.entry_date.year, transaction.entry_date.month)
+        transaction_grouping_date(transaction.entry_date)
       }.each { |date, transactions|
       monthly_buckets[date] = transactions.inject(0) { |sum, t| sum + t.amount }
     }

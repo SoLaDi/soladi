@@ -131,7 +131,8 @@ class Transaction < ApplicationRecord
       raise ParserError.new("Die Transaktion enthält keinen Buchungstext")
     end
 
-    matches = description.scan(/S\d{4}/)
+    cleaned_description = description.gsub(/\s+/, "").gsub(/\./, "")
+    matches = cleaned_description.scan(/S\d{4}/)
     if matches.length == 0
       raise ParserError.new("Keine Mitgliedschaftsnummer gefunden")
     elsif matches.length == 1

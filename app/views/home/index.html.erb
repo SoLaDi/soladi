@@ -48,6 +48,7 @@
       <div class="card">
         <div class="card-body">
           <h3>Wirtschaftsjahr 2021</h3>
+          <h6>01.04.2021 - 31.03.2022</h6>
           <p>Erwartet: <%= number_to_currency(@data.current_year_balance.cost) %></p>
           <p>Erhalten: <%= number_to_currency(@data.current_year_balance.payments) %></p>
           <p>Differenz: <%= number_to_currency(@data.current_year_balance.payments - @data.current_year_balance.cost) %></p>
@@ -86,7 +87,7 @@
         <div class="card-body">
           <h3>Mitgliedschaften</h3>
           <p>Total: <%= @data.membership_stats.total_amount %></p>
-          <p>Aktiv: <%= @data.membership_stats.currently_active %></p>
+          <p>momentan Aktiv: <%= @data.membership_stats.currently_active %></p>
           <p>momentan vergebene Anteile: <%= @data.membership_stats.current_shares %></p>
         </div>
       </div>
@@ -95,7 +96,7 @@
     <div class="col-sm">
       <div class="card">
         <div class="card-body">
-          <h3>Im letzten Monat</h3>
+          <h3><%= @data.balance_triple.last_month.end_date.strftime("%b %Y") %></h3>
           <h6><%= l(@data.balance_triple.last_month.start_date) %> - <%= l(@data.balance_triple.last_month.end_date) %> </h6>
           <p>Erwartet: <%= number_to_currency(@data.balance_triple.last_month.cost) %></p>
           <p>Erhalten: <%= number_to_currency(@data.balance_triple.last_month.payments) %></p>
@@ -133,7 +134,7 @@
     <div class="col-sm">
       <div class="card">
         <div class="card-body">
-          <h3>In diesem Monat</h3>
+          <h3><%= @data.balance_triple.this_month.end_date.strftime("%b %Y") %></h3>
           <h6><%= l(@data.balance_triple.this_month.start_date) %> - <%= l(@data.balance_triple.this_month.end_date) %> </h6>
           <p>Erwartet: <%= number_to_currency(@data.balance_triple.this_month.cost) %></p>
           <p>Erhalten: <%= number_to_currency(@data.balance_triple.this_month.payments) %></p>
@@ -171,7 +172,7 @@
     <div class="col-sm">
       <div class="card">
         <div class="card-body">
-          <h3>Nächsten Monat</h3>
+          <h3><%= @data.balance_triple.next_month.end_date.strftime("%b %Y") %></h3>
           <h6><%= l(@data.balance_triple.next_month.start_date) %> - <%= l(@data.balance_triple.next_month.end_date) %> </h6>
           <p>Erwartet: <%= number_to_currency(@data.balance_triple.next_month.cost) %></p>
           <p>Erhalten: <%= number_to_currency(@data.balance_triple.next_month.payments) %></p>

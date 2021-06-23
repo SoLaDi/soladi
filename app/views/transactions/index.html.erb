@@ -29,7 +29,7 @@
   <tbody>
   <% @transactions.each do |transaction| %>
     <tr>
-      <td><%= transaction.entry_date %></td>
+      <td><%= l(transaction.entry_date) %></td>
       <td><%= transaction.sender %></td>
       <td><%= transaction.description %></td>
       <td><%= number_with_delimiter(transaction.amount) %></td>

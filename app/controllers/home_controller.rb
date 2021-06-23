@@ -3,9 +3,7 @@ class HomeController < ApplicationController
     @data = DashboardData.new(
       calculate_totals,
       calculate_current_year_totals,
-      calculate_this_month_totals,
-      calculate_last_month_totals,
-      calculate_next_month_totals,
+      calculate_balance_triple,
       calculate_membership_stats,
       calculate_monthly_revenue_graph,
       calculate_monthly_shares
@@ -99,34 +97,34 @@ class HomeController < ApplicationController
     date_range_revenue_statistics(Date.new(now.year, 4), Date.new(now.year + 1, 3))
   end
 
-  def calculate_this_month_totals
+  def calculate_balance_triple
     now = Date.today
-    self.monthly_revenue_statistics(now)
-  end
+    this_month = Date.new(now.year, now.month, 1)
+    last_month = this_month - 1.month
+    next_month = this_month + 1.month
+    last_month_balance = self.monthly_revenue_statistics(last_month)
+    this_month_balance = self.monthly_revenue_statistics(this_month)
+    next_month_balance = self.monthly_revenue_statistics(next_month)
 
-  def calculate_last_month_totals
-    last_month = Date.today - 1.month
-    self.monthly_revenue_statistics(last_month)
-  end
-
-  def calculate_next_month_totals
-    next_month = Date.today + 1.month
-    self.monthly_revenue_statistics(next_month)
+    BalanceTriple.new(last_month_balance, this_month_balance, next_month_balance)
   end
 
   def monthly_revenue_statistics(month)
 
-    month_start = Date.new(month.year, month.month)
-    month_end = Date.new(month.year, month.month + 1) - 1.day
+    month_start = Date.new(month.year, month.month - 1, 15)
+    month_end = Date.new(month.year, month.month, 14)
 
-    date_range_revenue_statistics(month_start, month_end)
+    cost = Bid.total_amount(month, month)
+    payments = Transaction.total_amount(month_start, month_end)
+
+    Balance.new(month_start, month_end, cost, payments)
   end
 
   def date_range_revenue_statistics(start_date, end_date)
     cost = Bid.total_amount(start_date, end_date)
     payments = Transaction.total_amount(start_date, end_date)
 
-    Balance.new(cost, payments)
+    Balance.new(start_date, end_date, cost, payments)
   end
 
   def calculate_membership_stats

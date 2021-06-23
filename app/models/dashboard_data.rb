@@ -1,9 +1,25 @@
+class BalanceTriple
+  def initialize(last_month, this_month, next_month)
+    @last_month = last_month
+    @this_month = this_month
+    @next_month = next_month
+  end
+
+  attr_accessor :last_month
+  attr_accessor :this_month
+  attr_accessor :next_month
+end
+
 class Balance
-  def initialize(cost, payments)
+  def initialize(start_date, end_date, cost, payments)
+    @start_date = start_date
+    @end_date = end_date
     @cost = cost
     @payments = payments
   end
 
+  attr_accessor :start_date
+  attr_accessor :end_date
   attr_accessor :cost
   attr_accessor :payments
 end
@@ -45,12 +61,10 @@ class MonthlyShares
 end
 
 class DashboardData
-  def initialize(total_balance, current_year_balance, this_month_balance, last_month_balance, next_month_balance, membership_stats, monthly_revenue, monthly_shares)
+  def initialize(total_balance, current_year_balance, balance_triple, membership_stats, monthly_revenue, monthly_shares)
     @total_balance = total_balance
     @current_year_balance = current_year_balance
-    @this_month_balance = this_month_balance
-    @last_month_balance = last_month_balance
-    @next_month_balance = next_month_balance
+    @balance_triple = balance_triple
     @membership_stats = membership_stats
     @monthly_revenue = monthly_revenue
     @monthly_shares = monthly_shares
@@ -58,9 +72,7 @@ class DashboardData
 
   attr_reader :total_balance
   attr_reader :current_year_balance
-  attr_reader :this_month_balance
-  attr_reader :last_month_balance
-  attr_reader :next_month_balance
+  attr_reader :balance_triple
   attr_reader :membership_stats
   attr_reader :monthly_revenue
   attr_reader :monthly_shares

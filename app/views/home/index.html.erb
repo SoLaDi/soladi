@@ -2,6 +2,11 @@
 
 <div class="container">
   <div class="row">
+    <div class="alert alert-info" role="alert">
+      Einnahmen werden immer bis zum 15. eines Monats zum aktuellen Monat gezählt. Danach zählen sie bereits zum darauffolgenden Monat.
+    </div>
+  </div>
+  <div class="row">
     <div class="col-sm">
       <div class="card">
         <div class="card-body">
@@ -91,9 +96,10 @@
       <div class="card">
         <div class="card-body">
           <h3>Im letzten Monat</h3>
-          <p>Erwartet: <%= number_to_currency(@data.last_month_balance.cost) %></p>
-          <p>Erhalten: <%= number_to_currency(@data.last_month_balance.payments) %></p>
-          <p>Differenz: <%= number_to_currency(@data.last_month_balance.payments - @data.last_month_balance.cost) %></p>
+          <h6><%= l(@data.balance_triple.last_month.start_date) %> - <%= l(@data.balance_triple.last_month.end_date) %> </h6>
+          <p>Erwartet: <%= number_to_currency(@data.balance_triple.last_month.cost) %></p>
+          <p>Erhalten: <%= number_to_currency(@data.balance_triple.last_month.payments) %></p>
+          <p>Differenz: <%= number_to_currency(@data.balance_triple.last_month.payments - @data.balance_triple.last_month.cost) %></p>
           <div style="width: 250px">
             <canvas id="lastMonthPieChart"></canvas>
           </div>
@@ -104,8 +110,8 @@
                   data: {
                       datasets: [{
                           data: [
-                              <%= @data.last_month_balance.cost - @data.last_month_balance.payments %>,
-                              <%= @data.last_month_balance.payments %>
+                              <%= @data.balance_triple.last_month.cost - @data.balance_triple.last_month.payments %>,
+                              <%= @data.balance_triple.last_month.payments %>
                           ],
                           backgroundColor: [
                               '#ED561B',
@@ -128,9 +134,10 @@
       <div class="card">
         <div class="card-body">
           <h3>In diesem Monat</h3>
-          <p>Erwartet: <%= number_to_currency(@data.this_month_balance.cost) %></p>
-          <p>Erhalten: <%= number_to_currency(@data.this_month_balance.payments) %></p>
-          <p>Differenz: <%= number_to_currency(@data.this_month_balance.payments - @data.this_month_balance.cost) %></p>
+          <h6><%= l(@data.balance_triple.this_month.start_date) %> - <%= l(@data.balance_triple.this_month.end_date) %> </h6>
+          <p>Erwartet: <%= number_to_currency(@data.balance_triple.this_month.cost) %></p>
+          <p>Erhalten: <%= number_to_currency(@data.balance_triple.this_month.payments) %></p>
+          <p>Differenz: <%= number_to_currency(@data.balance_triple.this_month.payments - @data.balance_triple.this_month.cost) %></p>
           <div style="width: 250px">
             <canvas id="currentMonthPieChart"></canvas>
           </div>
@@ -141,8 +148,8 @@
                   data: {
                       datasets: [{
                           data: [
-                              <%= @data.this_month_balance.cost - @data.this_month_balance.payments %>,
-                              <%= @data.this_month_balance.payments %>
+                              <%= @data.balance_triple.this_month.cost - @data.balance_triple.this_month.payments %>,
+                              <%= @data.balance_triple.this_month.payments %>
                           ],
                           backgroundColor: [
                               '#ED561B',
@@ -165,9 +172,10 @@
       <div class="card">
         <div class="card-body">
           <h3>Nächsten Monat</h3>
-          <p>Erwartet: <%= number_to_currency(@data.next_month_balance.cost) %></p>
-          <p>Erhalten: <%= number_to_currency(@data.next_month_balance.payments) %></p>
-          <p>Differenz: <%= number_to_currency(@data.next_month_balance.payments - @data.next_month_balance.cost) %></p>
+          <h6><%= l(@data.balance_triple.next_month.start_date) %> - <%= l(@data.balance_triple.next_month.end_date) %> </h6>
+          <p>Erwartet: <%= number_to_currency(@data.balance_triple.next_month.cost) %></p>
+          <p>Erhalten: <%= number_to_currency(@data.balance_triple.next_month.payments) %></p>
+          <p>Differenz: <%= number_to_currency(@data.balance_triple.next_month.payments - @data.balance_triple.next_month.cost) %></p>
           <div style="width: 250px">
             <canvas id="nextMonthPieChart"></canvas>
           </div>
@@ -178,8 +186,8 @@
                   data: {
                       datasets: [{
                           data: [
-                              <%= @data.next_month_balance.cost - @data.next_month_balance.payments %>,
-                              <%= @data.next_month_balance.payments %>
+                              <%= @data.balance_triple.next_month.cost - @data.balance_triple.next_month.payments %>,
+                              <%= @data.balance_triple.next_month.payments %>
                           ],
                           backgroundColor: [
                               '#ED561B',

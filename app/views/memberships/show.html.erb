@@ -18,6 +18,23 @@
     </p>
 
     <br/>
+
+    <p>
+      <strong>Summe erwartet:</strong>
+      <%= number_to_currency(@membership.total_cost) %>
+    </p>
+
+    <p>
+      <strong>Summe erhalten:</strong>
+      <%= number_to_currency(@membership.total_payments) %>
+    </p>
+
+    <p>
+      <strong>Kontostand:</strong>
+      <%= number_to_currency(@membership.total_balance) %>
+    </p>
+
+    <br/>
     <%= link_to 'Bearbeiten', edit_membership_path(@membership) %> |
     <%= link_to 'Zurück', memberships_path %>
   </div>

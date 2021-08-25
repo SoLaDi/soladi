@@ -257,9 +257,23 @@
                   },
                   options: {
                       tooltips: {
+                          mode: 'x',
                           callbacks: {
+                              footer: (tooltipItems, data) => {
+                                  let tooltipItem = tooltipItems[0]
+                                  // console.log(tooltipItem)
+                                  // console.log(data)
+
+                                  if (tooltipItem.datasetIndex !== 2) {
+                                      let index = tooltipItem.index
+                                      let total = parseFloat(data.datasets[0].data[index]) + parseFloat(data.datasets[1].data[index]);
+                                      return 'Einnahmen gesamt: ' + currency_formatter.format(total);
+                                  }
+                              },
                               label: function (tooltipItem, data) {
-                                  return currency_formatter.format(tooltipItem.yLabel);
+                                  let index = tooltipItem.datasetIndex
+                                  let label = data.datasets[index].label
+                                  return currency_formatter.format(tooltipItem.yLabel) + ` (${label})`;
                               }
                           }
                       },

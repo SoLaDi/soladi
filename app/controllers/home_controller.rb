@@ -109,9 +109,11 @@ class HomeController < ApplicationController
     BalanceTriple.new(last_month_balance, this_month_balance, next_month_balance)
   end
 
+  # @param month - a Date for which year-month the calculation is done
   def monthly_revenue_statistics(month)
+    last_month = month - 1.month
 
-    month_start = Date.new(month.year, month.month - 1, 15)
+    month_start = Date.new(month.year, last_month.month, 15)
     month_end = Date.new(month.year, month.month, 14)
 
     cost = Bid.total_amount(month, month)

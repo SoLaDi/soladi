@@ -113,7 +113,7 @@ class HomeController < ApplicationController
   def monthly_revenue_statistics(month)
     last_month = month - 1.month
 
-    month_start = Date.new(month.year, last_month.month, 15)
+    month_start = Date.new(last_month.year, last_month.month, 15)
     month_end = Date.new(month.year, month.month, 14)
 
     cost = Bid.total_amount(month, month)

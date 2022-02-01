@@ -67,7 +67,10 @@ Rails.application.routes.draw do
     collection { post :import }
   end
   resources :transactions do
-    collection { post :import }
+    collection {
+      post :import
+      get :export_csv
+    }
   end
   resources :memberships do
     collection {

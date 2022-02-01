@@ -27,6 +27,13 @@ class TransactionsController < ApplicationController
     end
   end
 
+  def export_csv
+    respond_to do |format|
+      format.html
+      format.csv { send_data Transaction.all.to_csv }
+    end
+  end
+
   # GET /transactions/1
   # GET /transactions/1.json
   def show

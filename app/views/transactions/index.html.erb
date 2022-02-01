@@ -56,3 +56,8 @@
     <%= submit_tag "Import CSV" %>
   <% end %>
 </div>
+<br/>
+<div>
+  <h4>Export als CSV</h4>
+  <%= link_to( '<button type="button">Transaktionen exportiern</button>'.html_safe ,{ :action => :export_csv, format: 'csv'}, { :class => "btn-edit" } ) %>
+</div>

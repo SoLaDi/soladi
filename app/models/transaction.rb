@@ -126,6 +126,18 @@ class Transaction < ApplicationRecord
     ImportStatus.new(total_rows_count, imported_rows.length, duplicate_rows.length, ignored_rows.length, invalid_rows.length)
   end
 
+  def self.to_csv
+    attributes = %w{id entry_date membership_id sender description amount status}
+
+    CSV.generate(headers: true) do |csv|
+      csv << attributes
+
+      all.each do |contact|
+        csv << attributes.map{ |attr| contact.send(attr) }
+      end
+    end
+  end
+
   def self.extract_membership_id(description)
     unless description
       raise ParserError.new("Die Transaktion enthält keinen Buchungstext")

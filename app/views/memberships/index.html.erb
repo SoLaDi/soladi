@@ -59,7 +59,10 @@
   <h3 class="card-header">Aktionen</h3>
   <div class="card-body">
     <%= button_to 'Neue Mitgliedschaft anlegen', new_membership_path, { type: "button", class: 'btn btn-outline-primary', method: :get } %>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+    <br>
+    <%= button_to 'PDF Zusammenfassung herunterladen', "/memberships.pdf", { type: "button", class: 'btn btn-outline-primary', method: :get } %>
+    <br>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#reminderMailModal">
       Zahlungserinnerungen verschicken
     </button>
   </div>

@@ -2,6 +2,17 @@
 
 ## development
 
+### prepare the stage (MacOS)
+   
+    brew install rbenv nvm
+
+    rbenv install 2.7.2
+    rbenv global 2.7.2
+
+    nvm install v12.22.7
+    npm install --target_arch=x64
+    
+
 ### install dependencies
 
     bundle install

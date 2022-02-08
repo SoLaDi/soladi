@@ -26,8 +26,8 @@ prawn_document(filename: "my-file.pdf", disposition: "attachment") do |pdf|
   transactions_table_data = @membership.transactions.collect { |p| [
     p.sender,
     p.description,
-    p.entry_date,
-    p.amount,
+    l(p.entry_date),
+    number_with_delimiter(p.amount),
     p.status
   ] }
 

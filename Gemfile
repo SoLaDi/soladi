@@ -73,3 +73,7 @@ gem "lograge", "~> 0.11.2"
 gem "bootstrap_form", "~> 4.5"
 
 gem "paper_trail", "~> 12.0"
+
+gem "prawn-rails", "~> 1.4.2"
+
+gem "combine_pdf", "~> 1.0.22"

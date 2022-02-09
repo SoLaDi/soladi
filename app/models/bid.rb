@@ -16,7 +16,7 @@ class Bid < ApplicationRecord
   belongs_to :membership
   validates_with BidValidator
 
-  has_paper_trail
+  has_paper_trail ignore: [:updated_at]
 
   scope :active_at, ->(date) {
     normalised_date = Date.new(date.year, date.month, 1)

@@ -18,7 +18,7 @@ class Membership < ApplicationRecord
   belongs_to :distribution_point
   accepts_nested_attributes_for :bids
 
-  has_paper_trail
+  has_paper_trail ignore: [:updated_at]
 
   def self.import(file)
     total_rows_count = 0

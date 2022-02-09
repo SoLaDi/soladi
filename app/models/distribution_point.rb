@@ -16,7 +16,7 @@ class DistributionPoint < ApplicationRecord
   has_many :memberships
   belongs_to :person, optional: true
 
-  has_paper_trail
+  has_paper_trail ignore: [:updated_at]
 
   def total_payments
     memberships.inject(0) do |sum, membership|

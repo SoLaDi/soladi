@@ -16,7 +16,7 @@ class Person < ApplicationRecord
   belongs_to :membership
   has_one :distribution_point
 
-  has_paper_trail
+  has_paper_trail ignore: [:updated_at]
 
   def self.load_from_wordpress
     wp_user = ENV['WP_USER']

@@ -1,0 +1,25 @@
+<div class="card">
+  <h3 class="card-header">Details des Benutzers</h3>
+  <div class="card-body">
+    <p>
+      <strong>ID:</strong>
+      <%= @user.id %>
+    </p>
+
+    <p>
+      <strong>Benutzername:</strong>
+      <%= @user.email %>
+    </p>
+
+    <p>
+      <strong>Erstellt:</strong>
+      <%= l(@user.created_at) %>
+    </p>
+
+    <p>
+      <strong>Zuletzt geändert:</strong>
+      <%= l(@user.updated_at) %>
+    </p>
+
+  </div>
+</div>

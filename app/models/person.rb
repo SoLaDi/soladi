@@ -18,6 +18,18 @@ class Person < ApplicationRecord
 
   has_paper_trail ignore: [:updated_at]
 
+  after_create :create_offer_secure_token
+
+  def create_offer_secure_token
+    token = SecureRandom.hex(16)
+
+    while Person.find_by(offer_secure_token: token).present?
+      token = SecureRandom.hex(16)
+    end
+
+    self.update_attribute(:offer_secure_token, token)
+  end
+
   def self.load_from_wordpress
     wp_user = ENV['WP_USER']
     wp_password = ENV['WP_PASSWORD']

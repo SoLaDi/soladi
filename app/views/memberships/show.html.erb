@@ -35,7 +35,9 @@
     </p>
 
     <br/>
+
     <%= link_to 'Bearbeiten', edit_membership_path(@membership) %> |
+    <%= link_to 'PDF herunterladen', "#{memberships_path}/#{@membership.id}.pdf" %> |
     <%= link_to 'Zurück', memberships_path %>
   </div>
 </div>

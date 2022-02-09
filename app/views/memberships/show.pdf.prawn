@@ -1,4 +1,4 @@
-prawn_document(filename: "my-file.pdf", disposition: "attachment") do |pdf|
+prawn_document(filename: "mitgliedschaft_#{@membership.id}.pdf", disposition: "attachment") do |pdf|
   pdf.font 'Times-Roman'
   pdf.font_size 16
   pdf.text "Mitgliedschaft Nr.: #{@membership.id}"

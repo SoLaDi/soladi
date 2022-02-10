@@ -11,12 +11,20 @@
 
     nvm install v12.22.7
     npm install --target_arch=x64
+
+### setup NVM to switch automatically to `.nvmrc` version
+
+https://github.com/nvm-sh/nvm#zsh
+
     
 
 ### install dependencies
 
     bundle install
     yarn install
+
+    # if no yarn for current node version
+    npm install --global yarn@v1.22.17
 
 ### prepare local dev db
 

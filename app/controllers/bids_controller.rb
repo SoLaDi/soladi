@@ -10,7 +10,7 @@ class BidsController < ApplicationController
       else
         redirect_to :bids, notice: "Import abgeschlossen! #{import_status.message}"
       end
-    rescue Exception => e
+    rescue StandardError => e
       redirect_to :bids, notice: "Import fehlgeschlagen: #{e.message}"
     end
   end
@@ -23,8 +23,7 @@ class BidsController < ApplicationController
 
   # GET /bids/1
   # GET /bids/1.json
-  def show
-  end
+  def show; end
 
   # GET /bids/new
   def new
@@ -32,8 +31,7 @@ class BidsController < ApplicationController
   end
 
   # GET /bids/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /bids
   # POST /bids.json
@@ -76,13 +74,14 @@ class BidsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_bid
-      @bid = Bid.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def bid_params
-      params.require(:bid).permit(:start_date, :end_date, :amount, :shares, :contract_signed, :membership_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_bid
+    @bid = Bid.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def bid_params
+    params.require(:bid).permit(:start_date, :end_date, :amount, :shares, :contract_signed, :membership_id)
+  end
 end

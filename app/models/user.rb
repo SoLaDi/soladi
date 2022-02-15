@@ -18,6 +18,11 @@
 #  locked_at              :datetime
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  role                   :integer
+#  provider               :string           default("email"), not null
+#  uid                    :string           default(""), not null
+#  tokens                 :text
+#  allow_password_change  :boolean          default(FALSE)
 #
 class User < ApplicationRecord
   # Include default devise modules. Others available are:

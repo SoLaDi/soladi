@@ -63,7 +63,7 @@ class Membership < ApplicationRecord
   def total_months
     now = Date.today
     end_date = self.end_date < now ? self.end_date : now
-    range_to_months(self.start_date, end_date)
+    range_to_months(start_date, end_date)
   end
 
   def total_cost
@@ -80,7 +80,7 @@ class Membership < ApplicationRecord
   end
 
   def cost_for_fiscal_year(year)
-    self.bids.active_between(Date.new(year, 4), Date.new(year + 1, 3)).inject(0) do |sum, bid|
+    bids.active_between(Date.new(year, 4), Date.new(year + 1, 3)).inject(0) do |sum, bid|
       sum + bid.monthly_amount
     end
   end
@@ -98,7 +98,7 @@ class Membership < ApplicationRecord
   end
 
   def bid_for(date)
-    self.bids.where(start_date: ..date, end_date: date..).take
+    bids.where(start_date: ..date, end_date: date..).take
   end
 
   def currently_active?
@@ -106,28 +106,21 @@ class Membership < ApplicationRecord
   end
 
   def active_at(date)
-    if start_date.nil?
-      false
-    elsif end_date.nil?
-      date > start_date
-    else
-      start_date > date and date < end_date
-    end
+    !bid_for(date).nil?
   end
 
   def self.overdue
     Membership.all.filter { |m|
-      m.total_balance < 0
+      m.total_balance.negative?
     }
   end
 
   def self.active
-    now = Date.today
-    Membership.all.filter { |m| m.active_at(now) }
+    Membership.all.filter(&:currently_active?)
   end
 
   def self.active_count
-    self.active.count
+    active.count
   end
 
   def self.total_count

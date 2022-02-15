@@ -11,6 +11,7 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  website_account_status :string
+#  login_token            :string
 #
 class Person < ApplicationRecord
   belongs_to :membership
@@ -18,16 +19,16 @@ class Person < ApplicationRecord
 
   has_paper_trail ignore: [:updated_at]
 
-  after_create :create_offer_secure_token
+  after_create :create_login_token
 
-  def create_offer_secure_token
+  def create_login_token
     token = SecureRandom.hex(16)
 
-    while Person.find_by(offer_secure_token: token).present?
+    while Person.find_by(login_token: token).present?
       token = SecureRandom.hex(16)
     end
 
-    self.update_attribute(:offer_secure_token, token)
+    self.update_attribute(:login_token, token)
   end
 
   def self.load_from_wordpress

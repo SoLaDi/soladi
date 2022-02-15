@@ -58,6 +58,7 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem "annotate", "~> 3.1"
+
 gem "devise"
 
 gem "faraday", "~> 1.3"
@@ -75,5 +76,3 @@ gem "bootstrap_form", "~> 4.5"
 gem "paper_trail", "~> 12.0"
 
 gem "prawn-rails", "~> 1.4.2"
-
-gem "combine_pdf", "~> 1.0.22"

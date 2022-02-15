@@ -11,6 +11,7 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  website_account_status :string
+#  login_token            :string
 #
 require 'test_helper'
 

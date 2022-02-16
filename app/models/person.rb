@@ -47,7 +47,7 @@ class Person < ApplicationRecord
     loop.with_index do |_, index|
       Rails.logger.info index
       response = conn.get "#{wp_base_url}/wp-json/wp/v2/users" do |req|
-        req.params['context'] = "edit"
+        req.params['context'] = 'edit'
         req.params['page'] = index +1
         req.headers['Content-Type'] = 'application/json'
       end
@@ -56,18 +56,18 @@ class Person < ApplicationRecord
       break if users_chunk.length == 0 || index > 30
 
       users_chunk.each do |user|
-        user_id = user["id"]
+        user_id = user['id']
 
         if Person.exists?(user_id)
           existing_person = Person.find(user_id)
           if existing_person.update(
-            id: user["id"],
-            name: user["first_name"],
-            surname: user["last_name"],
-            email: user["email"],
-            phone: user["meta"]["phone_number"],
-            website_account_status: user["meta"]["account_status"],
-            membership_id: user["meta"]["membership_id"][1..-1]
+            id: user['id'],
+            name: user['first_name'],
+            surname: user['last_name'],
+            email: user['email'],
+            phone: user['meta']['phone_number'],
+            website_account_status: user['meta']['account_status'],
+            membership_id: user['meta']['membership_id'][1..-1]
           )
             Rails.logger.info "Successfully updated wp user as member: #{existing_person.inspect}"
           else
@@ -75,13 +75,13 @@ class Person < ApplicationRecord
           end
         else
           member = Person.new(
-            id: user["id"],
-            name: user["first_name"],
-            surname: user["last_name"],
-            email: user["email"],
-            phone: user["meta"]["phone_number"],
-            website_account_status: user["meta"]["account_status"],
-            membership_id: user["meta"]["membership_id"][1..-1]
+            id: user['id'],
+            name: user['first_name'],
+            surname: user['last_name'],
+            email: user['email'],
+            phone: user['meta']['phone_number'],
+            website_account_status: user['meta']['account_status'],
+            membership_id: user['meta']['membership_id'][1..-1]
           )
 
           begin
@@ -96,6 +96,10 @@ class Person < ApplicationRecord
         end
       end
     end
+  end
+
+  def active?
+    website_account_status == 'approved'
   end
 
   def full_name

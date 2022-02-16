@@ -28,11 +28,11 @@ class Membership < ApplicationRecord
     invalid_rows = []
 
     # CSV columns: membership_id, distribution_point_id
-    CSV.foreach(file.path, "r", headers: true, col_sep: ",", encoding: "utf-8") do |row|
+    CSV.foreach(file.path, 'r', headers: true, col_sep: ',', encoding: 'utf-8') do |row|
       total_rows_count += 1
 
-      membership_id = row["membership_id"]
-      distribution_point_id = row["distribution_point_id"]
+      membership_id = row['membership_id']
+      distribution_point_id = row['distribution_point_id']
 
       if Membership.exists?(membership_id)
         duplicate_rows.push row
@@ -41,7 +41,7 @@ class Membership < ApplicationRecord
         if membership.save
           imported_rows.push row
         else
-          Rails.logger.info "############ BROKEN TRANSACTION BELOW ############"
+          Rails.logger.info '############ BROKEN TRANSACTION BELOW ############'
           Rails.logger.info membership.inspect
           Rails.logger.info membership.errors.full_messages
           invalid_rows.push row
@@ -56,6 +56,24 @@ class Membership < ApplicationRecord
     Rails.logger.info "invalid rows: #{invalid_rows.length}"
 
     ImportStatus.new(total_rows_count, imported_rows.length, duplicate_rows.length, ignored_rows.length, invalid_rows.length)
+  end
+
+  def send_payment_overdue_reminder_mail
+    active_members.each do |recipient|
+      Rails.logger.info("Will send overdue reminder mail to #{recipient.email}")
+      PeopleMailer.with(person: recipient).payment_overdue_reminder_mail.deliver_now
+    end
+  end
+
+  def send_bidding_invite_mail
+    active_members.each do |recipient|
+      Rails.logger.info("Will send bidding invite mail to #{recipient.email}")
+      PeopleMailer.with(person: recipient).bidding_round_invite_mail.deliver_now
+    end
+  end
+
+  def active_members
+    people.all.filter(&:active?)
   end
 
   # Return a list of dates for every month a membership has been active

@@ -1,33 +1,47 @@
 class MembershipsController < ApplicationController
   require 'active_support/all'
 
-  before_action :set_membership, only: [:show, :edit, :update, :destroy]
+  before_action :set_membership, only: [:show, :edit, :update, :destroy, :send_payment_overdue_reminder_mail]
 
-  def send_payment_overdue_reminder_mails
-    recipients = Membership.overdue.map { |m| m.people }.flatten
-    Rails.logger.info("Going to send reminder mails to the following members: #{recipients}")
+  def send_payment_overdue_reminder_mail
+    Rails.logger.info "Going to send the payment overdue reminder mail for membership #{@membership.id}"
+    @membership.send_payment_overdue_reminder_mail
 
-    recipients.each do |recipient|
-      ReminderMailer.with(person: recipient).payment_overdue_reminder_mail.deliver_now
-    end
-
-    redirect_to :memberships, notice: "E-Mail Versand abgeschlossen an #{recipients.length} Empfänger!"
-  rescue Exception => e
+    redirect_to :memberships, notice: 'E-Mail Versand abgeschlossen!'
+  rescue StandardError => e
     redirect_to :memberships, notice: "E-Mail Versand fehlgeschlagen: #{e.message}"
   end
 
-  def import
-    begin
-      import_status = Membership.import(params[:file])
-      Rails.logger.info import_status.message
-      if import_status.invalid_rows > 0
-        redirect_to :memberships, alert: "Import fehlerhaft! #{import_status.message}"
-      else
-        redirect_to :memberships, notice: "Import abgeschlossen! #{import_status.message}"
-      end
-    rescue Exception => e
-      redirect_to :memberships, notice: "Import fehlgeschlagen: #{e.message}"
+  def send_bidding_invite_mail
+    Rails.logger.info 'Going to send the bidding invite mail'
+    fails = 0
+
+    Membership.all.each do |membership|
+      membership.send_bidding_invite_mail
+    rescue StandardError => e
+      fails += 1
+      Rails.logger.error "Failed to send bidding invite mail for #{membership.id}: #{e}"
     end
+
+    if fails.positive?
+      redirect_to :memberships, notice: "E-Mail Versand fehlgeschlagen für #{fails} Mitgliedschaften"
+    else
+      redirect_to :memberships, notice: 'E-Mail Versand abgeschlossen!'
+    end
+  end
+
+  def import
+
+    import_status = Membership.import(params[:file])
+    Rails.logger.info import_status.message
+    if import_status.invalid_rows.positive?
+      redirect_to :memberships, alert: "Import fehlerhaft! #{import_status.message}"
+    else
+      redirect_to :memberships, notice: "Import abgeschlossen! #{import_status.message}"
+    end
+  rescue StandardError => e
+    redirect_to :memberships, notice: "Import fehlgeschlagen: #{e.message}"
+
   end
 
   def overdue

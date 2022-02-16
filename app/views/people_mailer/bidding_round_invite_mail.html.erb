@@ -1,0 +1,33 @@
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
+</head>
+<body>
+<h1>Die Bieterrunde für das Jahr 2022</h1>
+<p>
+  Hallo <%= @person.name %>
+</p>
+<p>
+  es ist wieder so weit. Du kannst jetzt dein Gebot abgeben für das kommende Wirtschaftsjahr 2022.
+  <br>
+  Für deine Mitgliedschaft mit der Nummer <%= "S#{@person.membership.id}" %> sind uns folgende Mitglieder bekannt:
+
+  <% @person.membership.people.each do |person| %>
+    <p> <%= person.name %> <%= person.surname %> - <%= person.email %></p>
+  <% end %>
+
+  <br>
+  Bitte stimme dich ggf. mit den anderen Mitgliedern ab. Pro Mitgliedschaft kann nur ein Gebot abgegeben werden.
+  <br>
+  Bitte klicke auf den folgenden Link, um dein Gebot abzugeben:
+  <a href=<%= "https://gebote.gaertnerei-apfeltraum.de/?token=#{@person.login_token}" %>>Gebotsabgabe</a>.
+</p>
+<p>
+  Bei Rückfragen antworte bitte einfach auf diese E-Mail oder wende dich an:
+  <a href="mailto:boris@gaertnerei-apfeltraum.de">boris@gaertnerei-apfeltraum.de</a>.
+</p>
+<p>
+  Vielen Dank und bis bald
+</p>
+</body>
+</html>

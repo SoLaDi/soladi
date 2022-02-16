@@ -80,8 +80,11 @@ Rails.application.routes.draw do
   end
   resources :memberships do
     collection {
-      post :send_payment_overdue_reminder_mails
+      post :send_bidding_invite_mail
       post :import
+    }
+    member {
+      post :send_payment_overdue_reminder_mail
     }
   end
   devise_for :users

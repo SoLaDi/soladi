@@ -8,11 +8,11 @@ class MembershipsController < ApplicationController
     Rails.logger.info("Going to send reminder mails to the following members: #{recipients}")
 
     recipients.each do |recipient|
-      ReminderMailer.with(person: recipient).payment_overdue_reminder_mail.deliver_now
+      PeopleMailer.with(person: recipient).payment_overdue_reminder_mail.deliver_now
     end
 
     redirect_to :memberships, notice: "E-Mail Versand abgeschlossen an #{recipients.length} Empfänger!"
-  rescue Exception => e
+  rescue StandardError => e
     redirect_to :memberships, notice: "E-Mail Versand fehlgeschlagen: #{e.message}"
   end
 
@@ -25,7 +25,7 @@ class MembershipsController < ApplicationController
       else
         redirect_to :memberships, notice: "Import abgeschlossen! #{import_status.message}"
       end
-    rescue Exception => e
+    rescue StandardError => e
       redirect_to :memberships, notice: "Import fehlgeschlagen: #{e.message}"
     end
   end

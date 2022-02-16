@@ -58,6 +58,18 @@ class Membership < ApplicationRecord
     ImportStatus.new(total_rows_count, imported_rows.length, duplicate_rows.length, ignored_rows.length, invalid_rows.length)
   end
 
+  def send_payment_overdue_reminder_mail
+    people.each do |recipient|
+      PeopleMailer.with(person: recipient).payment_overdue_reminder_mail.deliver_now
+    end
+  end
+
+  def send_bidding_invite_mail
+    people.each do |recipient|
+      PeopleMailer.with(person: recipient).payment_overdue_reminder_mail.deliver_now
+    end
+  end
+
   # Return a list of dates for every month a membership has been active
   # @return [Array<Date>]
   def total_months

@@ -47,6 +47,10 @@ Username: test@test.de / Password: supersicher
 
 ## Hints
 
+### Test email delivery and templates
+
+https://mailtrap.io offers a free account and directly after registration you see how to configure rails to use it.
+
 ### Annotate model with attributes
 
 	annotate --models

@@ -53,7 +53,7 @@
 <br>
 <!-- Button trigger modal -->
 
-<%= render 'reminder_mail_modal' %>
+<%= render 'bidding_invite_mail_modal' %>
 
 <div class="card">
   <h3 class="card-header">Aktionen</h3>
@@ -62,8 +62,8 @@
     <br>
     <%= button_to 'PDF Zusammenfassung herunterladen', "/memberships.pdf", { type: "button", class: 'btn btn-outline-primary', method: :get } %>
     <br>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#reminderMailModal">
-      Zahlungserinnerungen verschicken
+    <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#biddingInviteMailModal">
+      Einladungen zur Bieterrunde versenden
     </button>
   </div>
 </div>

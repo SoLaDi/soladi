@@ -1,4 +1,7 @@
 <br>
+
+<%= render 'reminder_mail_modal' %>
+
 <div class="card">
   <h3 class="card-header">Daten der Mitgliedschaft</h3>
   <div class="card-body">
@@ -36,9 +39,17 @@
 
     <br/>
 
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#reminderMailModal">
+      Zahlungserinnerung verschicken
+    </button>
+
+    <br>
+    <br>
+
     <%= link_to 'Bearbeiten', edit_membership_path(@membership) %> |
     <%= link_to 'PDF herunterladen', "#{memberships_path}/#{@membership.id}.pdf" %> |
     <%= link_to 'Zurück', memberships_path %>
+
   </div>
 </div>
 

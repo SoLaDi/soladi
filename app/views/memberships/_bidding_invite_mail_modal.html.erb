@@ -1,0 +1,26 @@
+<div class="modal fade" id="biddingInviteMailModal" tabindex="-1" aria-labelledby="biddingInviteMailModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="biddingInviteMailModalLabel">Einladungen an alle aktiven Mitglieder senden</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>
+          Für jede Mitgliedschaft wird an die jeweils registrierten Mitglieder eine E-Mail geschickt.
+          Dies erfolgt nur, wenn für den Benutzer der "Status auf der Webseite" auf "approved" gesetzt ist.
+          Somit erfolgt der Versand nicht an Nutzer, die in der Webseite deaktiviert wurden.
+        </p>
+        <p>
+          Achtung: Nach der Deaktivierung von Nutzern auf der Webseite müssen diese erneut zu SoLaDi übertragen werden.
+          <%= button_to "Benutzer von der Webseite importieren", import_people_path, { type: "button", class: 'btn btn-outline-primary', method: :post } %>
+        </p>
+        <div class="modal-footer">
+          <%= button_to 'Einladungen senden', send_bidding_invite_mail_memberships_path, { type: "button", class: 'btn btn-outline-primary', method: :post } %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

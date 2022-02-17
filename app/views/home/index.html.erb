@@ -10,7 +10,7 @@
     <div class="col-sm">
       <div class="card">
         <div class="card-body">
-          <h3>Gesamt</h3>
+          <h3>Gesamtbilanz bis heute</h3>
           <p>Erwartet: <%= number_to_currency(@data.total_balance.cost) %></p>
           <p>Erhalten: <%= number_to_currency(@data.total_balance.payments) %></p>
           <p>Differenz: <%= number_to_currency(@data.total_balance.payments - @data.total_balance.cost) %></p>

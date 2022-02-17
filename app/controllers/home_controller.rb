@@ -94,7 +94,8 @@ class HomeController < ApplicationController
 
   def calculate_current_year_totals
     now = Date.today
-    date_range_revenue_statistics(Date.new(now.year, 4), Date.new(now.year + 1, 3))
+    fiscal_year = ApplicationHelper.date_to_fiscal_year(now)
+    date_range_revenue_statistics(Date.new(fiscal_year, 4), Date.new(fiscal_year + 1, 3))
   end
 
   def calculate_balance_triple

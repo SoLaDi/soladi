@@ -1,7 +1,10 @@
+# frozen_string_literal: true
+
 class MembershipsController < ApplicationController
   require 'active_support/all'
 
-  before_action :set_membership, only: [:show, :edit, :update, :destroy, :send_payment_overdue_reminder_mail, :send_bidding_invite_mail]
+  before_action :set_membership,
+                only: %i[show edit update destroy send_payment_overdue_reminder_mail send_bidding_invite_mail]
 
   def send_payment_overdue_reminder_mail
     Rails.logger.info "Going to send the payment overdue reminder mail for membership #{@membership.id}"
@@ -13,6 +16,10 @@ class MembershipsController < ApplicationController
   end
 
   def send_bidding_invite_mail
+    if @membership.terminated
+      redirect_to :memberships, notice: 'Die Mitgliedschaft ist gekündigt, keine E-Mail verschickt!'
+    end
+
     Rails.logger.info "Going to send the bidding invite mail to membership #{@membership.id}"
     @membership.send_bidding_invite_mail
     redirect_to :memberships, notice: 'E-Mail Versand abgeschlossen!'
@@ -22,24 +29,23 @@ class MembershipsController < ApplicationController
 
   def send_bidding_invite_mail_to_all_memberships
     Rails.logger.info 'Going to send the bidding invite mail'
-    fails = 0
+    failed = 0
 
-    Membership.all.each do |membership|
+    unterminated_memberships = Membership.all.filter { |m| !m.terminated }
+    total = unterminated_memberships.count
+    sent_mails = unterminated_memberships.map do |membership|
       membership.send_bidding_invite_mail
     rescue StandardError => e
-      fails += 1
+      failed += 1
       Rails.logger.error "Failed to send bidding invite mail for #{membership.id}: #{e}"
-    end
+    end.sum
 
-    if fails.positive?
-      redirect_to :memberships, notice: "E-Mail Versand fehlgeschlagen für #{fails} Mitgliedschaften"
-    else
-      redirect_to :memberships, notice: 'E-Mail Versand abgeschlossen!'
-    end
+    successful = total - failed
+
+    redirect_to :memberships, notice: "E-Mail Versand abgeschlossen für #{successful}/#{total} Mitgliedschaften (insgesamt #{sent_mails} Mails versendet)"
   end
 
   def import
-
     import_status = Membership.import(params[:file])
     Rails.logger.info import_status.message
     if import_status.invalid_rows.positive?
@@ -49,7 +55,6 @@ class MembershipsController < ApplicationController
     end
   rescue StandardError => e
     redirect_to :memberships, notice: "Import fehlgeschlagen: #{e.message}"
-
   end
 
   def overdue
@@ -65,18 +70,16 @@ class MembershipsController < ApplicationController
 
   # GET /memberships/1
   # GET /memberships/1.json
-  def show
-  end
+  def show; end
 
   # GET /memberships/new
   def new
     @membership = Membership.new
-    @membership.bids.build()
+    @membership.bids.build
   end
 
   # GET /memberships/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /memberships
   # POST /memberships.json
@@ -126,6 +129,7 @@ class MembershipsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def membership_params
-    params.require(:membership).permit(:terminated, :distribution_point_id, bids_attributes: [:shares, :amount, :start_date, :end_date])
+    params.require(:membership).permit(:terminated, :distribution_point_id,
+                                       bids_attributes: %i[shares amount start_date end_date])
   end
 end

@@ -66,10 +66,11 @@ class Membership < ApplicationRecord
   end
 
   def send_bidding_invite_mail
-    active_members.each do |recipient|
+    active_members.map do |recipient|
       Rails.logger.info("Will send bidding invite mail to #{recipient.email}")
       PeopleMailer.with(person: recipient).bidding_round_invite_mail.deliver_now
-    end
+      1
+    end.sum
   end
 
   def active_members
@@ -123,14 +124,18 @@ class Membership < ApplicationRecord
     active_at(Date.today)
   end
 
+  def current_bid
+    bid_for(Date.today)
+  end
+
   def active_at(date)
     !bid_for(date).nil?
   end
 
   def self.overdue
-    Membership.all.filter { |m|
+    Membership.all.filter do |m|
       m.total_balance.negative?
-    }
+    end
   end
 
   def self.active

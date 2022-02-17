@@ -48,6 +48,7 @@
 
     <%= link_to 'Bearbeiten', edit_membership_path(@membership) %> |
     <%= link_to 'PDF herunterladen', "#{memberships_path}/#{@membership.id}.pdf" %> |
+    <%= link_to 'Einladung zum Bieterverfahren verschicken', send_bidding_invite_mail_membership_path, method: :post %> |
     <%= link_to 'Zurück', memberships_path %>
 
   </div>

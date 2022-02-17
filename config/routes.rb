@@ -73,19 +73,20 @@ Rails.application.routes.draw do
     collection { post :import }
   end
   resources :transactions do
-    collection {
+    collection do
       post :import
       get :export_csv
-    }
+    end
   end
   resources :memberships do
-    collection {
-      post :send_bidding_invite_mail
+    collection do
+      post :send_bidding_invite_mail_to_all_memberships
       post :import
-    }
-    member {
+    end
+    member do
       post :send_payment_overdue_reminder_mail
-    }
+      post :send_bidding_invite_mail
+    end
   end
   devise_for :users
   resources :users, only: [:show]

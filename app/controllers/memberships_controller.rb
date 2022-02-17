@@ -1,7 +1,7 @@
 class MembershipsController < ApplicationController
   require 'active_support/all'
 
-  before_action :set_membership, only: [:show, :edit, :update, :destroy, :send_payment_overdue_reminder_mail]
+  before_action :set_membership, only: [:show, :edit, :update, :destroy, :send_payment_overdue_reminder_mail, :send_bidding_invite_mail]
 
   def send_payment_overdue_reminder_mail
     Rails.logger.info "Going to send the payment overdue reminder mail for membership #{@membership.id}"
@@ -13,6 +13,14 @@ class MembershipsController < ApplicationController
   end
 
   def send_bidding_invite_mail
+    Rails.logger.info "Going to send the bidding invite mail to membership #{@membership.id}"
+    @membership.send_bidding_invite_mail
+    redirect_to :memberships, notice: 'E-Mail Versand abgeschlossen!'
+  rescue StandardError => e
+    redirect_to :memberships, notice: "E-Mail Versand fehlgeschlagen: #{e.message}"
+  end
+
+  def send_bidding_invite_mail_to_all_memberships
     Rails.logger.info 'Going to send the bidding invite mail'
     fails = 0
 

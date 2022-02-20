@@ -71,13 +71,13 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
 
   config.action_mailer.smtp_settings = {
-    address: ENV["EMAIL_SERVER_HOSTNAME"],
-    port: ENV["EMAIL_SERVER_PORT"],
-    domain: ENV["EMAIL_SERVER_DOMAIN"],
-    user_name: ENV["EMAIL_SERVER_USER"],
-    password: ENV["EMAIL_SERVER_PASSWORD"],
-    authentication: ENV["EMAIL_SERVER_AUTH"],
-    tls: ENV["EMAIL_SERVER_TLS"]
+    address: ENV['EMAIL_SERVER_HOSTNAME'],
+    port: ENV['EMAIL_SERVER_PORT'],
+    domain: ENV['EMAIL_SERVER_DOMAIN'],
+    user_name: ENV['EMAIL_SERVER_USER'],
+    password: ENV['EMAIL_SERVER_PASSWORD'],
+    authentication: ENV['EMAIL_SERVER_AUTH'],
+    tls: ENV['EMAIL_SERVER_TLS'] == 'true'
   }
 
 
@@ -95,7 +95,7 @@ Rails.application.configure do
   # require 'syslog/logger'
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
-  if ENV["RAILS_LOG_TO_STDOUT"].present?
+  if ENV['RAILS_LOG_TO_STDOUT'].present?
     logger           = ActiveSupport::Logger.new(STDOUT)
     logger.formatter = config.log_formatter
     config.logger    = ActiveSupport::TaggedLogging.new(logger)

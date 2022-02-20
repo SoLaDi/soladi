@@ -72,11 +72,11 @@ Rails.application.configure do
 
   config.action_mailer.smtp_settings = {
     address: ENV["EMAIL_SERVER_HOSTNAME"],
-    port: 465,
+    port: ENV["EMAIL_SERVER_PORT"],
     domain: ENV["EMAIL_SERVER_DOMAIN"],
     user_name: ENV["EMAIL_SERVER_USER"],
     password: ENV["EMAIL_SERVER_PASSWORD"],
-    authentication: 'plain',
+    authentication: ENV["EMAIL_SERVER_AUTH"],
     tls: true
   }
 

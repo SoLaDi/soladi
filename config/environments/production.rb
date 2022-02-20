@@ -77,7 +77,7 @@ Rails.application.configure do
     user_name: ENV["EMAIL_SERVER_USER"],
     password: ENV["EMAIL_SERVER_PASSWORD"],
     authentication: ENV["EMAIL_SERVER_AUTH"],
-    tls: true
+    tls: ENV["EMAIL_SERVER_TLS"]
   }
 
 

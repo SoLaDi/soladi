@@ -1,4 +1,9 @@
-# README
+# SoLaDi
+
+This is a software designed to make the management of a solidaric agriculture community easier.
+
+## Build status:
+[![CircleCI](https://circleci.com/gh/SoLaDi/soladi.svg?style=shield)](https://circleci.com/gh/SoLaDi/soladi)
 
 ## development
 

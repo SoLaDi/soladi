@@ -105,4 +105,8 @@ class Person < ApplicationRecord
   def full_name
     "#{name} #{surname}"
   end
+
+  def bidding_app_url
+    "#{ENV['BIDDING_APP_BASE_URL']}/mitgliedschaften/#{login_token}"
+  end
 end

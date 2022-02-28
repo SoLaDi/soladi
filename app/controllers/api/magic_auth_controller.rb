@@ -8,7 +8,9 @@ class Api::MagicAuthController < Api::ApiController
       "membership": {
         "id": @person.membership_id,
         "users": @person.membership.people.map { |p| p.as_json(only: %w[id name surname]) },
-        "bids": @person.membership.bids.map { |p| p.as_json(only: %w[id start_date end_date amount shares]) }
+        "bids": @person.membership.bids.map do |p|
+          p.as_json(only: %w[id start_date end_date amount shares created_at person_id])
+        end
       }
     }
   end

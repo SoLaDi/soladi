@@ -11,9 +11,11 @@
 #  membership_id   :integer          not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  person_id       :integer
 #
 class Bid < ApplicationRecord
   belongs_to :membership
+  belongs_to :person
   validates_with BidValidator
 
   has_paper_trail ignore: [:updated_at]

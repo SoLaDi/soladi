@@ -27,6 +27,11 @@
     </p>
 
     <p>
+      <strong>Abgegeben von:</strong>
+      <%= @bid.person ? (link_to "#{@bid.person.name} #{@bid.person.surname}", person_url(@bid.person.id)) : "n.a." %>
+    </p>
+
+    <p>
       <strong>Mitgliedschaft:</strong>
       <%= link_to "#{@bid.membership_id}", membership_url(@bid.membership_id) %>
     </p>
@@ -49,7 +54,7 @@
           <td><%= link_to version.whodunnit, "/users/#{version.whodunnit}" %></td>
           <td><%= l(version.created_at) %></td>
           <td><%= version.event %></td>
-          <td><%= version.object_changes.map { |k,v| "<p>#{k}: #{v}</p>" }.join("").html_safe %></td>
+          <td><%= version.object_changes.map { |k, v| "<p>#{k}: #{v}</p>" }.join("").html_safe %></td>
         </tr>
       <% end %>
       </tbody>

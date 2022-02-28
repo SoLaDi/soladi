@@ -18,6 +18,7 @@
     <th>Anteile</th>
     <th>Betrag</th>
     <th>Vereinbarung unterschrieben</th>
+    <th>Abgegeben von</th>
     <th></th>
     <th></th>
     <th></th>
@@ -33,6 +34,7 @@
       <td><%= bid.shares %></td>
       <td><%= number_to_currency(bid.amount) %></td>
       <td><%= bid.contract_signed ? "Ja" : "Nein" %></td>
+      <td><%= bid.person ? (link_to "#{bid.person.name} #{bid.person.surname}", person_url(bid.person.id)) : "n.a." %></td>
       <td><%= link_to 'Details', bid %></td>
       <td><%= link_to 'Bearbeiten', edit_bid_path(bid) %></td>
       <td><%= link_to 'Löschen', bid, method: :delete, data: { confirm: 'Bist du sicher?' } %></td>

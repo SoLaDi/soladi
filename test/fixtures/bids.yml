@@ -11,6 +11,7 @@
 #  membership_id   :integer          not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  person_id       :integer
 #
 
 one:

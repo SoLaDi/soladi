@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_14_230726) do
+ActiveRecord::Schema.define(version: 2022_02_28_110018) do
 
   create_table "bids", force: :cascade do |t|
     t.date "start_date"
@@ -21,7 +21,9 @@ ActiveRecord::Schema.define(version: 2022_02_14_230726) do
     t.integer "membership_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "person_id"
     t.index ["membership_id"], name: "index_bids_on_membership_id"
+    t.index ["person_id"], name: "index_bids_on_person_id"
     t.index ["start_date", "end_date", "membership_id"], name: "bids_unique", unique: true
   end
 
@@ -54,9 +56,9 @@ ActiveRecord::Schema.define(version: 2022_02_14_230726) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "website_account_status"
-    t.string "offer_secure_token"
+    t.string "login_token"
+    t.index ["login_token"], name: "index_people_on_offer_secure_token", unique: true
     t.index ["membership_id"], name: "index_people_on_membership_id"
-    t.index ["offer_secure_token"], name: "index_people_on_offer_secure_token", unique: true
   end
 
   create_table "transactions", force: :cascade do |t|
@@ -113,8 +115,9 @@ ActiveRecord::Schema.define(version: 2022_02_14_230726) do
   end
 
   add_foreign_key "bids", "memberships"
+  add_foreign_key "bids", "people"
   add_foreign_key "distribution_points", "people"
   add_foreign_key "memberships", "distribution_points"
-  add_foreign_key "people", "memberships"
+  add_foreign_key "people", "memberships", primary_key: "id"
   add_foreign_key "transactions", "memberships"
 end

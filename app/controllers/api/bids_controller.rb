@@ -11,6 +11,6 @@ class Api::BidsController < Api::ApiController
   private
 
   def bid_params
-    params.require(:bid).permit(:start_date, :end_date, :amount, :shares, :membership_id)
+    params.require(:bid).permit(:start_date, :end_date, :amount, :shares, :membership_id, :person_id)
   end
 end

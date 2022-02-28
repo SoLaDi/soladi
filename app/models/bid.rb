@@ -15,7 +15,7 @@
 #
 class Bid < ApplicationRecord
   belongs_to :membership
-  belongs_to :person
+  belongs_to :person, optional: true
   validates_with BidValidator
 
   has_paper_trail ignore: [:updated_at]

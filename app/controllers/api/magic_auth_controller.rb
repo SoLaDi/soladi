@@ -5,6 +5,7 @@ class Api::MagicAuthController < Api::ApiController
       "person_id": @person.id,
       "name": @person.name,
       "surname": @person.surname,
+      "email": @person.email,
       "membership": {
         "id": @person.membership_id,
         "users": @person.membership.people.map { |p| p.as_json(only: %w[id name surname email]) },

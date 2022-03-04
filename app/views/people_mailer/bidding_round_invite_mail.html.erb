@@ -3,31 +3,66 @@
   <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
 </head>
 <body>
-<h1>Die Bieterrunde für das Jahr 2022</h1>
-<p>
-  Hallo <%= @person.name %>
-</p>
-<p>
-  es ist wieder so weit. Du kannst jetzt dein Gebot abgeben für das kommende Wirtschaftsjahr 2022.
-  <br>
-  Für deine Mitgliedschaft mit der Nummer <%= "S#{@person.membership.id}" %> sind uns folgende Mitglieder bekannt:
+<h1>SoLaWi Bieterrunde 2022</h1>
+<div>
+  Hallo <%= @person.name %>,<br/>
+  <p>
+    wie am letzten Donnerstag auf unserer Jahreshauptversammlung besprochen, möchten wir wieder eine Bieterrunde
+    durchführen, um
+    die Gesamtkosten der SoLawi für das Wirtschaftsjahr 2022/2023 solidarisch zu decken. Der Richtwert pro Anteil und
+    Monat beträgt in diesem Jahr <b>98,00 Euro</b>.<br/>
+  </p>
+  <p>
+    Eine solidarische Bieterrunde bedeutet ganz konkret:<br/>
+    Jeder ist eingeladen, jetzt sein Gebot online abzugeben. Wer mehr geben möchte als den durchschnittlichen Beitrag,
+    kann so anderen Solawi-Mitgliedern ermöglichen, je nach persönlicher Situation auch mit einem geringeren Beitrag
+    mitzumachen.<br/>
+    Erreicht diese Bieterrunde den Zielbetrag von 211.801 Euro noch nicht, wird eine zweite Bieterrunde durchgeführt.
+  </p>
 
-  <% @person.membership.people.each do |person| %>
-    <p> <%= person.name %> <%= person.surname %> - <%= person.email %></p>
-  <% end %>
+  <h2>Zum Prozedere:</h2>
+  <p>
+    1) Bitte fülle diese kurze Umfrage aus. Dazu einfach unten den Link anklicken. Das ausfüllen dauert nur wenige
+    Sekunden. Versprochen.<br/>
+  </p>
+  <p>
+    <a href=<%= "#{ENV["BIDDING_APP_BASE_URL"]}/mitgliedschaften/#{@person.login_token}" %>>GEBOT ABGEBEN</a>.
+  </p>
+  <p>
+    2) Wir veröffentlichen nicht, wer wieviel bietet. Nur für Auswertungszwecke sind die Gebote für Annette, Boris und
+    den Initiativkreis sichtbar.<br/>
+  </p>
+  <p>
+    3) Es kann nur ein Gebot pro Mitgliedschaft abgeben werden!<br/>
+    Das heißt: Falls du dir deinen Anteil mit anderen teilst, sprecht euch bitte ab und lasst einen Anteilspartner
+    stellvertretend abstimmen.<br/>
 
-  <br>
-  Bitte stimme dich ggf. mit den anderen Mitgliedern ab. Pro Mitgliedschaft kann nur ein Gebot abgegeben werden.
-  <br>
-  Bitte klicke auf den folgenden Link, um dein Gebot abzugeben:
-  <a href=<%= "#{ENV["BIDDING_APP_BASE_URL"]}/mitgliedschaften/#{@person.login_token}" %>>Gebotsabgabe</a>.
-</p>
-<p>
-  Bei Rückfragen antworte bitte einfach auf diese E-Mail oder wende dich an:
-  <a href="mailto:boris@gaertnerei-apfeltraum.de">boris@gaertnerei-apfeltraum.de</a>.
-</p>
-<p>
-  Vielen Dank und bis bald
-</p>
+    <% if @person.membership.people.count > 1 %>
+      <br/>
+      Für deine Mitgliedschaft (Nr. <%= "S#{@person.membership.id}" %>) sind uns folgende Mitglieder bekannt:<br/>
+
+      <% @person.membership.people.each do |person| %>
+        - <%= person.name %> <%= person.surname %> - <%= person.email %><br/>
+      <% end %>
+    <% end %>
+  </p>
+  <p>
+    4) Am Sonntag, 13. März, 23:59 Uhr endet die Bieterrunde. Dann rechnen wir alles zusammen und informieren euch
+    rasch.
+  </p>
+  <p>
+    5) Wer kein Gebot abgibt, erklärt sich mit dem Durchschnittsbetrag von 98,00 Euro pro Anteil einverstanden.
+  </p>
+  <p>
+    Viel Spaß beim Bieten wünschen euch<br/>
+    Annette und Boris
+  </p>
+  <a href=<%= "#{ENV["BIDDING_APP_BASE_URL"]}/mitgliedschaften/#{@person.login_token}" %>>GEBOT ABGEBEN</a>.
+
+  <p>
+    Bei Rückfragen antworte bitte einfach auf diese E-Mail oder wende dich an:
+    <a href="mailto:boris@gaertnerei-apfeltraum.de">boris@gaertnerei-apfeltraum.de</a>.
+  </p>
+</div>
 </body>
 </html>

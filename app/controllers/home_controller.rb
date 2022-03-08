@@ -12,8 +12,10 @@ class HomeController < ApplicationController
   end
 
   def calculate_monthly_revenue_graph
-    start_date = Date.today - 6.months
-    end_date = Date.today + 6.months
+    today = Date.today
+
+    start_date = Date.new(today.year, today.month) - 9.months
+    end_date = Date.new(today.year, today.month) + 3.months
 
     revenue = calculate_monthly_payments(start_date, end_date)
     not_associated_payments = calculate_monthly_not_associated_payments(start_date, end_date)

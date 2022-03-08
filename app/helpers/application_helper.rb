@@ -1,6 +1,6 @@
 module ApplicationHelper
   def self.range_to_months(start_date, end_date)
-    (start_date..end_date).uniq { |d| "#{d.month}-#{d.year}" }
+    (start_date..end_date).uniq { |d| "#{d.month}-#{d.year}" }.map { |d| Date.new(d.year, d.month) }
   end
 
   def self.fiscal_year_to_month_range(year)

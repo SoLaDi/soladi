@@ -16,7 +16,12 @@
 class Bid < ApplicationRecord
   belongs_to :membership
   belongs_to :person, optional: true
+
   validates_with BidValidator
+  validates :start_date, presence: true
+  validates :end_date, presence: true
+  validates :amount, presence: true
+  validates :shares, presence: true
 
   has_paper_trail ignore: [:updated_at]
 

@@ -7,7 +7,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-sm">
+    <div class="col-sm-4 mb-4">
       <div class="card">
         <div class="card-body">
           <h3>Gesamtbilanz bis heute</h3>
@@ -44,7 +44,7 @@
       </div>
     </div>
 
-    <div class="col-sm">
+    <div class="col-sm-4 mb-4">
       <div class="card">
         <div class="card-body">
           <h3>Wirtschaftsjahr 2021</h3>
@@ -82,7 +82,45 @@
       </div>
     </div>
 
-    <div class="col-sm">
+    <div class="col-sm-4 mb-4">
+      <div class="card">
+        <div class="card-body">
+          <h3>Wirtschaftsjahr 2022</h3>
+          <h6>01.04.2022 - 31.03.2023</h6>
+          <p>Erwartet: <%= number_to_currency(@data.next_year_balance.cost) %></p>
+          <p>Erhalten: <%= number_to_currency(@data.next_year_balance.payments) %></p>
+          <p>Differenz: <%= number_to_currency(@data.next_year_balance.payments - @data.next_year_balance.cost) %></p>
+          <div style="width: 250px">
+            <canvas id="nextYearPieChart"></canvas>
+          </div>
+          <script>
+              var ctx = document.getElementById('nextYearPieChart').getContext('2d');
+              var myDoughnutChart = new Chart(ctx, {
+                  type: 'doughnut',
+                  data: {
+                      datasets: [{
+                          data: [
+                              <%= @data.next_year_balance.cost - @data.next_year_balance.payments %>,
+                              <%= @data.next_year_balance.payments %>
+                          ],
+                          backgroundColor: [
+                              '#ED561B',
+                              '#50B432'
+                          ]
+                      }],
+                      labels: [
+                          'Ausstehend',
+                          'Erhalten',
+                      ],
+
+                  }
+              });
+          </script>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-12 mb-4">
       <div class="card">
         <div class="card-body">
           <h3>Mitgliedschaften</h3>
@@ -93,7 +131,7 @@
       </div>
     </div>
 
-    <div class="col-sm">
+    <div class="col-sm-4 mb-4">
       <div class="card">
         <div class="card-body">
           <h3><%= @data.balance_triple.last_month.end_date.strftime("%b %Y") %></h3>
@@ -131,7 +169,7 @@
       </div>
     </div>
 
-    <div class="col-sm">
+    <div class="col-sm-4 mb-4">
       <div class="card">
         <div class="card-body">
           <h3><%= @data.balance_triple.this_month.end_date.strftime("%b %Y") %></h3>
@@ -169,7 +207,7 @@
       </div>
     </div>
 
-    <div class="col-sm">
+    <div class="col-sm-4 mb-4">
       <div class="card">
         <div class="card-body">
           <h3><%= @data.balance_triple.next_month.end_date.strftime("%b %Y") %></h3>
@@ -207,7 +245,7 @@
       </div>
     </div>
 
-    <div class="col-sm">
+    <div class="col-sm-12 mb-4">
       <div class="card">
         <div class="card-body">
           <h3>Monatliche Einnahmen</h3>
@@ -299,7 +337,7 @@
       </div>
     </div>
 
-    <div class="col-sm">
+    <div class="col-sm-12 mb-4">
       <div class="card">
         <div class="card-body">
           <h3>Vergebene Anteile pro Monat</h3>

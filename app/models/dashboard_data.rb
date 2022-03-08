@@ -61,9 +61,10 @@ class MonthlyShares
 end
 
 class DashboardData
-  def initialize(total_balance, current_year_balance, balance_triple, membership_stats, monthly_revenue, monthly_shares)
+  def initialize(total_balance, current_year_balance, next_year_balance, balance_triple, membership_stats, monthly_revenue, monthly_shares)
     @total_balance = total_balance
     @current_year_balance = current_year_balance
+    @next_year_balance = next_year_balance
     @balance_triple = balance_triple
     @membership_stats = membership_stats
     @monthly_revenue = monthly_revenue
@@ -72,6 +73,7 @@ class DashboardData
 
   attr_reader :total_balance
   attr_reader :current_year_balance
+  attr_reader :next_year_balance
   attr_reader :balance_triple
   attr_reader :membership_stats
   attr_reader :monthly_revenue

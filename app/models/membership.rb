@@ -117,7 +117,9 @@ class Membership < ApplicationRecord
   end
 
   def bid_for(date)
-    bids.where(start_date: ..date, end_date: date..).take
+    # bid dates always have the day set to 1
+    query_date = Date.new(date.year, date.month, 1)
+    bids.where(start_date: ..query_date, end_date: query_date..).take
   end
 
   def currently_active?

@@ -3,6 +3,7 @@ class HomeController < ApplicationController
     @data = DashboardData.new(
       calculate_totals,
       calculate_current_year_totals,
+      calculate_next_year_totals,
       calculate_balance_triple,
       calculate_membership_stats,
       calculate_monthly_revenue_graph,
@@ -96,6 +97,10 @@ class HomeController < ApplicationController
     now = Date.today
     fiscal_year = ApplicationHelper.date_to_fiscal_year(now)
     date_range_revenue_statistics(Date.new(fiscal_year, 4), Date.new(fiscal_year + 1, 3))
+  end
+
+  def calculate_next_year_totals
+    date_range_revenue_statistics(Date.new(2022, 4), Date.new(2022 + 1, 3))
   end
 
   def calculate_balance_triple

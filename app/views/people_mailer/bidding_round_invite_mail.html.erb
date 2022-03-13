@@ -39,11 +39,11 @@
     Das heißt: Falls du dir deinen Anteil mit anderen teilst, sprecht euch bitte ab und lasst einen Anteilspartner
     stellvertretend abstimmen.<br/>
 
-    <% if @person.membership.people.count > 1 %>
+    <% if @person.membership.active_members.count > 1 %>
       <br/>
       Für deine Mitgliedschaft (Nr. <%= "S#{@person.membership.id}" %>) sind uns folgende Mitglieder bekannt:<br/>
 
-      <% @person.membership.people.each do |person| %>
+      <% @person.membership.active_members.each do |person| %>
         - <%= person.name %> <%= person.surname %> - <%= person.email %><br/>
       <% end %>
     <% end %>

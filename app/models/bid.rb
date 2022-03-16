@@ -61,7 +61,7 @@ class Bid < ApplicationRecord
   def self.average_share_price(date)
     active_bids = Bid.active_at(date)
     shares = active_bids.sum(:shares)
-    total = active_bids.sum(:amount)
+    total = active_bids.map(&:monthly_amount).sum
     total / shares
   end
 

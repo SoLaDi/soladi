@@ -127,6 +127,7 @@
           <p>Total: <%= @data.membership_stats.total_amount %></p>
           <p>momentan Aktiv: <%= @data.membership_stats.currently_active %></p>
           <p>momentan vergebene Anteile: <%= @data.membership_stats.current_shares %></p>
+          <p>momentaner durchschnittlicher Preis pro Anteil und Monat: <%= number_to_currency(@data.membership_stats.average_share_price) %></p>
         </div>
       </div>
     </div>

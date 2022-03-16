@@ -25,15 +25,17 @@ class Balance
 end
 
 class MembershipStatistics
-  def initialize(total_amount, currently_active, current_shares)
+  def initialize(total_amount, currently_active, current_shares, average_share_price)
     @total_amount = total_amount
     @currently_active = currently_active
     @current_shares = current_shares
+    @average_share_price = average_share_price
   end
 
   attr_reader :total_amount
   attr_reader :currently_active
   attr_reader :current_shares
+  attr_reader :average_share_price
 end
 
 class MonthlyRevenueStats

@@ -4,7 +4,10 @@
     $(document).ready(function () {
         $('#rich-table').dataTable({
             "ordering": true,
-            "stateSave": true
+            "stateSave": true,
+            "columnDefs": [
+                {"targets": 3, "type": "date-eu"}
+            ]
         });
     });
 </script>
@@ -59,4 +62,52 @@
     <%= file_field_tag :file %>
     <%= submit_tag "CSV importieren" %>
   <% end %>
+</div>
+
+<br>
+<br>
+
+<div class="card">
+  <div class="card-body">
+    <h3>Statistik</h3>
+    <div style="width: 100%">
+      <canvas id="bidStats"></canvas>
+    </div>
+    <script>
+        var currency_formatter = new Intl.NumberFormat('de-DE', {
+            style: 'currency',
+            currency: 'EUR',
+        });
+
+        var ctx = document.getElementById('bidStats').getContext('2d');
+        var myBarChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: <%= @bid__average_prices.map{|e| e[0].strftime("%b %Y")}.to_json.html_safe %>,
+                datasets: [
+                    {
+                        backgroundColor: 'purple',
+                        borderColor: 'purple',
+                        borderWidth: 2,
+                        label: "Preis / Anteil / Monat",
+                        fill: false,
+                        data: <%= @bid__average_prices.map{|e| e[1]}.to_json.html_safe %>
+                    }
+                ],
+            },
+            options: {
+                tooltips: {
+                    mode: 'x',
+                    callbacks: {
+                        label: function (tooltipItem, data) {
+                            let index = tooltipItem.datasetIndex
+                            let label = data.datasets[index].label
+                            return currency_formatter.format(tooltipItem.yLabel) + ` (${label})`;
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+  </div>
 </div>

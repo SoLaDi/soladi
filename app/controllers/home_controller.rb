@@ -141,7 +141,8 @@ class HomeController < ApplicationController
     total = Membership.total_count
     active = Membership.active_count
     shares = Bid.total_shares(Date.today)
+    average_share_price = Bid.average_share_price(Date.today)
 
-    MembershipStatistics.new(total, active, shares)
+    MembershipStatistics.new(total, active, shares, average_share_price)
   end
 end

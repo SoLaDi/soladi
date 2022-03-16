@@ -46,8 +46,23 @@ class Bid < ApplicationRecord
     end
   end
 
+  def self.average_amount_by_share(start_date, end_date)
+    ApplicationHelper.range_to_months(start_date, end_date).inject(0) do |total, month|
+      total + Bid.active_at(month).inject(0) do |sum, bid|
+        sum + bid.monthly_amount
+      end
+    end
+  end
+
   def self.total_shares(date)
     Bid.active_at(date).sum(:shares)
+  end
+
+  def self.average_share_price(date)
+    active_bids = Bid.active_at(date)
+    shares = active_bids.sum(:shares)
+    total = active_bids.sum(:amount)
+    total / shares
   end
 
   def self.import(file)

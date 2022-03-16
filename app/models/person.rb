@@ -39,21 +39,22 @@ class Person < ApplicationRecord
     conn = Faraday.new do |conn|
       conn.basic_auth(wp_user, wp_password)
       conn.response :logger
-      conn.response :json, :content_type => /\bjson$/
+      conn.response :json, content_type: /\bjson$/
 
       conn.adapter Faraday.default_adapter
     end
 
     loop.with_index do |_, index|
-      Rails.logger.info index
+      page = index + 1
+      Rails.logger.info("Loading wordpress users page #{page}")
       response = conn.get "#{wp_base_url}/wp-json/wp/v2/users" do |req|
         req.params['context'] = 'edit'
-        req.params['page'] = index +1
+        req.params['page'] = page
         req.headers['Content-Type'] = 'application/json'
       end
 
       users_chunk = response.body
-      break if users_chunk.length == 0 || index > 30
+      break if users_chunk.length == 0
 
       users_chunk.each do |user|
         user_id = user['id']
@@ -67,7 +68,7 @@ class Person < ApplicationRecord
             email: user['email'],
             phone: user['meta']['phone_number'],
             website_account_status: user['meta']['account_status'],
-            membership_id: user['meta']['membership_id'][1..-1]
+            membership_id: user['meta']['membership_id'][1..]
           )
             Rails.logger.info "Successfully updated wp user as member: #{existing_person.inspect}"
           else
@@ -81,7 +82,7 @@ class Person < ApplicationRecord
             email: user['email'],
             phone: user['meta']['phone_number'],
             website_account_status: user['meta']['account_status'],
-            membership_id: user['meta']['membership_id'][1..-1]
+            membership_id: user['meta']['membership_id'][1..]
           )
 
           begin

@@ -152,6 +152,12 @@ class Membership < ApplicationRecord
     Membership.all.count
   end
 
+  def self.without_bid_for(date)
+    Membership.where(terminated: false).filter do |m|
+      !m.bid_for(date)
+    end
+  end
+
   def start_date
     earliest_starting_bid = bids.map { |b| [b.start_date, b] }.to_h.sort.to_h.values.first
     earliest_starting_bid ? earliest_starting_bid.start_date : nil

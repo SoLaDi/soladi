@@ -11,8 +11,8 @@ This is a software designed to make the management of a solidaric agriculture co
    
     brew install rbenv nvm
 
-    rbenv install 2.7.2
-    rbenv global 2.7.2
+    rbenv install 3.0.5
+    rbenv global 3.0.5
 
     nvm install v12.22.7
     npm install --target_arch=x64

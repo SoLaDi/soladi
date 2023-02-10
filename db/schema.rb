@@ -2,16 +2,15 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# This file is the source Rails uses to define your schema when running `rails
-# db:schema:load`. When creating a new database, `rails db:schema:load` tends to
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
 # be faster and is potentially less error prone than running all of your
 # migrations from scratch. Old migrations may fail to apply correctly if those
 # migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_28_110018) do
-
+ActiveRecord::Schema[7.0].define(version: 2023_02_10_102737) do
   create_table "bids", force: :cascade do |t|
     t.date "start_date"
     t.date "end_date"
@@ -19,8 +18,8 @@ ActiveRecord::Schema.define(version: 2022_02_28_110018) do
     t.integer "shares"
     t.boolean "contract_signed"
     t.integer "membership_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "person_id"
     t.index ["membership_id"], name: "index_bids_on_membership_id"
     t.index ["person_id"], name: "index_bids_on_person_id"
@@ -33,15 +32,15 @@ ActiveRecord::Schema.define(version: 2022_02_28_110018) do
     t.string "housenumber"
     t.string "zipcode"
     t.string "city"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "person_id"
     t.index ["person_id"], name: "index_distribution_points_on_person_id"
   end
 
   create_table "memberships", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "distribution_point_id", null: false
     t.boolean "terminated", default: false, null: false
     t.index ["distribution_point_id"], name: "index_memberships_on_distribution_point_id"
@@ -53,11 +52,11 @@ ActiveRecord::Schema.define(version: 2022_02_28_110018) do
     t.string "email"
     t.string "phone"
     t.integer "membership_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "website_account_status"
     t.string "login_token"
-    t.index ["login_token"], name: "index_people_on_offer_secure_token", unique: true
+    t.index ["login_token"], name: "index_people_on_login_token", unique: true
     t.index ["membership_id"], name: "index_people_on_membership_id"
   end
 
@@ -68,8 +67,8 @@ ActiveRecord::Schema.define(version: 2022_02_28_110018) do
     t.decimal "amount"
     t.string "currency"
     t.string "status_message"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "membership_id"
     t.string "status", default: "ok", null: false
     t.index ["entry_date", "sender", "description", "amount", "currency"], name: "transactions_unique", unique: true
@@ -80,26 +79,20 @@ ActiveRecord::Schema.define(version: 2022_02_28_110018) do
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
+    t.datetime "reset_password_sent_at", precision: nil
+    t.datetime "remember_created_at", precision: nil
     t.integer "sign_in_count", default: 0, null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
+    t.datetime "current_sign_in_at", precision: nil
+    t.datetime "last_sign_in_at", precision: nil
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
     t.integer "failed_attempts", default: 0, null: false
     t.string "unlock_token"
-    t.datetime "locked_at"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.integer "role"
-    t.string "provider", default: "email", null: false
-    t.string "uid", default: "", null: false
-    t.text "tokens"
-    t.boolean "allow_password_change", default: false
+    t.datetime "locked_at", precision: nil
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-    t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
@@ -109,7 +102,7 @@ ActiveRecord::Schema.define(version: 2022_02_28_110018) do
     t.string "event", null: false
     t.string "whodunnit"
     t.json "object"
-    t.datetime "created_at"
+    t.datetime "created_at", precision: nil
     t.json "object_changes"
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
@@ -118,6 +111,6 @@ ActiveRecord::Schema.define(version: 2022_02_28_110018) do
   add_foreign_key "bids", "people"
   add_foreign_key "distribution_points", "people"
   add_foreign_key "memberships", "distribution_points"
-  add_foreign_key "people", "memberships", primary_key: "id"
+  add_foreign_key "people", "memberships"
   add_foreign_key "transactions", "memberships"
 end

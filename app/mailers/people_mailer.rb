@@ -7,6 +7,6 @@ class PeopleMailer < ApplicationMailer
 
   def bidding_round_invite_mail
     @person = params[:person]
-    mail(to: @person.email, subject: '2. SoLaWi Bieterrunde 2023 - bitte jetzt abstimmen!')
+    mail(to: @person.email, subject: 'SoLaWi Bieterrunde 2023 - bitte jetzt abstimmen!')
   end
 end

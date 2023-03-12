@@ -74,3 +74,8 @@ https://mailtrap.io offers a free account and directly after registration you se
     /app/scripts/console.sh
 
     User.create(:email => "my-email", :password => 'my-password', :password_confirmation => 'my-password')
+
+
+## Release management
+CircleCi builds the master branch and creates and uploads a docker image with the respective build number.
+That's for now what we use. There are no specifically versioned releases.

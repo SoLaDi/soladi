@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
   def index
     @data = DashboardData.new(
-      calculate_totals,
+      calculate_last_year_totals,
       calculate_current_year_totals,
       calculate_next_year_totals,
       calculate_balance_triple,
@@ -91,8 +91,10 @@ class HomeController < ApplicationController
     MonthlyShares.new(shares, labels)
   end
 
-  def calculate_totals
-    date_range_revenue_statistics(Date.new(1900, 1), Date.today)
+  def calculate_last_year_totals
+    now = Date.today
+    fiscal_year = ApplicationHelper.date_to_fiscal_year(now)
+    date_range_revenue_statistics(Date.new(fiscal_year - 1, 4), Date.new(fiscal_year, 3))
   end
 
   def calculate_current_year_totals
@@ -102,7 +104,9 @@ class HomeController < ApplicationController
   end
 
   def calculate_next_year_totals
-    date_range_revenue_statistics(Date.new(2022, 4), Date.new(2022 + 1, 3))
+    now = Date.today
+    fiscal_year = ApplicationHelper.date_to_fiscal_year(now)
+    date_range_revenue_statistics(Date.new(fiscal_year + 1, 4), Date.new(fiscal_year + 2, 3))
   end
 
   def calculate_balance_triple

@@ -10,22 +10,23 @@
     <div class="col-sm-4 mb-4">
       <div class="card">
         <div class="card-body">
-          <h3>Gesamtbilanz bis heute</h3>
-          <p>Erwartet: <%= number_to_currency(@data.total_balance.cost) %></p>
-          <p>Erhalten: <%= number_to_currency(@data.total_balance.payments) %></p>
-          <p>Differenz: <%= number_to_currency(@data.total_balance.payments - @data.total_balance.cost) %></p>
+          <h3>Wirtschaftsjahr 2021</h3>
+          <h6>01.04.2021 - 31.03.2022</h6>
+          <p>Erwartet: <%= number_to_currency(@data.last_year_balance.cost) %></p>
+          <p>Erhalten: <%= number_to_currency(@data.last_year_balance.payments) %></p>
+          <p>Differenz: <%= number_to_currency(@data.last_year_balance.payments - @data.last_year_balance.cost) %></p>
           <div style="width: 250px">
-            <canvas id="totalPieChart"></canvas>
+            <canvas id="lastYearPieChart"></canvas>
           </div>
           <script>
-              var ctx = document.getElementById('totalPieChart').getContext('2d');
+              var ctx = document.getElementById('lastYearPieChart').getContext('2d');
               var myDoughnutChart = new Chart(ctx, {
                   type: 'doughnut',
                   data: {
                       datasets: [{
                           data: [
-                              <%= @data.total_balance.cost - @data.total_balance.payments %>,
-                              <%= @data.total_balance.payments %>,
+                              <%= @data.last_year_balance.cost - @data.last_year_balance.payments %>,
+                              <%= @data.last_year_balance.payments %>
                           ],
                           backgroundColor: [
                               '#ED561B',
@@ -47,8 +48,8 @@
     <div class="col-sm-4 mb-4">
       <div class="card">
         <div class="card-body">
-          <h3>Wirtschaftsjahr 2021</h3>
-          <h6>01.04.2021 - 31.03.2022</h6>
+          <h3>Wirtschaftsjahr 2022</h3>
+          <h6>01.04.2022 - 31.03.2023</h6>
           <p>Erwartet: <%= number_to_currency(@data.current_year_balance.cost) %></p>
           <p>Erhalten: <%= number_to_currency(@data.current_year_balance.payments) %></p>
           <p>Differenz: <%= number_to_currency(@data.current_year_balance.payments - @data.current_year_balance.cost) %></p>
@@ -85,8 +86,8 @@
     <div class="col-sm-4 mb-4">
       <div class="card">
         <div class="card-body">
-          <h3>Wirtschaftsjahr 2022</h3>
-          <h6>01.04.2022 - 31.03.2023</h6>
+          <h3>Wirtschaftsjahr 2023</h3>
+          <h6>01.04.2023 - 31.03.2024</h6>
           <p>Erwartet: <%= number_to_currency(@data.next_year_balance.cost) %></p>
           <p>Erhalten: <%= number_to_currency(@data.next_year_balance.payments) %></p>
           <p>Differenz: <%= number_to_currency(@data.next_year_balance.payments - @data.next_year_balance.cost) %></p>

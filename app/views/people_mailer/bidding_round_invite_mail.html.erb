@@ -22,7 +22,7 @@
 Bitte stimme dich ggf. mit den anderen Mitgliedern ab. Pro Mitgliedschaft kann nur ein Gebot abgegeben werden.
 <br>
 Bitte klicke auf den folgenden Link, um dein Gebot abzugeben:
-<a href=<%= "https://gebote.gaertnerei-apfeltraum.de/?token=#{@person.login_token}" %>>Gebotsabgabe</a>.
+<a href=<%= "#{ENV["BIDDING_APP_BASE_URL"]}/mitgliedschaften/#{@person.login_token}" %>>GEBOT ABGEBEN</a>.
 </p>
 <p>
   Bei Rückfragen antworte bitte einfach auf diese E-Mail oder wende dich an:

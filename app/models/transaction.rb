@@ -69,18 +69,20 @@ class Transaction < ApplicationRecord
         if row.at(8).nil?
           ignored_rows.push row
         else
-          amount, type = row.at(8).strip.split
+          amount, type = row.at(5).strip.split
 
           # we're only interested in incoming money, thus
           # filter for incoming transactions (S == soll == outgoing / H == haben == incoming)
           if type == "H"
             begin
+              description = row.at(4)
+
               transaction = Transaction.new(
                 entry_date: row.at(0),
-                sender: row.at(4),
-                description: row.at(7),
+                sender: row.at(3),
+                description: row.at(4),
                 amount: amount.tr('.', '').tr(',', '.').to_d,
-                currency: row.at(9),
+                currency: row.at(6),
                 status: "ok"
               )
 
@@ -91,7 +93,7 @@ class Transaction < ApplicationRecord
               end
 
               begin
-                transaction.membership_id = extract_membership_id(row.at(7))
+                transaction.membership_id = extract_membership_id(description)
               rescue ParserError => e
                 Rails.logger.info "Parsererror for #{row.inspect}"
                 transaction.status_message = e.message

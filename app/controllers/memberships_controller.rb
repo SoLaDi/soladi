@@ -57,6 +57,13 @@ class MembershipsController < ApplicationController
     redirect_to :memberships, notice: "Import fehlgeschlagen: #{e.message}"
   end
 
+  def export_csv
+    respond_to do |format|
+      format.html
+      format.csv { send_data Membership.all.to_csv }
+    end
+  end
+
   def overdue
     @memberships = Membership.overdue
   end

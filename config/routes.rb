@@ -82,6 +82,7 @@ Rails.application.routes.draw do
     collection do
       post :send_bidding_invite_mail_to_all_memberships
       post :import
+      get :export_csv
     end
     member do
       post :send_payment_overdue_reminder_mail

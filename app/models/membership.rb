@@ -24,16 +24,17 @@ class Membership < ApplicationRecord
     attributes = %w{id created_at updated_at distribution_point_id terminated}
 
     CSV.generate(headers: true) do |csv|
-      csv << attributes + %w[bids bids_2022 bids_2023, active_users]
+      csv << attributes + %w[currently_active active_next_business_year, active_users, needs_new_bid]
 
       all.each do |membership|
         base_attributes = attributes.map { |attr| membership.send(attr) }
-        bids_count = membership.bids.count
-        bids_2022_count = membership.bids.where('start_date == ?', "2022-04-01").count
-        bids_2023_count = membership.bids.where('start_date == ?', "2023-04-01").count
-        active_users_count = membership.people.all.where("website_account_status" == "approved").count
 
-        bid_attributes = [bids_count, bids_2022_count, bids_2023_count, active_users_count]
+        currently_active = membership.currently_active?
+        active_next_business_year = membership.active_at(Date.today + 1.year)
+        active_users_count = membership.people.all.where("website_account_status" == "approved").count
+        needs_new_bid = (!membership.terminated and !active_next_business_year)
+
+        bid_attributes = [currently_active, active_next_business_year, active_users_count, needs_new_bid]
         csv << base_attributes + bid_attributes
       end
     end

@@ -10,8 +10,8 @@
     <div class="col-sm-4 mb-4">
       <div class="card">
         <div class="card-body">
-          <h3>Wirtschaftsjahr 2021</h3>
-          <h6>01.04.2021 - 31.03.2022</h6>
+          <h3>Wirtschaftsjahr <%= @data.last_year_balance.start_date.year %></h3>
+          <h6><%= l(@data.last_year_balance.start_date) %> - <%= l(@data.last_year_balance.end_date) %></h6>
           <p>Erwartet: <%= number_to_currency(@data.last_year_balance.cost) %></p>
           <p>Erhalten: <%= number_to_currency(@data.last_year_balance.payments) %></p>
           <p>Differenz: <%= number_to_currency(@data.last_year_balance.payments - @data.last_year_balance.cost) %></p>
@@ -48,8 +48,8 @@
     <div class="col-sm-4 mb-4">
       <div class="card">
         <div class="card-body">
-          <h3>Wirtschaftsjahr 2022</h3>
-          <h6>01.04.2022 - 31.03.2023</h6>
+          <h3>Wirtschaftsjahr <%= @data.current_year_balance.start_date.year %></h3>
+          <h6><%= l(@data.current_year_balance.start_date) %> - <%= l(@data.current_year_balance.end_date) %></h6>
           <p>Erwartet: <%= number_to_currency(@data.current_year_balance.cost) %></p>
           <p>Erhalten: <%= number_to_currency(@data.current_year_balance.payments) %></p>
           <p>Differenz: <%= number_to_currency(@data.current_year_balance.payments - @data.current_year_balance.cost) %></p>
@@ -86,8 +86,8 @@
     <div class="col-sm-4 mb-4">
       <div class="card">
         <div class="card-body">
-          <h3>Wirtschaftsjahr 2023</h3>
-          <h6>01.04.2023 - 31.03.2024</h6>
+          <h3>Wirtschaftsjahr <%= @data.next_year_balance.start_date.year %></h3>
+          <h6><%= l(@data.next_year_balance.start_date) %> - <%= l(@data.next_year_balance.end_date) %></h6>
           <p>Erwartet: <%= number_to_currency(@data.next_year_balance.cost) %></p>
           <p>Erhalten: <%= number_to_currency(@data.next_year_balance.payments) %></p>
           <p>Differenz: <%= number_to_currency(@data.next_year_balance.payments - @data.next_year_balance.cost) %></p>

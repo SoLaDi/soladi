@@ -4,7 +4,10 @@ class TransactionsController < ApplicationController
   # GET /transactions
   # GET /transactions.json
   def index
-    @transactions = Transaction.all
+    respond_to do |format|
+      format.html
+      format.json { render json: TransactionDatatable.new(params, view_context: view_context) }
+    end
   end
 
   def list

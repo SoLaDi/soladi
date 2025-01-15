@@ -8,6 +8,8 @@ gem 'rails', '~> 7.0.4', '>= 7.0.4.2'
 
 gem "rails-i18n", "~> 7.0.4"
 
+gem 'ajax-datatables-rails', "~> 1.5.0"
+
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', '~> 1.6'
 # Use Puma as the app server

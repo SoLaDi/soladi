@@ -68,6 +68,9 @@ GEM
       tzinfo (~> 2.0)
     addressable (2.8.1)
       public_suffix (>= 2.0.2, < 6.0)
+    ajax-datatables-rails (1.5.0)
+      rails (>= 6.0)
+      zeitwerk
     annotate (3.2.0)
       activerecord (>= 3.2, < 8.0)
       rake (>= 10.4, < 14.0)
@@ -300,6 +303,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  ajax-datatables-rails (~> 1.5.0)
   annotate (~> 3.1)
   bootsnap (>= 1.4.2)
   bootstrap_form (~> 4.5)

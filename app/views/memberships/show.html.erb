@@ -39,6 +39,9 @@
 
     <br/>
 
+    <br>
+    <%= button_to 'Korrekturbuchung anlegen', new_transaction_path, { params: { membership_id: @membership.id, status_message: "Korrekturbuchung" }, type: "button", class: 'btn btn-outline-primary', method: :get } %>
+    <br>
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#reminderMailModal">
       Zahlungserinnerung verschicken
     </button>
@@ -48,7 +51,8 @@
 
     <%= link_to 'Bearbeiten', edit_membership_path(@membership) %> |
     <%= link_to 'PDF herunterladen', "#{memberships_path}/#{@membership.id}.pdf" %> |
-    <%= link_to 'Einladung zum Bieterverfahren verschicken', send_bidding_invite_mail_membership_path, method: :post %> |
+    <%= link_to 'Einladung zum Bieterverfahren verschicken', send_bidding_invite_mail_membership_path, method: :post %>
+    |
     <%= link_to 'Zurück', memberships_path %>
 
   </div>
@@ -122,7 +126,7 @@
         <th>Buchungstext</th>
         <th>Betrag</th>
         <th>Währung</th>
-        <th>Fehler</th>
+        <th>Hinweise</th>
         <th></th>
         <th></th>
         <th></th>

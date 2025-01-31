@@ -47,15 +47,19 @@
   </tbody>
 </table>
 <br>
-<div>
-  <h4>Bankumsätze importieren (CSV der Sparkasse)</h4>
-  <%= form_tag import_transactions_path, multipart: true do %>
-    <%= file_field_tag :file %>
-    <%= submit_tag "Import CSV" %>
-  <% end %>
-</div>
-<br/>
-<div>
-  <h4>Export als CSV</h4>
-  <%= button_to( 'Transaktionen exportieren', { :action => :export_csv, format: 'csv'}, { type: "button", class: 'btn btn-outline-primary', method: :get }) %>
+
+<div class="card">
+  <h3 class="card-header">Aktionen</h3>
+  <div class="card-body">
+    <%= button_to 'Korrekturbuchung anlegen', new_transaction_path, { params: { status_message: "Korrekturbuchung" }, type: "button", class: 'btn btn-outline-primary', method: :get } %>
+    <br>
+    <%= button_to('Transaktionen als CSV exportieren', { :action => :export_csv, format: 'csv' }, { type: "button", class: 'btn btn-outline-primary', method: :get }) %>
+    <br/>
+    <h5>Bankumsätze importieren (CSV der Sparkasse)</h5>
+    <%= form_tag import_transactions_path, multipart: true do %>
+      <%= file_field_tag :file %>
+      <%= submit_tag "Import CSV" %>
+    <% end %>
+
+  </div>
 </div>

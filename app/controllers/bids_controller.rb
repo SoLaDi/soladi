@@ -39,7 +39,9 @@ class BidsController < ApplicationController
   end
 
   # GET /bids/1/edit
-  def edit; end
+  def edit
+    Rails.cache.clear
+  end
 
   # POST /bids
   # POST /bids.json
@@ -48,6 +50,7 @@ class BidsController < ApplicationController
 
     respond_to do |format|
       if @bid.save
+        Rails.cache.clear
         format.html { redirect_to @bid, notice: 'Bid was successfully created.' }
         format.json { render :show, status: :created, location: @bid }
       else
@@ -62,6 +65,7 @@ class BidsController < ApplicationController
   def update
     respond_to do |format|
       if @bid.update(bid_params)
+        Rails.cache.clear
         format.html { redirect_to @bid, notice: 'Bid was successfully updated.' }
         format.json { render :show, status: :ok, location: @bid }
       else
@@ -76,6 +80,7 @@ class BidsController < ApplicationController
   def destroy
     @bid.destroy
     respond_to do |format|
+      Rails.cache.clear
       format.html { redirect_to bids_url, notice: 'Bid was successfully destroyed.' }
       format.json { head :no_content }
     end

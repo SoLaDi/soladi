@@ -49,6 +49,7 @@ class TransactionsController < ApplicationController
 
   # GET /transactions/1/edit
   def edit
+    Rails.cache.clear
   end
 
   # POST /transactions
@@ -58,6 +59,7 @@ class TransactionsController < ApplicationController
 
     respond_to do |format|
       if @transaction.save
+        Rails.cache.clear
         format.html { redirect_to @transaction, notice: 'Transaction was successfully created.' }
         format.json { render :show, status: :created, location: @transaction }
       else
@@ -72,6 +74,7 @@ class TransactionsController < ApplicationController
   def update
     respond_to do |format|
       if @transaction.update(transaction_params)
+        Rails.cache.clear
         format.html { redirect_to @transaction, notice: 'Transaction was successfully updated.' }
         format.json { render :show, status: :ok, location: @transaction }
       else
@@ -86,6 +89,7 @@ class TransactionsController < ApplicationController
   def destroy
     @transaction.destroy
     respond_to do |format|
+      Rails.cache.clear
       format.html { redirect_to transactions_url, notice: 'Transaction was successfully destroyed.' }
       format.json { head :no_content }
     end

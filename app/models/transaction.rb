@@ -37,10 +37,12 @@ class Transaction < ApplicationRecord
   }
 
   def self.total_amount(start_date, end_date)
-    Transaction
-      .associated_with_membership
-      .where(entry_date: start_date..end_date)
-      .sum(:amount)
+    Rails.cache.fetch('total_amount' + start_date.strftime("%d-%m-%Y") + end_date.strftime("%d-%m-%Y"), expires_in: 1.hour) do
+      Transaction
+        .associated_with_membership
+        .where(entry_date: start_date..end_date)
+        .sum(:amount)
+    end
   end
 
   def self.total_amount_not_associated(start_date, end_date)
@@ -125,6 +127,8 @@ class Transaction < ApplicationRecord
     Rails.logger.info "ignored rows: #{ignored_rows.length}"
     Rails.logger.info "invalid rows: #{invalid_rows.length}"
 
+    Rails.cache.clear
+
     ImportStatus.new(total_rows_count, imported_rows.length, duplicate_rows.length, ignored_rows.length, invalid_rows.length)
   end
 
@@ -135,7 +139,7 @@ class Transaction < ApplicationRecord
       csv << attributes
 
       all.each do |contact|
-        csv << attributes.map{ |attr| contact.send(attr) }
+        csv << attributes.map { |attr| contact.send(attr) }
       end
     end
   end

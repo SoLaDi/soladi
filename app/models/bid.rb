@@ -39,9 +39,11 @@ class Bid < ApplicationRecord
   end
 
   def self.total_amount(start_date, end_date)
-    ApplicationHelper.range_to_months(start_date, end_date).inject(0) do |total, month|
-      total + Bid.active_at(month).inject(0) do |sum, bid|
-        sum + bid.monthly_amount
+    Rails.cache.fetch('total_amount' + start_date.strftime("%d-%m-%Y") + end_date.strftime("%d-%m-%Y"), expires_in: 1.hour) do
+      ApplicationHelper.range_to_months(start_date, end_date).inject(0) do |total, month|
+        total + Bid.active_at(month).inject(0) do |sum, bid|
+          sum + bid.monthly_amount
+        end
       end
     end
   end
@@ -55,7 +57,9 @@ class Bid < ApplicationRecord
   end
 
   def self.total_shares(date)
-    Bid.active_at(date).sum(:shares)
+    Rails.cache.fetch('total_shares_' + date.strftime("%d-%m-%Y"), expires_in: 1.hour) do
+      Bid.active_at(date).sum(:shares)
+    end
   end
 
   def self.average_share_price(date)

@@ -37,7 +37,7 @@ class Transaction < ApplicationRecord
   }
 
   def self.total_amount(start_date, end_date)
-    Rails.cache.fetch('total_amount' + start_date.strftime("%d-%m-%Y") + end_date.strftime("%d-%m-%Y"), expires_in: 1.hour) do
+    Rails.cache.fetch('transaction_total_amount_' + start_date.strftime("%d-%m-%Y") + end_date.strftime("%d-%m-%Y"), expires_in: 1.hour) do
       Transaction
         .associated_with_membership
         .where(entry_date: start_date..end_date)

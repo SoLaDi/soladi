@@ -13,16 +13,17 @@ class HomeController < ApplicationController
 
   def calculate_monthly_revenue_graph
     today = Date.today
+    Rails.cache.fetch('home_calculate_monthly_revenue_graph_' + today.strftime("%d-%m-%Y"), expires_in: 1.hour) do
+      start_date = Date.new(today.year, today.month) - 9.months
+      end_date = Date.new(today.year, today.month) + 3.months
 
-    start_date = Date.new(today.year, today.month) - 9.months
-    end_date = Date.new(today.year, today.month) + 3.months
+      revenue = calculate_monthly_payments(start_date, end_date)
+      not_associated_payments = calculate_monthly_not_associated_payments(start_date, end_date)
+      expected = calculate_monthly_costs(start_date, end_date)
+      labels = ApplicationHelper.range_to_months(start_date, end_date).map { |month| month.strftime("%b %Y") }
 
-    revenue = calculate_monthly_payments(start_date, end_date)
-    not_associated_payments = calculate_monthly_not_associated_payments(start_date, end_date)
-    expected = calculate_monthly_costs(start_date, end_date)
-    labels = ApplicationHelper.range_to_months(start_date, end_date).map { |month| month.strftime("%b %Y") }
-
-    MonthlyRevenueStats.new(revenue, not_associated_payments, expected, labels)
+      MonthlyRevenueStats.new(revenue, not_associated_payments, expected, labels)
+    end
   end
 
   def transaction_grouping_date(date)
@@ -84,11 +85,13 @@ class HomeController < ApplicationController
   def calculate_monthly_shares
     start_date = Date.today - 6.months
     end_date = Date.today + 6.months
-    months = ApplicationHelper.range_to_months(start_date, end_date)
-    labels = months.map { |month| month.strftime("%b %Y") }
-    shares = months.map { |month| Bid.total_shares(month) }
+    Rails.cache.fetch('home_calculate_monthly_shares_' + start_date.strftime("%d-%m-%Y") + end_date.strftime("%d-%m-%Y"), expires_in: 1.hour) do
+      months = ApplicationHelper.range_to_months(start_date, end_date)
+      labels = months.map { |month| month.strftime("%b %Y") }
+      shares = months.map { |month| Bid.total_shares(month) }
 
-    MonthlyShares.new(shares, labels)
+      MonthlyShares.new(shares, labels)
+    end
   end
 
   def calculate_last_year_totals
@@ -123,30 +126,37 @@ class HomeController < ApplicationController
 
   # @param month - a Date for which year-month the calculation is done
   def monthly_revenue_statistics(month)
-    last_month = month - 1.month
+    Rails.cache.fetch('home_monthly_revenue_statistics_' + month.strftime("%d-%m-%Y"), expires_in: 1.hour) do
+      last_month = month - 1.month
 
-    month_start = Date.new(last_month.year, last_month.month, 15)
-    month_end = Date.new(month.year, month.month, 14)
+      month_start = Date.new(last_month.year, last_month.month, 15)
+      month_end = Date.new(month.year, month.month, 14)
 
-    cost = Bid.total_amount(month, month)
-    payments = Transaction.total_amount(month_start, month_end)
+      cost = Bid.total_amount(month, month)
+      payments = Transaction.total_amount(month_start, month_end)
 
-    Balance.new(month_start, month_end, cost, payments)
+      Balance.new(month_start, month_end, cost, payments)
+    end
   end
 
   def date_range_revenue_statistics(start_date, end_date)
-    cost = Bid.total_amount(start_date, end_date)
-    payments = Transaction.total_amount(start_date, end_date)
+    Rails.cache.fetch('home_date_range_revenue_statistics_' + start_date.strftime("%d-%m-%Y") + end_date.strftime("%d-%m-%Y"), expires_in: 1.hour) do
+      cost = Bid.total_amount(start_date, end_date)
+      payments = Transaction.total_amount(start_date, end_date)
 
-    Balance.new(start_date, end_date, cost, payments)
+      Balance.new(start_date, end_date, cost, payments)
+    end
   end
 
   def calculate_membership_stats
-    total = Membership.total_count
-    active = Membership.active_count
-    shares = Bid.total_shares(Date.today)
-    average_share_price = Bid.average_share_price(Date.today)
+    today = Date.today
+    Rails.cache.fetch('home_calculate_membership_stats_' + today.strftime("%d-%m-%Y"), expires_in: 1.hour) do
+      total = Membership.total_count
+      active = Membership.active_count
+      shares = Bid.total_shares(today)
+      average_share_price = Bid.average_share_price(today)
 
-    MembershipStatistics.new(total, active, shares, average_share_price)
+      MembershipStatistics.new(total, active, shares, average_share_price)
+    end
   end
 end

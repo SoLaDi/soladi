@@ -106,7 +106,7 @@ class Membership < ApplicationRecord
   end
 
   def total_cost
-    Rails.cache.fetch('total_cost', expires_in: 1.hour) do
+    Rails.cache.fetch('membership_total_cost', expires_in: 1.hour) do
       today = Date.today
       bids.all.inject(0) do |total_sum, bid|
         total_sum + bid.months.inject(0) do |bid_sum, bid_month|
@@ -127,7 +127,7 @@ class Membership < ApplicationRecord
   end
 
   def total_payments
-    Rails.cache.fetch('total_payments', expires_in: 1.hour) do
+    Rails.cache.fetch('membership_total_payments', expires_in: 1.hour) do
       transactions.sum(:amount)
     end
   end
@@ -141,11 +141,9 @@ class Membership < ApplicationRecord
   end
 
   def bid_for(date)
-    Rails.cache.fetch('bid_for_' + date.strftime("%d-%m-%Y"), expires_in: 1.hour) do
-      # bid dates always have the day set to 1
-      query_date = Date.new(date.year, date.month, 1)
-      bids.where(start_date: ..query_date, end_date: query_date..).take
-    end
+    # bid dates always have the day set to 1
+    query_date = Date.new(date.year, date.month, 1)
+    bids.where(start_date: ..query_date, end_date: query_date..).take
   end
 
   def currently_active?

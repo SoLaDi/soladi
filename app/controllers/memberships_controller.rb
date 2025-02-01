@@ -72,7 +72,6 @@ class MembershipsController < ApplicationController
   # GET /memberships.json
   def index
     @memberships = Membership.all
-    @overdue_memberships = Membership.overdue
   end
 
   # GET /memberships/1

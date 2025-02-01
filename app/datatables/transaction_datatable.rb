@@ -15,7 +15,7 @@ class TransactionDatatable < AjaxDatatablesRails::ActiveRecord
       entry_date: { source: "Transaction.entry_date", cond: :like },
       sender: { source: "Transaction.sender", cond: :like },
       description: { source: "Transaction.description", cond: :like },
-      amount: { source: "Transaction.amount", cond: :like, searchable: false },
+      amount: { source: "Transaction.amount", cond: :eq, searchable: false },
       currency: { source: "Transaction.currency", cond: :string_eq, searchable: false },
       membership_id: { source: "Transaction.membership_id", cond: :like },
       status_message: { source: "Transaction.status_message", cond: :like, searchable: false },

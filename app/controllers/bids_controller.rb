@@ -18,14 +18,9 @@ class BidsController < ApplicationController
   # GET /bids
   # GET /bids.json
   def index
-    @bids = Bid.all
-
-    today = Date.today
-    current_month = Date.new(today.year, today.month)
-    start_date = current_month - 3.months
-    end_date = current_month + 3.months
-    @bid__average_prices = ApplicationHelper.range_to_months(start_date, end_date).map do |month|
-      [month, Bid.average_share_price(month)]
+    respond_to do |format|
+      format.html
+      format.json { render json: BidDatatable.new(params, view_context: view_context) }
     end
   end
 

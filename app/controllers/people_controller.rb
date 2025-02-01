@@ -13,7 +13,10 @@ class PeopleController < ApplicationController
   # GET /people
   # GET /people.json
   def index
-    @people = Person.all
+    respond_to do |format|
+      format.html
+      format.json { render json: PersonDatatable.new(params, view_context: view_context) }
+    end
   end
 
   # GET /people/1

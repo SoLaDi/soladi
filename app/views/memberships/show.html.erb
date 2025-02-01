@@ -113,7 +113,8 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $('#rich-table-payments').dataTable({
-                "ordering": true
+                order: [[0, "desc"]],
+                ordering: true
             });
         });
     </script>
@@ -161,6 +162,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $('#rich-table-bids').dataTable({
+                order: [[1, "desc"]],
                 "ordering": true,
             });
         });

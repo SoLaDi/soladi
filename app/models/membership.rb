@@ -106,8 +106,8 @@ class Membership < ApplicationRecord
   end
 
   def total_cost
-    Rails.cache.fetch('membership_total_cost', expires_in: 1.hour) do
-      today = Date.today
+    today = Date.today
+    Rails.cache.fetch('membership_total_cost_' + id.to_s + today.strftime("%d-%m-%Y"), expires_in: 1.hour) do
       bids.all.inject(0) do |total_sum, bid|
         total_sum + bid.months.inject(0) do |bid_sum, bid_month|
           if bid_month < today
@@ -127,7 +127,7 @@ class Membership < ApplicationRecord
   end
 
   def total_payments
-    Rails.cache.fetch('membership_total_payments', expires_in: 1.hour) do
+    Rails.cache.fetch('membership_total_payments_' + id.to_s, expires_in: 1.hour) do
       transactions.sum(:amount)
     end
   end

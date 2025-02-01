@@ -34,7 +34,7 @@ class BidDatatable < AjaxDatatablesRails::ActiveRecord
     records.map do |record|
       {
         DT_RowId: record.id,
-        membership_id: link_to_membership(record.id),
+        membership_id: link_to_membership(record.membership_id),
         start_date: record.start_date,
         end_date: record.end_date,
         amount: record.amount,

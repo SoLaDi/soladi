@@ -21,9 +21,9 @@ class PersonDatatable < AjaxDatatablesRails::ActiveRecord
       phone: { source: "Person.phone", cond: :like, searchable: false },
       membership_id: { source: "Person.membership_id", cond: :like },
       website_account_status: { source: "Person.website_account_status", cond: :like, searchable: false },
-      details: { source: "Person.details", cond: :string_eq, searchable: false },
-      edit: { source: "Person.edit", cond: :string_eq, searchable: false },
-      delete: { source: "Person.delete", cond: :string_eq, searchable: false },
+      details: { source: "Person.details", cond: :string_eq, searchable: false, orderable: false },
+      edit: { source: "Person.edit", cond: :string_eq, searchable: false, orderable: false },
+      delete: { source: "Person.delete", cond: :string_eq, searchable: false, orderable: false },
     }
   end
 

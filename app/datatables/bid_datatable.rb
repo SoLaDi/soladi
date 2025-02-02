@@ -19,10 +19,10 @@ class BidDatatable < AjaxDatatablesRails::ActiveRecord
       amount: { source: "Bid.amount", cond: :eq },
       shares: { source: "Bid.shares", cond: :eq, searchable: false },
       contract_signed: { source: "Bid.contract_signed", cond: :string_eq, searchable: false },
-      placed_by: { source: "Bid.person", cond: :string_eq, searchable: false },
-      details: { source: "Bid.details", cond: :string_eq, searchable: false },
-      edit: { source: "Bid.edit", cond: :string_eq, searchable: false },
-      delete: { source: "Bid.delete", cond: :string_eq, searchable: false }
+      placed_by: { source: "Bid.person", cond: :string_eq, searchable: false , orderable: false},
+      details: { source: "Bid.details", cond: :string_eq, searchable: false, orderable: false },
+      edit: { source: "Bid.edit", cond: :string_eq, searchable: false, orderable: false },
+      delete: { source: "Bid.delete", cond: :string_eq, searchable: false, orderable: false }
     }
   end
 

@@ -12,7 +12,7 @@ class TransactionDatatable < AjaxDatatablesRails::ActiveRecord
 
   def view_columns
     @view_columns ||= {
-      entry_date: { source: "Transaction.entry_date", cond: :like },
+      entry_date: { source: "Transaction.entry_date", cond: :like},
       sender: { source: "Transaction.sender", cond: :like },
       description: { source: "Transaction.description", cond: :like },
       amount: { source: "Transaction.amount", cond: :eq, searchable: false },
@@ -20,9 +20,9 @@ class TransactionDatatable < AjaxDatatablesRails::ActiveRecord
       membership_id: { source: "Transaction.membership_id", cond: :like },
       status_message: { source: "Transaction.status_message", cond: :like, searchable: false },
       status: { source: "Transaction.status", cond: :string_eq },
-      details: { source: "Transaction.details", cond: :string_eq, searchable: false },
-      edit: { source: "Transaction.edit", cond: :string_eq, searchable: false },
-      delete: { source: "Transaction.delete", cond: :string_eq, searchable: false },
+      details: { source: "Transaction.details", cond: :string_eq, searchable: false , orderable: false },
+      edit: { source: "Transaction.edit", cond: :string_eq, searchable: false, orderable: false  },
+      delete: { source: "Transaction.delete", cond: :string_eq, searchable: false, orderable: false  },
     }
   end
 

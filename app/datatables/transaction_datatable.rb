@@ -19,7 +19,7 @@ class TransactionDatatable < AjaxDatatablesRails::ActiveRecord
       currency: { source: "Transaction.currency", cond: :string_eq, searchable: false },
       membership_id: { source: "Transaction.membership_id", cond: :like },
       status_message: { source: "Transaction.status_message", cond: :like, searchable: false },
-      status: { source: "Transaction.status", cond: :string_eq },
+      status: { source: "Transaction.status", cond: :like },
       details: { source: "Transaction.details", cond: :string_eq, searchable: false , orderable: false },
       edit: { source: "Transaction.edit", cond: :string_eq, searchable: false, orderable: false  },
       delete: { source: "Transaction.delete", cond: :string_eq, searchable: false, orderable: false  },

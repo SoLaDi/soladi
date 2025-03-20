@@ -30,6 +30,19 @@ class Bid < ApplicationRecord
     where(start_date: ..normalised_date, end_date: normalised_date..)
   }
 
+  def self.to_csv
+    attributes = %w{id start_date end_date amount shares membership_id updated_at person_id}
+
+    CSV.generate(headers: true) do |csv|
+      csv << attributes
+
+      all.each do |bid|
+        base_attributes = attributes.map { |attr| bid.send(attr) }
+        csv << base_attributes
+      end
+    end
+  end
+
   def overlaps?(other)
     id == other.id && start_date <= other.end_date && other.start_date <= end_date
   end

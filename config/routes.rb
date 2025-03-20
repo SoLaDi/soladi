@@ -8,7 +8,10 @@ Rails.application.routes.draw do
   end
   resources :distribution_points
   resources :bids do
-    collection { post :import }
+    collection do
+      post :import
+      get :export_csv
+    end
   end
   resources :transactions do
     collection do

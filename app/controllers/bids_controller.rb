@@ -15,6 +15,12 @@ class BidsController < ApplicationController
     end
   end
 
+  def export_csv
+    respond_to do |format|
+      format.csv { send_data Bid.all.to_csv }
+    end
+  end
+
   # GET /bids
   # GET /bids.json
   def index

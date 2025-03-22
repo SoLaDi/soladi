@@ -66,6 +66,9 @@
       Einladungen zur Bieterrunde versenden
     </button>
     <br/>
+    <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#ageementMailModal">
+      Mitgliedsvereinbarungen versenden
+    </button>
     <br/>
     <%= button_to('Transaktionen als CSV exportiern', { :action => :export_csv, format: 'csv' }, { type: "button", class: 'btn btn-outline-primary', method: :get }) %>
 

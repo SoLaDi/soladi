@@ -1,0 +1,38 @@
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
+</head>
+<body>
+<h1>Die Mitgliedsvereinbarung für 2025/2026</h1>
+<p>
+  Hallo <%= @person.name %>
+</p>
+<p>
+  Im Anhang findest du die Mitgliedsvereinbarung für unsere Solawi. Bitte schicke diese unterschrieben per EMail oder Post an uns zurück.
+
+  <br>
+  Bitte beachtet: Da wir das Wirtschaftsjahr anpassen, gilt das Gebot einmalig für ein <b>verlängertes Jahr
+  vom 1.4.2025 bis 30.6.2026</b>!
+
+  <br>
+  Für deine Mitgliedschaft mit der Nummer <%= "S#{@person.membership.id}" %> sind uns folgende Mitglieder bekannt:
+
+  <% @person.membership.people.each do |person| %>
+  <p> <%= person.name %> <%= person.surname %> - <%= person.email %></p>
+<% end %>
+
+<br>
+Bitte stimme dich ggf. mit den anderen Mitgliedern ab. Pro Mitgliedschaft muss eine Vereinbarung unterschrieben werden!.
+<br>
+Die Richtlinien der Solawi findest du hier::
+<a href=https://solawi.gaertnerei-apfeltraum.de/wp-content/uploads/2024/03/Richtlinien-SOLAWI-2024.docx" %>>Vereinbarung</a>.
+</p>
+<p>
+  Bei Rückfragen antworte bitte einfach auf diese E-Mail oder wende dich an:
+  <a href="mailto:solawi@gaertnerei-apfeltraum.de">solawi@gaertnerei-apfeltraum.de</a>.
+</p>
+<p>
+  Vielen Dank und bis bald
+</p>
+</body>
+</html>

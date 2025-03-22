@@ -93,6 +93,14 @@ class Membership < ApplicationRecord
     end.sum
   end
 
+  def send_agreement_mail
+    active_members.map do |recipient|
+      Rails.logger.info("Will send agreement mail to #{recipient.email}")
+      PeopleMailer.with(person: recipient).agreement_mail.deliver_now
+      1
+    end.sum
+  end
+
   def active_members
     people.all.filter(&:active?)
   end

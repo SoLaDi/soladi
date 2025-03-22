@@ -1,0 +1,76 @@
+prawn_document(filename: "vereinbarung_#{@membership.id}.pdf", disposition: "attachment") do |pdf|
+  pdf.font 'Times-Roman'
+
+  pdf.image "./app/assets//images/logo-bw.png", scale: 0.25
+
+  pdf.indent(330, 5) do
+    pdf.font_size 10
+    pdf.text "Gärtnerei Apfeltraum, Glaser und Laufer GbR"
+    pdf.text "Annette Glaser und Boris Laufer"
+    pdf.text "15374 Müncheberg/ OT Eggersdorf"
+    pdf.text "Tel.: 033432 - 71410"
+    pdf.text "solawi@gaertnerei-apfeltraum.de"
+  end
+  pdf.move_down 30
+
+  pdf.text "SOLAWI-Vereinbarung mit der Gärtnerei Apfeltraum", align: :center, size: 16
+  pdf.text "Für die Mitgliedschaft Nr. S#{@membership.id} und Wirtschaftsjahr 2025/2026", align: :center, size: 14
+  pdf.move_down 5
+  pdf.text "Vom 01.04.2025 - 30.06.2026", align: :center, size: 12
+  pdf.move_down 30
+
+  pdf.font_size 12
+
+  pdf.move_down 5
+  pdf.text "Bekannte Mitglieder:"
+  members_table_data = @membership.people.collect { |p| [
+    p.name,
+    p.surname,
+    p.email,
+    p.phone
+  ] }
+
+  members_table_data.unshift(%w[Name Vorname E-Mail Telefon])
+
+  pdf.table(members_table_data) do |t|
+    t.row(0).background_color = 'dae0e5'
+  end
+
+  pdf.move_down 5
+  pdf.text "Hinweis: Pro Mitgliedschaft benötigen wir eine Vereinbarung."
+  pdf.text "Bitte koordiniert dies untereinander!"
+
+  pdf.move_down 30
+
+  pdf.text "Mir ist bekannt, dass die Teilname an der Jahreshauptversammlung verbindlich ist. Anhand des dort vorgestellten Etats werden die Beiträge festgelegt."
+  pdf.text "Ziel ist die gemeinsame Etatdeckung."
+  pdf.move_down 15
+
+  pdf.text "Ich werde mich vom <b>01.04.2025 bis 30.06.2026</b> mit <b>#{@bid.shares} Ernteanteil(en)</b> mit einem monatlichen Gesamtbetrag von <b>#{@bid.monthly_amount}€</b> inkl. 7,8% MwSt beteiligen.", inline_format: true
+  pdf.text "Die Zahlung erfolgt monatlich bis zum 10. des laufenden Monats an folgende Bankverbindung:"
+  pdf.move_down 10
+
+  pdf.bounding_box([0, pdf.cursor], width: 210, height: 70) do
+    pdf.transparent(0.5) { pdf.stroke_bounds }
+    pdf.move_down 10
+    pdf.indent(10, 10) do
+      pdf.font_size 12
+      pdf.text "Kontoinhaber: Boris Laufer"
+      pdf.text "Verwendungszweck: <b>S#{@membership.id}</b>", inline_format: true
+      pdf.text "IBAN: DE61 1705 4040 0020 0141 98"
+      pdf.text "BIC: WELADED1MOL"
+    end
+  end
+
+  pdf.move_down 30
+
+  pdf.text "Die Vereinbarung der SOLAWI Gärtnerei Apfeltraum habe ich gelesen und zur Kenntnis genommen und akzeptiere sie als verbindliche Grundlage."
+  pdf.move_down 20
+
+  pdf.text "Ort, Datum: ___________________________"
+  pdf.move_down 15
+  pdf.text "Name: ________________________________"
+  pdf.move_down 15
+  pdf.text "Unterschrift: ___________________________"
+
+end

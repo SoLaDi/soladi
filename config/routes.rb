@@ -4,7 +4,9 @@
 Rails.application.routes.draw do
   root to: 'home#index'
   resources :people do
-    collection { post :import }
+    collection do
+      post :import
+    end
   end
   resources :distribution_points
   resources :bids do
@@ -22,12 +24,15 @@ Rails.application.routes.draw do
   resources :memberships do
     collection do
       post :send_bidding_invite_mail_to_all_memberships
+      post :send_agreement_mail_to_all_memberships
       post :import
       get :export_csv
     end
     member do
       post :send_payment_overdue_reminder_mail
       post :send_bidding_invite_mail
+      post :send_agreement_mail
+      get :agreement
     end
   end
   devise_for :users

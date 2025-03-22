@@ -4,7 +4,7 @@ class MembershipsController < ApplicationController
   require 'active_support/all'
 
   before_action :set_membership,
-                only: %i[show edit update destroy send_payment_overdue_reminder_mail send_bidding_invite_mail]
+                only: %i[show edit update destroy send_payment_overdue_reminder_mail send_bidding_invite_mail agreement, send_agreement_mail]
 
   def send_payment_overdue_reminder_mail
     Rails.logger.info "Going to send the payment overdue reminder mail for membership #{@membership.id}"
@@ -27,6 +27,18 @@ class MembershipsController < ApplicationController
     redirect_to :memberships, notice: "E-Mail Versand fehlgeschlagen: #{e.message}"
   end
 
+  def send_agreement_mail
+    if @membership.terminated and @membership.active_at(Date.new(2025, 4, 1))
+      redirect_to :memberships, notice: 'Die Mitgliedschaft ist gekündigt oder hat kein Gebot, keine E-Mail verschickt!'
+    end
+
+    Rails.logger.info "Going to send the agreement mail to membership #{@membership.id}"
+    @membership.send_agreement_mail
+    redirect_to :memberships, notice: 'E-Mail Versand abgeschlossen!'
+  rescue StandardError => e
+    redirect_to :memberships, notice: "E-Mail Versand fehlgeschlagen: #{e.message}"
+  end
+
   def send_bidding_invite_mail_to_all_memberships
     Rails.logger.info 'Going to send the bidding invite mail'
     failed = 0
@@ -38,6 +50,24 @@ class MembershipsController < ApplicationController
     rescue StandardError => e
       failed += 1
       Rails.logger.error "Failed to send bidding invite mail for #{membership.id}: #{e}"
+    end.sum
+
+    successful = total - failed
+
+    redirect_to :memberships, notice: "E-Mail Versand abgeschlossen für #{successful}/#{total} Mitgliedschaften (insgesamt #{sent_mails} Mails versendet)"
+  end
+
+  def send_agreement_mail_to_all_memberships
+    Rails.logger.info 'Going to send the agreement mail'
+    failed = 0
+
+    relevant_memberships = Membership.all.filter { |m| !m.terminated and m.active_at(Date.new(2025, 4, 1)) }
+    total = relevant_memberships.count
+    sent_mails = relevant_memberships.map do |membership|
+      membership.send_agreement_mail
+    rescue StandardError => e
+      failed += 1
+      Rails.logger.error "Failed to send agreement mail for #{membership.id}: #{e}"
     end.sum
 
     successful = total - failed
@@ -77,6 +107,11 @@ class MembershipsController < ApplicationController
   # GET /memberships/1
   # GET /memberships/1.json
   def show; end
+
+  def agreement
+    @bid = @membership.bid_for(Date.new(2025, 4, 1))
+    raise ActiveRecord::RecordNotFound if @bid.nil?
+  end
 
   # GET /memberships/new
   def new

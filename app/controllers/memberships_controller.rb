@@ -4,7 +4,7 @@ class MembershipsController < ApplicationController
   require 'active_support/all'
 
   before_action :set_membership,
-                only: %i[show edit update destroy send_payment_overdue_reminder_mail send_bidding_invite_mail agreement, send_agreement_mail]
+                only: %i[show edit update destroy send_payment_overdue_reminder_mail send_bidding_invite_mail agreement send_agreement_mail]
 
   def send_payment_overdue_reminder_mail
     Rails.logger.info "Going to send the payment overdue reminder mail for membership #{@membership.id}"

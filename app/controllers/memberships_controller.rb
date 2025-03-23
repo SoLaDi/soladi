@@ -75,6 +75,18 @@ class MembershipsController < ApplicationController
     redirect_to :memberships, notice: "E-Mail Versand abgeschlossen für #{successful}/#{total} Mitgliedschaften (insgesamt #{sent_mails} Mails versendet)"
   end
 
+  def create_missing_bids
+    Rails.logger.info 'Going to create missing bids'
+
+    relevant_memberships = Membership.all.filter { |m| !m.terminated and !m.active_at(Date.new(2025, 4, 1)) }
+    total = relevant_memberships.count
+    relevant_memberships.each do |membership|
+      Bid.new(start_date: Date.new(2025, 4, 1), end_date: Date.new(2026, 6, 1), membership_id: membership.id, contract_signed: false, amount: 106.8, shares: 1).save
+    end
+
+    redirect_to :memberships, notice: "Gebote wurden angelegt für #{total} Mitgliedschaften"
+  end
+
   def import
     import_status = Membership.import(params[:file])
     Rails.logger.info import_status.message

@@ -18,29 +18,6 @@
           <div style="width: 250px">
             <canvas id="lastYearPieChart"></canvas>
           </div>
-          <script>
-              var ctx = document.getElementById('lastYearPieChart').getContext('2d');
-              var myDoughnutChart = new Chart(ctx, {
-                  type: 'doughnut',
-                  data: {
-                      datasets: [{
-                          data: [
-                              <%= @data.last_year_balance.cost - @data.last_year_balance.payments %>,
-                              <%= @data.last_year_balance.payments %>
-                          ],
-                          backgroundColor: [
-                              '#ED561B',
-                              '#50B432'
-                          ]
-                      }],
-                      labels: [
-                          'Ausstehend',
-                          'Erhalten',
-                      ],
-
-                  }
-              });
-          </script>
         </div>
       </div>
     </div>
@@ -56,29 +33,6 @@
           <div style="width: 250px">
             <canvas id="currentYearPieChart"></canvas>
           </div>
-          <script>
-              var ctx = document.getElementById('currentYearPieChart').getContext('2d');
-              var myDoughnutChart = new Chart(ctx, {
-                  type: 'doughnut',
-                  data: {
-                      datasets: [{
-                          data: [
-                              <%= @data.current_year_balance.cost - @data.current_year_balance.payments %>,
-                              <%= @data.current_year_balance.payments %>
-                          ],
-                          backgroundColor: [
-                              '#ED561B',
-                              '#50B432'
-                          ]
-                      }],
-                      labels: [
-                          'Ausstehend',
-                          'Erhalten',
-                      ],
-
-                  }
-              });
-          </script>
         </div>
       </div>
     </div>
@@ -94,29 +48,6 @@
           <div style="width: 250px">
             <canvas id="nextYearPieChart"></canvas>
           </div>
-          <script>
-              var ctx = document.getElementById('nextYearPieChart').getContext('2d');
-              var myDoughnutChart = new Chart(ctx, {
-                  type: 'doughnut',
-                  data: {
-                      datasets: [{
-                          data: [
-                              <%= @data.next_year_balance.cost - @data.next_year_balance.payments %>,
-                              <%= @data.next_year_balance.payments %>
-                          ],
-                          backgroundColor: [
-                              '#ED561B',
-                              '#50B432'
-                          ]
-                      }],
-                      labels: [
-                          'Ausstehend',
-                          'Erhalten',
-                      ],
-
-                  }
-              });
-          </script>
         </div>
       </div>
     </div>
@@ -144,29 +75,6 @@
           <div style="width: 250px">
             <canvas id="lastMonthPieChart"></canvas>
           </div>
-          <script>
-              var ctx = document.getElementById('lastMonthPieChart').getContext('2d');
-              var myDoughnutChart = new Chart(ctx, {
-                  type: 'doughnut',
-                  data: {
-                      datasets: [{
-                          data: [
-                              <%= @data.balance_triple.last_month.cost - @data.balance_triple.last_month.payments %>,
-                              <%= @data.balance_triple.last_month.payments %>
-                          ],
-                          backgroundColor: [
-                              '#ED561B',
-                              '#50B432'
-                          ]
-                      }],
-                      labels: [
-                          'Ausstehend',
-                          'Erhalten',
-                      ],
-
-                  }
-              });
-          </script>
         </div>
       </div>
     </div>
@@ -182,29 +90,6 @@
           <div style="width: 250px">
             <canvas id="currentMonthPieChart"></canvas>
           </div>
-          <script>
-              var ctx = document.getElementById('currentMonthPieChart').getContext('2d');
-              var myDoughnutChart = new Chart(ctx, {
-                  type: 'doughnut',
-                  data: {
-                      datasets: [{
-                          data: [
-                              <%= @data.balance_triple.this_month.cost - @data.balance_triple.this_month.payments %>,
-                              <%= @data.balance_triple.this_month.payments %>
-                          ],
-                          backgroundColor: [
-                              '#ED561B',
-                              '#50B432'
-                          ]
-                      }],
-                      labels: [
-                          'Ausstehend',
-                          'Erhalten',
-                      ],
-
-                  }
-              });
-          </script>
         </div>
       </div>
     </div>
@@ -220,29 +105,6 @@
           <div style="width: 250px">
             <canvas id="nextMonthPieChart"></canvas>
           </div>
-          <script>
-              var ctx = document.getElementById('nextMonthPieChart').getContext('2d');
-              var myDoughnutChart = new Chart(ctx, {
-                  type: 'doughnut',
-                  data: {
-                      datasets: [{
-                          data: [
-                              <%= @data.balance_triple.next_month.cost - @data.balance_triple.next_month.payments %>,
-                              <%= @data.balance_triple.next_month.payments %>
-                          ],
-                          backgroundColor: [
-                              '#ED561B',
-                              '#50B432'
-                          ]
-                      }],
-                      labels: [
-                          'Ausstehend',
-                          'Erhalten',
-                      ],
-
-                  }
-              });
-          </script>
         </div>
       </div>
     </div>
@@ -254,87 +116,6 @@
           <div style="width: 100%">
             <canvas id="monthlyRevenue"></canvas>
           </div>
-          <script>
-              var currency_formatter = new Intl.NumberFormat('de-DE', {
-                  style: 'currency',
-                  currency: 'EUR',
-              });
-
-              var ctx = document.getElementById('monthlyRevenue').getContext('2d');
-              var myBarChart = new Chart(ctx, {
-                  type: 'bar',
-                  data: {
-                      labels: <%= @data.monthly_revenue.labels.to_json.html_safe %>,
-                      datasets: [
-                          {
-                              yAxisID: 'A',
-                              backgroundColor: '#50B432',
-                              borderColor: '#50B432',
-                              borderWidth: 1,
-                              label: "Zugeordnet",
-                              data: <%= @data.monthly_revenue.revenue.to_json.html_safe %>,
-                              stack: 'in',
-                          },
-                          {
-                              yAxisID: 'A',
-                              backgroundColor: '#ED561B',
-                              borderColor: '#ED561B',
-                              borderWidth: 1,
-                              label: "Nicht zugeordnet",
-                              data: <%= @data.monthly_revenue.not_associated_payments.to_json.html_safe %>,
-                              stack: 'in',
-                          },
-                          {
-                              yAxisID: 'A',
-                              backgroundColor: '#36a2eb',
-                              borderColor: '#36a2eb',
-                              borderWidth: 1,
-                              label: "Erwartet",
-                              data: <%= @data.monthly_revenue.expected.to_json.html_safe %>,
-                              stack: 'expected',
-                          }
-                      ],
-                  },
-                  options: {
-                      tooltips: {
-                          mode: 'x',
-                          callbacks: {
-                              footer: (tooltipItems, data) => {
-                                  let tooltipItem = tooltipItems[0]
-                                  // console.log(tooltipItem)
-                                  // console.log(data)
-
-                                  if (tooltipItem.datasetIndex !== 2) {
-                                      let index = tooltipItem.index
-                                      let total = parseFloat(data.datasets[0].data[index]) + parseFloat(data.datasets[1].data[index]);
-                                      return 'Einnahmen gesamt: ' + currency_formatter.format(total);
-                                  }
-                              },
-                              label: function (tooltipItem, data) {
-                                  let index = tooltipItem.datasetIndex
-                                  let label = data.datasets[index].label
-                                  return currency_formatter.format(tooltipItem.yLabel) + ` (${label})`;
-                              }
-                          }
-                      },
-                      scales: {
-                          yAxes: [
-                              {
-                                  id: 'A',
-                                  type: 'linear',
-                                  position: 'left',
-                                  ticks: {
-                                      beginAtZero: true,
-                                      callback: function (value, index, values) {
-                                          return currency_formatter.format(value);
-                                      }
-                                  }
-                              }
-                          ]
-                      }
-                  }
-              });
-          </script>
         </div>
       </div>
     </div>
@@ -346,31 +127,221 @@
           <div style="width: 100%">
             <canvas id="monthlyShares"></canvas>
           </div>
-          <script>
-
-              var ctx = document.getElementById('monthlyShares').getContext('2d');
-              var myBarChart = new Chart(ctx, {
-                  type: 'line',
-                  data: {
-                      labels: <%= @data.monthly_shares.labels.to_json.html_safe %>,
-                      datasets: [
-                          {
-                              backgroundColor: 'purple',
-                              borderColor: 'purple',
-                              borderWidth: 2,
-                              label: "Anteile",
-                              fill: false,
-                              data: <%= @data.monthly_shares.shares.to_json.html_safe %>
-                          }
-                      ],
-                  },
-              });
-          </script>
         </div>
       </div>
     </div>
   </div>
 </div>
 
+<script>
+document.addEventListener("turbolinks:load", function() {
+  // Last Year Pie Chart
+  if (document.getElementById('lastYearPieChart')) {
+    var ctx = document.getElementById('lastYearPieChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        datasets: [{
+          data: [
+            <%= @data.last_year_balance.cost - @data.last_year_balance.payments %>,
+            <%= @data.last_year_balance.payments %>
+          ],
+          backgroundColor: ['#ED561B', '#50B432']
+        }],
+        labels: ['Ausstehend', 'Erhalten']
+      }
+    });
+  }
 
+  // Current Year Pie Chart
+  if (document.getElementById('currentYearPieChart')) {
+    var ctx = document.getElementById('currentYearPieChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        datasets: [{
+          data: [
+            <%= @data.current_year_balance.cost - @data.current_year_balance.payments %>,
+            <%= @data.current_year_balance.payments %>
+          ],
+          backgroundColor: ['#ED561B', '#50B432']
+        }],
+        labels: ['Ausstehend', 'Erhalten']
+      }
+    });
+  }
+
+  // Next Year Pie Chart
+  if (document.getElementById('nextYearPieChart')) {
+    var ctx = document.getElementById('nextYearPieChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        datasets: [{
+          data: [
+            <%= @data.next_year_balance.cost - @data.next_year_balance.payments %>,
+            <%= @data.next_year_balance.payments %>
+          ],
+          backgroundColor: ['#ED561B', '#50B432']
+        }],
+        labels: ['Ausstehend', 'Erhalten']
+      }
+    });
+  }
+
+  // Last Month Pie Chart
+  if (document.getElementById('lastMonthPieChart')) {
+    var ctx = document.getElementById('lastMonthPieChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        datasets: [{
+          data: [
+            <%= @data.balance_triple.last_month.cost - @data.balance_triple.last_month.payments %>,
+            <%= @data.balance_triple.last_month.payments %>
+          ],
+          backgroundColor: ['#ED561B', '#50B432']
+        }],
+        labels: ['Ausstehend', 'Erhalten']
+      }
+    });
+  }
+
+  // Current Month Pie Chart
+  if (document.getElementById('currentMonthPieChart')) {
+    var ctx = document.getElementById('currentMonthPieChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        datasets: [{
+          data: [
+            <%= @data.balance_triple.this_month.cost - @data.balance_triple.this_month.payments %>,
+            <%= @data.balance_triple.this_month.payments %>
+          ],
+          backgroundColor: ['#ED561B', '#50B432']
+        }],
+        labels: ['Ausstehend', 'Erhalten']
+      }
+    });
+  }
+
+  // Next Month Pie Chart
+  if (document.getElementById('nextMonthPieChart')) {
+    var ctx = document.getElementById('nextMonthPieChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        datasets: [{
+          data: [
+            <%= @data.balance_triple.next_month.cost - @data.balance_triple.next_month.payments %>,
+            <%= @data.balance_triple.next_month.payments %>
+          ],
+          backgroundColor: ['#ED561B', '#50B432']
+        }],
+        labels: ['Ausstehend', 'Erhalten']
+      }
+    });
+  }
+
+  // Monthly Revenue Bar Chart
+  if (document.getElementById('monthlyRevenue')) {
+    var currency_formatter = new Intl.NumberFormat('de-DE', {
+      style: 'currency',
+      currency: 'EUR',
+    });
+
+    var ctx = document.getElementById('monthlyRevenue').getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: <%= @data.monthly_revenue.labels.to_json.html_safe %>,
+        datasets: [
+          {
+            yAxisID: 'A',
+            backgroundColor: '#50B432',
+            borderColor: '#50B432',
+            borderWidth: 1,
+            label: "Zugeordnet",
+            data: <%= @data.monthly_revenue.revenue.to_json.html_safe %>,
+            stack: 'in',
+          },
+          {
+            yAxisID: 'A',
+            backgroundColor: '#ED561B',
+            borderColor: '#ED561B',
+            borderWidth: 1,
+            label: "Nicht zugeordnet",
+            data: <%= @data.monthly_revenue.not_associated_payments.to_json.html_safe %>,
+            stack: 'in',
+          },
+          {
+            yAxisID: 'A',
+            backgroundColor: '#36a2eb',
+            borderColor: '#36a2eb',
+            borderWidth: 1,
+            label: "Erwartet",
+            data: <%= @data.monthly_revenue.expected.to_json.html_safe %>,
+            stack: 'expected',
+          }
+        ],
+      },
+      options: {
+        plugins: {
+          tooltip: {
+            mode: 'x',
+            callbacks: {
+              footer: (tooltipItems) => {
+                let tooltipItem = tooltipItems[0]
+                if (tooltipItem.datasetIndex !== 2) {
+                  let index = tooltipItem.dataIndex
+                  let chart = tooltipItem.chart
+                  let total = parseFloat(chart.data.datasets[0].data[index]) + parseFloat(chart.data.datasets[1].data[index]);
+                  return 'Einnahmen gesamt: ' + currency_formatter.format(total);
+                }
+              },
+              label: function (context) {
+                let label = context.dataset.label || '';
+                return currency_formatter.format(context.parsed.y) + ` (${label})`;
+              }
+            }
+          }
+        },
+        scales: {
+          A: {
+            type: 'linear',
+            position: 'left',
+            beginAtZero: true,
+            ticks: {
+              callback: function (value, index, values) {
+                return currency_formatter.format(value);
+              }
+            }
+          }
+        }
+      }
+    });
+  }
+
+  // Monthly Shares Line Chart
+  if (document.getElementById('monthlyShares')) {
+    var ctx = document.getElementById('monthlyShares').getContext('2d');
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: <%= @data.monthly_shares.labels.to_json.html_safe %>,
+        datasets: [
+          {
+            backgroundColor: 'purple',
+            borderColor: 'purple',
+            borderWidth: 2,
+            label: "Anteile",
+            fill: false,
+            data: <%= @data.monthly_shares.shares.to_json.html_safe %>
+          }
+        ],
+      },
+    });
+  }
+});
+</script>
 

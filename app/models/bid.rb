@@ -30,6 +30,10 @@ class Bid < ApplicationRecord
     where(start_date: ..normalised_date, end_date: normalised_date..)
   }
 
+  scope :active_between, ->(start_date, end_date) {
+    where("start_date <= ? AND end_date >= ?", end_date, start_date)
+  }
+
   def self.to_csv
     attributes = %w{id start_date end_date amount shares membership_id updated_at person_id}
 
@@ -44,7 +48,7 @@ class Bid < ApplicationRecord
   end
 
   def overlaps?(other)
-    id == other.id && start_date <= other.end_date && other.start_date <= end_date
+    start_date <= other.end_date && other.start_date <= end_date
   end
 
   def period

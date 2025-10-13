@@ -11,10 +11,9 @@ require 'date'
 #  terminated            :boolean          default(FALSE), not null
 #
 class Membership < ApplicationRecord
-  has_many :transactions
-  has_many :payments
-  has_many :bids
-  has_many :people
+  has_many :transactions, dependent: :destroy
+  has_many :bids, dependent: :destroy
+  has_many :people, dependent: :destroy
   belongs_to :distribution_point
   accepts_nested_attributes_for :bids
 
@@ -31,7 +30,7 @@ class Membership < ApplicationRecord
 
         currently_active = membership.currently_active?
         active_next_business_year = membership.active_at(Date.today + 1.year)
-        active_users_count = membership.people.all.where("website_account_status" == "approved").count
+        active_users_count = membership.people.where(website_account_status: "approved").count
         needs_new_bid = (!membership.terminated and !active_next_business_year)
 
         bid_attributes = [currently_active, active_next_business_year, active_users_count, needs_new_bid]
@@ -191,14 +190,14 @@ class Membership < ApplicationRecord
   end
 
   def start_date
-    earliest_starting_bid = bids.map { |b| [b.start_date, b] }.to_h.sort.to_h.values.first
-    earliest_starting_bid ? earliest_starting_bid.start_date : nil
+    earliest_starting_bid = bids.order(:start_date).first
+    earliest_starting_bid&.start_date
   end
 
   def end_date
     if terminated
-      latest_ending_bid = bids.map { |b| [b.end_date, b] }.to_h.sort.to_h.values.last
-      latest_ending_bid ? latest_ending_bid.end_date : nil
+      latest_ending_bid = bids.order(:end_date).last
+      latest_ending_bid&.end_date
     else
       nil
     end

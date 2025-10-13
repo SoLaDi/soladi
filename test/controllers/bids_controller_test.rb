@@ -1,8 +1,12 @@
 require 'test_helper'
 
 class BidsControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
   setup do
     @bid = bids(:one)
+    @user = users(:one)
+    sign_in @user
   end
 
   test "should get index" do
@@ -17,7 +21,7 @@ class BidsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create bid" do
     assert_difference('Bid.count') do
-      post bids_url, params: { bid: { amount: @bid.amount, contract_signed: @bid.contract_signed, end_date: @bid.end_date, membership_id: @bid.membership_id, shares: @bid.shares, start_date: @bid.start_date } }
+      post bids_url, params: { bid: { amount: @bid.amount, contract_signed: @bid.contract_signed, end_date: Date.new(2024, 3, 1), membership_id: 1002, shares: @bid.shares, start_date: Date.new(2023, 4, 1) } }
     end
 
     assert_redirected_to bid_url(Bid.last)

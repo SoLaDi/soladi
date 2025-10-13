@@ -19,7 +19,7 @@ class Transaction < ApplicationRecord
 
   validates :entry_date, presence: true
   validates :sender, presence: true
-  validates :amount, presence: true
+  validates :amount, presence: true, numericality: { greater_than: 0 }
   validates :currency, presence: true
 
   has_paper_trail ignore: [:updated_at]

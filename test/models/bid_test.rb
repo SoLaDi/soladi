@@ -25,7 +25,7 @@ class BidTest < ActiveSupport::TestCase
       puts r.start_date
       puts r.end_date
     end
-    assert result.map { |r| r.id } == [3, 4]
+    assert_equal [3, 4], result.map { |r| r.id }.sort
   end
 
   test "active_at gets a bid" do
@@ -36,7 +36,7 @@ class BidTest < ActiveSupport::TestCase
       puts r.start_date
       puts r.end_date
     end
-    assert result.map { |r| r.id } == [4]
+    assert_equal [4], result.map { |r| r.id }.sort
   end
 
   test "active_at gets single month bid" do
@@ -47,6 +47,6 @@ class BidTest < ActiveSupport::TestCase
       puts r.start_date
       puts r.end_date
     end
-    assert result.map { |r| r.id } == [3]
+    assert_equal [3], result.map { |r| r.id }.sort
   end
 end

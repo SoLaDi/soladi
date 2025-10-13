@@ -1,33 +1,56 @@
 {
   "name": "soladi",
   "private": true,
+  "packageManager": "yarn@1.22.19",
   "dependencies": {
-    "@rails/actioncable": "^6.0.0",
-    "@rails/activestorage": "^6.0.0",
-    "@rails/ujs": "^6.0.0",
-    "@rails/webpacker": "5.4.4",
-    "bootstrap": "^4.6.2",
-    "chart.js": "^2.9.4",
-    "css-loader": "^5.1.1",
-    "datatables.net-bs4": "^1.13.11",
+    "@popperjs/core": "^2.11.8",
+    "@rails/actioncable": "^7.0.0",
+    "@rails/activestorage": "^7.0.0",
+    "@rails/ujs": "^7.0.0",
+    "@types/babel__core": "7",
+    "@types/webpack": "5",
+    "babel-plugin-macros": "^3.1.0",
+    "bootstrap": "^5.3.0",
+    "chart.js": "^4.4.0",
+    "css-loader": "^7.1.0",
+    "datatables.net-bs4": "^2.2.0",
     "datatables.net-buttons-bs4": "^3.2.0",
-    "datatables.net-searchpanes": "^2.3.3",
-    "datatables.net-searchpanes-bs4": "^2.3.3",
-    "datatables.net-searchpanes-dt": "^2.3.3",
-    "datatables.net-select": "^3.0.0",
-    "datatables.net-select-bs4": "^3.0.0",
-    "import-loader": "^1.0.1",
-    "jquery": "^3.5.1",
-    "popper.js": "^1.16.1",
-    "post-loader": "^2.0.0",
-    "style-loader": "^2.0.0",
+    "datatables.net-searchpanes": "^2.3.0",
+    "datatables.net-searchpanes-bs4": "^2.3.0",
+    "datatables.net-searchpanes-dt": "^2.3.0",
+    "datatables.net-select": "^2.1.0",
+    "datatables.net-select-bs4": "^2.1.0",
+    "jquery": "^3.7.0",
+    "mini-css-extract-plugin": "^2.9.4",
+    "sass": "^1.93.2",
+    "sass-loader": "^16.0.5",
+    "shakapacker": "8.4.0",
+    "style-loader": "^4.0.0",
     "turbolinks": "^5.2.0",
-    "yarn": "^1.22.17"
+    "webpack-subresource-integrity": "5"
   },
   "version": "0.1.0",
   "devDependencies": {
-    "expose-loader": "^1.0.3",
-    "imports-loader": "^1.2.0",
-    "webpack-dev-server": "^3.11.2"
-  }
+    "@babel/core": "7",
+    "@babel/plugin-transform-runtime": "7",
+    "@babel/preset-env": "7",
+    "@babel/runtime": "7",
+    "babel-loader": "10",
+    "compression-webpack-plugin": "11",
+    "expose-loader": "^5.0.0",
+    "terser-webpack-plugin": "5",
+    "webpack": "5",
+    "webpack-assets-manifest": "6",
+    "webpack-cli": "6",
+    "webpack-dev-server": "5",
+    "webpack-merge": "6"
+  },
+  "babel": {
+    "presets": [
+      "./node_modules/shakapacker/package/babel/preset.js"
+    ]
+  },
+  "browserslist": [
+    "defaults"
+  ]
 }

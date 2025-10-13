@@ -4,24 +4,32 @@
 // that code so it'll be compiled.
 
 import $ from 'jquery';
-global.$ = jQuery;
+global.$ = $;
+global.jQuery = $;
 
-require("@rails/ujs").start()
-require("turbolinks").start()
-require("@rails/activestorage").start()
-require("channels")
-require('datatables.net-bs4')
-require('chart.js')
+import Rails from "@rails/ujs"
+import Turbolinks from "turbolinks"
+import * as ActiveStorage from "@rails/activestorage"
+import "channels"
+import 'datatables.net-bs4'
 
-import 'bootstrap/dist/js/bootstrap'
-import 'bootstrap/dist/css/bootstrap'
-import "../stylesheets/application"
+import { Chart, registerables } from 'chart.js';
+Chart.register(...registerables);
+global.Chart = Chart;
 
-import 'datatables.net-bs4/css/dataTables.bootstrap4.css'
+Rails.start()
+Turbolinks.start()
+ActiveStorage.start()
+
+import * as bootstrap from 'bootstrap'
 
 document.addEventListener("turbolinks:load", () => {
-    $('[data-toggle="tooltip"]').tooltip()
-    $('[data-toggle="popover"]').popover()
+    // Bootstrap 5 uses data-bs-toggle instead of data-toggle
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
+    const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+    const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
 })
 
 // Uncomment to copy all static images under ../images to the output folder and reference

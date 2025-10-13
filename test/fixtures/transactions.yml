@@ -1,0 +1,19 @@
+one:
+  id: 1
+  entry_date: 2020-01-15
+  sender: "John Doe"
+  description: "Monthly payment"
+  amount: 100.00
+  currency: "EUR"
+  status: "ok"
+  membership_id: 1000
+
+two:
+  id: 2
+  entry_date: 2020-02-15
+  sender: "Jane Smith"
+  description: "Monthly payment"
+  amount: 150.00
+  currency: "EUR"
+  status: "ok"
+  membership_id: 1001

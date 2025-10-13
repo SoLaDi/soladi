@@ -1,0 +1,17 @@
+one:
+  id: 1
+  name: "John"
+  surname: "Doe"
+  email: "john.doe@example.com"
+  phone: "1234567890"
+  membership_id: 1000
+  website_account_status: "active"
+
+two:
+  id: 2
+  name: "Jane"
+  surname: "Smith"
+  email: "jane.smith@example.com"
+  phone: "0987654321"
+  membership_id: 1001
+  website_account_status: "active"

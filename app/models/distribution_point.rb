@@ -13,8 +13,11 @@
 #  person_id   :integer
 #
 class DistributionPoint < ApplicationRecord
-  has_many :memberships
+  has_many :memberships, dependent: :destroy
   belongs_to :person, optional: true
+
+  validates :name, presence: true
+  validates :city, presence: true
 
   has_paper_trail ignore: [:updated_at]
 

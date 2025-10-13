@@ -1,8 +1,12 @@
 require 'test_helper'
 
 class TransactionsControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
   setup do
     @transaction = transactions(:one)
+    @user = users(:one)
+    sign_in @user
   end
 
   test "should get index" do
@@ -17,7 +21,7 @@ class TransactionsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create transaction" do
     assert_difference('Transaction.count') do
-      post transactions_url, params: { transaction: { amount: @transaction.amount, currency: @transaction.currency, description: @transaction.description, entry_date: @transaction.entry_date, sender: @transaction.sender } }
+      post transactions_url, params: { transaction: { amount: 200.00, currency: @transaction.currency, description: "New unique transaction", entry_date: Date.new(2020, 3, 15), sender: "New Sender", membership_id: @transaction.membership_id } }
     end
 
     assert_redirected_to transaction_url(Transaction.last)

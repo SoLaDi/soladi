@@ -21,7 +21,7 @@ one:
   amount: 10
   shares: 1
   contract_signed: true
-  membership: 1000
+  membership_id: 1000
 
 two:
   id: 2
@@ -30,7 +30,7 @@ two:
   amount: 20
   shares: 2
   contract_signed: true
-  membership: 1000
+  membership_id: 1001
 
 three:
   id: 3
@@ -39,7 +39,7 @@ three:
   amount: 30
   shares: 3
   contract_signed: true
-  membership: 1000
+  membership_id: 1000
 
 four:
   id: 4
@@ -48,7 +48,7 @@ four:
   amount: 40
   shares: 4
   contract_signed: true
-  membership: 1000
+  membership_id: 1001
 
 five:
   id: 5
@@ -57,4 +57,4 @@ five:
   amount: 50
   shares: 5
   contract_signed: true
-  membership: 1000
+  membership_id: 1000

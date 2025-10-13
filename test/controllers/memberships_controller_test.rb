@@ -1,8 +1,12 @@
 require 'test_helper'
 
 class MembershipsControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
   setup do
     @membership = memberships(:one)
+    @user = users(:one)
+    sign_in @user
   end
 
   test "should get index" do
@@ -17,7 +21,7 @@ class MembershipsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create membership" do
     assert_difference('Membership.count') do
-      post memberships_url, params: { membership: { distributionPoint: @membership.distributionPoint, endDate: @membership.endDate, startDate: @membership.startDate } }
+      post memberships_url, params: { membership: { distribution_point_id: @membership.distribution_point_id, terminated: @membership.terminated } }
     end
 
     assert_redirected_to membership_url(Membership.last)
@@ -34,13 +38,14 @@ class MembershipsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update membership" do
-    patch membership_url(@membership), params: { membership: { distributionPoint: @membership.distributionPoint, endDate: @membership.endDate, startDate: @membership.startDate } }
+    patch membership_url(@membership), params: { membership: { distribution_point_id: @membership.distribution_point_id, terminated: @membership.terminated } }
     assert_redirected_to membership_url(@membership)
   end
 
   test "should destroy membership" do
+    membership_to_delete = memberships(:three)
     assert_difference('Membership.count', -1) do
-      delete membership_url(@membership)
+      delete membership_url(membership_to_delete)
     end
 
     assert_redirected_to memberships_url

@@ -1,11 +1,12 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
   <a class="navbar-brand" href="#">SoLaDi</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
+    <ul class="navbar-nav me-auto">
       <li class="nav-item"><%= link_to "Übersicht", root_url, { :class => "nav-link" } %></li>
       <li class="nav-item"><%= link_to "Mitgliedschaften", memberships_url, { :class => "nav-link" } %></li>
       <li class="nav-item"><%= link_to "Mitglieder", people_url, { :class => "nav-link" } %></li>
@@ -18,4 +19,5 @@
   <% if user_signed_in? %>
     <%= button_to "Abmelden", destroy_user_session_path, { type: "button", class: 'btn btn-outline-primary', method: :delete } %>
   <% end %>
+  </div>
 </nav>

@@ -1,0 +1,13 @@
+one:
+  id: 1
+  email: "admin@example.com"
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password123') %>
+  sign_in_count: 5
+  failed_attempts: 0
+
+two:
+  id: 2
+  email: "user@example.com"
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password123') %>
+  sign_in_count: 2
+  failed_attempts: 0

@@ -1,0 +1,23 @@
+one:
+  id: 1
+  name: "Test Distribution Point"
+  street: "Main Street"
+  housenumber: "123"
+  zipcode: "12345"
+  city: "Test City"
+
+two:
+  id: 2
+  name: "Another Distribution Point"
+  street: "Second Street"
+  housenumber: "456"
+  zipcode: "67890"
+  city: "Another City"
+
+three:
+  id: 3
+  name: "Third Distribution Point"
+  street: "Third Street"
+  housenumber: "789"
+  zipcode: "11111"
+  city: "Third City"

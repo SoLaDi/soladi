@@ -1,0 +1,14 @@
+one:
+  id: 1000
+  distribution_point_id: 1
+  terminated: false
+
+two:
+  id: 1001
+  distribution_point_id: 2
+  terminated: false
+
+three:
+  id: 1002
+  distribution_point_id: 2
+  terminated: false

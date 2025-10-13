@@ -1,23 +1,23 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.0.5'
+ruby '3.3.6'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 7.0.4', '>= 7.0.4.2'
+gem 'rails', '~> 7.2.0'
 
-gem "rails-i18n", "~> 7.0.4"
+gem "rails-i18n", "~> 7.0"
 
 gem 'ajax-datatables-rails', "~> 1.5.0"
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', '~> 1.6'
 # Use Puma as the app server
-gem 'puma', '~> 4.1'
+gem 'puma', '~> 6.4'
 # Use SCSS for stylesheets
 gem 'sass-rails', '>= 6'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-gem 'webpacker', '~> 4.0'
+gem 'shakapacker', '~> 8.0'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -66,16 +66,16 @@ gem "annotate", "~> 3.1"
 
 gem "devise"
 
-gem "faraday", "~> 1.3"
+gem "faraday", "~> 2.12"
 
-gem "faraday_middleware", "~> 1.0"
+gem "faraday-retry", "~> 2.2"
 
 gem "devise-i18n", "~> 1.9"
 
-gem "lograge", "~> 0.11.2"
+gem "lograge", "~> 0.14"
 
 gem "bootstrap_form", "~> 4.5"
 
-gem "paper_trail", "~> 12.0"
+gem "paper_trail", "~> 15.2"
 
-gem "prawn-rails", "~> 1.4.2"
+gem "prawn-rails", "~> 1.4"

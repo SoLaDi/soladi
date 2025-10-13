@@ -2,9 +2,13 @@
 
 class BidValidator < ActiveModel::Validator
   def validate(bid)
-    other_bids = Bid.where.not(id: bid.id).where(membership_id: bid.membership_id)
+    return unless bid.membership_id && bid.start_date && bid.end_date
+
+    other_bids = Bid.where(membership_id: bid.membership_id)
+    other_bids = other_bids.where.not(id: bid.id) if bid.persisted?
+
     is_overlapping = other_bids.any? do |other_bid|
-      bid.period.overlaps?(other_bid.period)
+      bid.period.overlap?(other_bid.period)
     end
     if is_overlapping
       bid.errors.add :base,

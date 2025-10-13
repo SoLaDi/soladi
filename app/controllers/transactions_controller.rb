@@ -23,10 +23,10 @@ class TransactionsController < ApplicationController
       else
         redirect_to :transactions, notice: "Import abgeschlossen! #{import_status.message}"
       end
-    rescue Exception => e
-      Rails.logger.info e.inspect
-      Rails.logger.info e.backtrace
-      redirect_to :transactions, notice: "Import fehlgeschlagen: #{e.message}"
+    rescue StandardError => e
+      Rails.logger.error "Transaction import failed: #{e.message}"
+      Rails.logger.error e.backtrace.join("\n")
+      redirect_to :transactions, alert: "Import fehlgeschlagen: #{e.message}"
     end
   end
 

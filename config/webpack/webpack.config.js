@@ -1,5 +1,6 @@
 // See the shakacode/shakapacker README and docs directory for advice on customizing your webpackConfig.
 const { generateWebpackConfig } = require('shakapacker')
+const webpack = require('webpack')
 
 const webpackConfig = generateWebpackConfig()
 
@@ -15,5 +16,13 @@ webpackConfig.module.rules.forEach(rule => {
     })
   }
 })
+
+webpackConfig.plugins = webpackConfig.plugins || []
+webpackConfig.plugins.push(
+  new webpack.ProvidePlugin({
+    $: 'jquery',
+    jQuery: 'jquery',
+  })
+)
 
 module.exports = webpackConfig

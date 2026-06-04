@@ -37,7 +37,7 @@ class Person < ApplicationRecord
     wp_base_url = ENV['WP_BASE_URL']
 
     conn = Faraday.new do |conn|
-      conn.basic_auth(wp_user, wp_password)
+      conn.request :authorization, :basic, wp_user, wp_password
       conn.response :logger
       conn.response :json, content_type: /\bjson$/
 

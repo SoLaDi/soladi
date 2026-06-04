@@ -3,6 +3,10 @@
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
 
+import $ from 'jquery';
+window.$ = $;
+window.jQuery = $;
+
 import Rails from "@rails/ujs"
 import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
@@ -11,7 +15,7 @@ import 'datatables.net-bs4'
 
 import { Chart, registerables } from 'chart.js';
 Chart.register(...registerables);
-global.Chart = Chart;
+window.Chart = Chart;
 
 Rails.start()
 Turbolinks.start()

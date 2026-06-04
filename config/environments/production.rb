@@ -13,7 +13,7 @@ Rails.application.configure do
   config.eager_load = true
 
   # Full error reports are disabled and caching is turned on.
-  config.consider_all_requests_local       = false
+  config.consider_all_requests_local = false
   config.action_controller.perform_caching = true
 
   # Ensures that a master key has been made available in either ENV["RAILS_MASTER_KEY"]
@@ -48,7 +48,7 @@ Rails.application.configure do
   config.log_level = ENV.fetch("RAILS_LOG_LEVEL") { "info" }
 
   # Prepend all log lines with the following tags.
-  config.log_tags = [ :request_id ]
+  config.log_tags = [:request_id]
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
@@ -73,8 +73,9 @@ Rails.application.configure do
     domain: ENV['EMAIL_SERVER_DOMAIN'],
     user_name: ENV['EMAIL_SERVER_USER'],
     password: ENV['EMAIL_SERVER_PASSWORD'],
-    authentication: ENV['EMAIL_SERVER_AUTH'],
-    tls: ENV['EMAIL_SERVER_TLS'] == 'true'
+    authentication: ENV['EMAIL_SERVER_AUTH'].to_sym,
+    enable_starttls_auto: ENV['EMAIL_SERVER_TLS'] == 'true',
+    ssl: false
   }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
@@ -92,9 +93,9 @@ Rails.application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new "app-name")
 
   if ENV["RAILS_LOG_TO_STDOUT"].present?
-    logger           = ActiveSupport::Logger.new(STDOUT)
+    logger = ActiveSupport::Logger.new(STDOUT)
     logger.formatter = config.log_formatter
-    config.logger    = ActiveSupport::TaggedLogging.new(logger)
+    config.logger = ActiveSupport::TaggedLogging.new(logger)
   end
 
   # Do not dump schema after migrations.

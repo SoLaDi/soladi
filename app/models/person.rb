@@ -49,6 +49,7 @@ class Person < ApplicationRecord
       Rails.logger.info("Loading wordpress users page #{page}")
       response = conn.get "#{wp_base_url}/wp-json/wp/v2/users" do |req|
         req.params['page'] = page
+        req.params['context'] = 'edit'
         req.headers['Content-Type'] = 'application/json'
       end
 
@@ -60,29 +61,13 @@ class Person < ApplicationRecord
 
         if Person.exists?(user_id)
           existing_person = Person.find(user_id)
-          if existing_person.update(
-            id: user['id'],
-            name: user['first_name'],
-            surname: user['last_name'],
-            email: user['email'],
-            phone: user['meta']['phone_number'],
-            website_account_status: user['meta']['account_status'],
-            membership_id: user['meta']['membership_id'][1..]
-          )
+          if existing_person.update(wp_attrs(user).compact)
             Rails.logger.info "Successfully updated wp user as member: #{existing_person.inspect}"
           else
             Rails.logger.info "Failed to update member: #{existing_person.errors.inspect}"
           end
         else
-          member = Person.new(
-            id: user['id'],
-            name: user['first_name'],
-            surname: user['last_name'],
-            email: user['email'],
-            phone: user['meta']['phone_number'],
-            website_account_status: user['meta']['account_status'],
-            membership_id: user['meta']['membership_id'][1..]
-          )
+          member = Person.new(wp_attrs(user).merge(id: user['id']))
 
           begin
             if member.save
@@ -108,5 +93,17 @@ class Person < ApplicationRecord
 
   def bidding_app_url
     "#{ENV['BIDDING_APP_BASE_URL']}/mitgliedschaften/#{login_token}"
+  end
+
+  private_class_method def self.wp_attrs(user)
+    name_parts = user['name']&.split(' ', 2)
+    {
+      name: name_parts&.first,
+      surname: name_parts&.[](1),
+      email: user['email'],
+      phone: user['meta']['phone_number'],
+      website_account_status: user['meta']['account_status'],
+      membership_id: user['meta']['membership_id']&.[](1..)
+    }
   end
 end

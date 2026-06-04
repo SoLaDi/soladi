@@ -17,7 +17,8 @@ ARG RAILS_ENV=production
 ARG SECRET_KEY_BASE=some-secret
 
 RUN gem install bundler
-RUN bundle install --without development test
+RUN bundle config set without 'development test'
+RUN bundle install
 RUN yarn install
 RUN rails assets:precompile
 

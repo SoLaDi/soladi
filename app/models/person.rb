@@ -48,7 +48,6 @@ class Person < ApplicationRecord
       page = index + 1
       Rails.logger.info("Loading wordpress users page #{page}")
       response = conn.get "#{wp_base_url}/wp-json/wp/v2/users" do |req|
-        req.params['context'] = 'edit'
         req.params['page'] = page
         req.headers['Content-Type'] = 'application/json'
       end

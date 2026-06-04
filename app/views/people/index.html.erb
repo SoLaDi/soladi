@@ -6,6 +6,7 @@
         $('#people-table').dataTable({
             "processing": true,
             "serverSide": true,
+            "ajax": "/people.json",
             "ordering": true,
             "stateSave": true,
             "pagingType": "full_numbers",

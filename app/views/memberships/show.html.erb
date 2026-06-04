@@ -68,9 +68,9 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#rich-table-people').dataTable({
-                ordering: true,
-            });
+            $('#rich-table-people').dataTable({ ordering: true });
+            $('#rich-table-payments').dataTable({ order: [[0, "desc"]], ordering: true });
+            $('#rich-table-bids').dataTable({ order: [[1, "desc"]], ordering: true });
         });
     </script>
 
@@ -112,14 +112,6 @@
   <h3 class="card-header">Eingegangene Zahlungen</h3>
   <div class="card-body">
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#rich-table-payments').dataTable({
-                order: [[0, "desc"]],
-                ordering: true
-            });
-        });
-    </script>
 
     <table id="rich-table-payments" class="table table-striped table-bordered">
       <thead>
@@ -161,14 +153,6 @@
   <h3 class="card-header">Gebote</h3>
   <div class="card-body">
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#rich-table-bids').dataTable({
-                order: [[1, "desc"]],
-                "ordering": true,
-            });
-        });
-    </script>
 
     <table id="rich-table-bids" class="table table-striped table-bordered">
       <thead>

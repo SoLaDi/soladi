@@ -134,11 +134,18 @@
 </div>
 
 <script>
-document.addEventListener("turbolinks:load", function() {
+$(document).ready(function() {
+  var charts = [];
+
+  document.addEventListener('turbolinks:before-cache', function() {
+    charts.forEach(function(c) { c.destroy(); });
+    charts = [];
+  }, { once: true });
+
   // Last Year Pie Chart
   if (document.getElementById('lastYearPieChart')) {
     var ctx = document.getElementById('lastYearPieChart').getContext('2d');
-    new Chart(ctx, {
+    charts.push(new Chart(ctx, {
       type: 'doughnut',
       data: {
         datasets: [{
@@ -150,13 +157,13 @@ document.addEventListener("turbolinks:load", function() {
         }],
         labels: ['Ausstehend', 'Erhalten']
       }
-    });
+    }));
   }
 
   // Current Year Pie Chart
   if (document.getElementById('currentYearPieChart')) {
     var ctx = document.getElementById('currentYearPieChart').getContext('2d');
-    new Chart(ctx, {
+    charts.push(new Chart(ctx, {
       type: 'doughnut',
       data: {
         datasets: [{
@@ -168,13 +175,13 @@ document.addEventListener("turbolinks:load", function() {
         }],
         labels: ['Ausstehend', 'Erhalten']
       }
-    });
+    }));
   }
 
   // Next Year Pie Chart
   if (document.getElementById('nextYearPieChart')) {
     var ctx = document.getElementById('nextYearPieChart').getContext('2d');
-    new Chart(ctx, {
+    charts.push(new Chart(ctx, {
       type: 'doughnut',
       data: {
         datasets: [{
@@ -186,13 +193,13 @@ document.addEventListener("turbolinks:load", function() {
         }],
         labels: ['Ausstehend', 'Erhalten']
       }
-    });
+    }));
   }
 
   // Last Month Pie Chart
   if (document.getElementById('lastMonthPieChart')) {
     var ctx = document.getElementById('lastMonthPieChart').getContext('2d');
-    new Chart(ctx, {
+    charts.push(new Chart(ctx, {
       type: 'doughnut',
       data: {
         datasets: [{
@@ -204,13 +211,13 @@ document.addEventListener("turbolinks:load", function() {
         }],
         labels: ['Ausstehend', 'Erhalten']
       }
-    });
+    }));
   }
 
   // Current Month Pie Chart
   if (document.getElementById('currentMonthPieChart')) {
     var ctx = document.getElementById('currentMonthPieChart').getContext('2d');
-    new Chart(ctx, {
+    charts.push(new Chart(ctx, {
       type: 'doughnut',
       data: {
         datasets: [{
@@ -222,13 +229,13 @@ document.addEventListener("turbolinks:load", function() {
         }],
         labels: ['Ausstehend', 'Erhalten']
       }
-    });
+    }));
   }
 
   // Next Month Pie Chart
   if (document.getElementById('nextMonthPieChart')) {
     var ctx = document.getElementById('nextMonthPieChart').getContext('2d');
-    new Chart(ctx, {
+    charts.push(new Chart(ctx, {
       type: 'doughnut',
       data: {
         datasets: [{
@@ -240,7 +247,7 @@ document.addEventListener("turbolinks:load", function() {
         }],
         labels: ['Ausstehend', 'Erhalten']
       }
-    });
+    }));
   }
 
   // Monthly Revenue Bar Chart
@@ -251,7 +258,7 @@ document.addEventListener("turbolinks:load", function() {
     });
 
     var ctx = document.getElementById('monthlyRevenue').getContext('2d');
-    new Chart(ctx, {
+    charts.push(new Chart(ctx, {
       type: 'bar',
       data: {
         labels: <%= @data.monthly_revenue.labels.to_json.html_safe %>,
@@ -319,13 +326,13 @@ document.addEventListener("turbolinks:load", function() {
           }
         }
       }
-    });
+    }));
   }
 
   // Monthly Shares Line Chart
   if (document.getElementById('monthlyShares')) {
     var ctx = document.getElementById('monthlyShares').getContext('2d');
-    new Chart(ctx, {
+    charts.push(new Chart(ctx, {
       type: 'line',
       data: {
         labels: <%= @data.monthly_shares.labels.to_json.html_safe %>,
@@ -340,7 +347,7 @@ document.addEventListener("turbolinks:load", function() {
           }
         ],
       },
-    });
+    }));
   }
 });
 </script>

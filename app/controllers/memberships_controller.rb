@@ -113,7 +113,7 @@ class MembershipsController < ApplicationController
   # GET /memberships
   # GET /memberships.json
   def index
-    @memberships = Membership.all
+    @memberships = Membership.includes(:distribution_point, :bids, :transactions, :people).all
   end
 
   # GET /memberships/1

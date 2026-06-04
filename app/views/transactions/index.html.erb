@@ -6,6 +6,7 @@
         $('#transactions-table').dataTable({
             "processing": true,
             "serverSide": true,
+            "ajax": "/transactions.json",
             "ordering": true,
             "stateSave": true,
             "pagingType": "full_numbers",

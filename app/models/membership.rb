@@ -190,17 +190,12 @@ class Membership < ApplicationRecord
   end
 
   def start_date
-    earliest_starting_bid = bids.order(:start_date).first
-    earliest_starting_bid&.start_date
+    bids.min_by(&:start_date)&.start_date
   end
 
   def end_date
-    if terminated
-      latest_ending_bid = bids.order(:end_date).last
-      latest_ending_bid&.end_date
-    else
-      nil
-    end
+    return nil unless terminated
+    bids.max_by(&:end_date)&.end_date
   end
 
 end

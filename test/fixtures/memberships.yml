@@ -12,3 +12,13 @@ three:
   id: 1002
   distribution_point_id: 2
   terminated: false
+
+terminated_with_bids:
+  id: 1003
+  distribution_point_id: 3
+  terminated: true
+
+terminated_without_bids:
+  id: 1004
+  distribution_point_id: 3
+  terminated: true

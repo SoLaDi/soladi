@@ -5,6 +5,7 @@
         $('#bids-table').dataTable({
             "processing": true,
             "serverSide": true,
+            "ajax": "/bids.json",
             "ordering": true,
             "stateSave": true,
             "pagingType": "full_numbers",

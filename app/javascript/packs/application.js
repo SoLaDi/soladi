@@ -4,14 +4,17 @@
 // that code so it'll be compiled.
 
 import $ from 'jquery';
+import DataTable from 'datatables.net-bs4';
+
 window.$ = $;
 window.jQuery = $;
+$.fn.dataTable = DataTable;
+$.fn.DataTable = DataTable;
 
 import Rails from "@rails/ujs"
 import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
-import 'datatables.net-bs4'
 
 import { Chart, registerables } from 'chart.js';
 Chart.register(...registerables);

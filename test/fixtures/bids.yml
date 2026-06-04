@@ -58,3 +58,22 @@ five:
   shares: 5
   contract_signed: true
   membership_id: 1000
+
+# Inserted in reverse chronological order to verify min_by/max_by sorts correctly
+six:
+  id: 6
+  start_date: 2021-04-01
+  end_date: 2022-03-01
+  amount: 60
+  shares: 1
+  contract_signed: true
+  membership_id: 1003
+
+seven:
+  id: 7
+  start_date: 2019-04-01
+  end_date: 2020-03-01
+  amount: 70
+  shares: 1
+  contract_signed: true
+  membership_id: 1003

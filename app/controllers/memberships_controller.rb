@@ -81,7 +81,7 @@ class MembershipsController < ApplicationController
     relevant_memberships = Membership.all.filter { |m| !m.terminated and !m.active_at(Date.new(2026, 7, 1)) }
     total = relevant_memberships.count
     relevant_memberships.each do |membership|
-      Bid.new(start_date: Date.new(2026, 7, 1), end_date: Date.new(2027, 6, 1), membership_id: membership.id, contract_signed: false, amount: 113, shares: 1).save
+      Bid.new(start_date: Date.new(2026, 7, 1), end_date: Date.new(2027, 6, 1), membership_id: membership.id, contract_signed: false, amount: 112.54, shares: 1).save
     end
 
     redirect_to :memberships, notice: "Gebote wurden angelegt für #{total} Mitgliedschaften"

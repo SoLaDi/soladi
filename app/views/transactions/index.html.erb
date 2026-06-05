@@ -29,8 +29,8 @@
                 {"data": "edit"},
                 {"data": "delete"}
             ],
-            "initComplete": function () {
-                window.addColumnFilters(this.api(), {
+            "initComplete": function (settings) {
+                window.addColumnFilters(new $.fn.dataTable.Api(settings), {
                     selects: {
                         7: [
                             {value: "needs_attention", label: "Prüfen"},

@@ -24,6 +24,64 @@ Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
 
+// Adds a per-column filter row to a server-side DataTable.
+// `dt` is the DataTables API instance. `config.selects` maps a column index
+// to an array of values (strings) or { value, label } objects to render as a
+// dropdown; all other searchable columns get a debounced text input.
+window.addColumnFilters = function (dt, config) {
+    config = config || {};
+    const selects = config.selects || {};
+    const settings = dt.settings()[0];
+    const $thead = $(dt.table().header());
+    const $filterRow = $('<tr class="column-filters"></tr>');
+
+    dt.columns().every(function (index) {
+        const column = this;
+        const $cell = $('<th></th>');
+
+        if (settings.aoColumns[index].bSearchable) {
+            const current = column.search();
+
+            if (selects[index]) {
+                const $select = $('<select class="form-select form-select-sm"></select>');
+                $select.append('<option value="">Alle</option>');
+                selects[index].forEach(function (opt) {
+                    const value = typeof opt === 'string' ? opt : opt.value;
+                    const label = typeof opt === 'string' ? opt : opt.label;
+                    $('<option></option>')
+                        .attr('value', value)
+                        .prop('selected', current === value)
+                        .text(label)
+                        .appendTo($select);
+                });
+                $select.on('change', function () {
+                    column.search(this.value).draw();
+                });
+                $cell.append($select);
+            } else {
+                let timer;
+                const $input = $('<input type="text" class="form-control form-control-sm" placeholder="Filter…">');
+                $input.val(current);
+                $input.on('click', function (e) { e.stopPropagation(); });
+                $input.on('keyup change', function () {
+                    const value = this.value;
+                    clearTimeout(timer);
+                    timer = setTimeout(function () {
+                        if (column.search() !== value) {
+                            column.search(value).draw();
+                        }
+                    }, 400);
+                });
+                $cell.append($input);
+            }
+        }
+
+        $filterRow.append($cell);
+    });
+
+    $thead.append($filterRow);
+};
+
 import * as bootstrap from 'bootstrap'
 
 document.addEventListener("turbolinks:load", () => {

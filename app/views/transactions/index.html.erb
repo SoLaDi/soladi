@@ -10,6 +10,12 @@
             "ordering": true,
             "stateSave": true,
             "pagingType": "full_numbers",
+            "order": [[0, "desc"]],
+            "searchCols": [
+                null, null, null, null, null, null, null,
+                {"search": "needs_attention"},
+                null, null, null
+            ],
             "columns": [
                 {"data": "entry_date"},
                 {"data": "sender"},
@@ -22,7 +28,18 @@
                 {"data": "details"},
                 {"data": "edit"},
                 {"data": "delete"}
-            ]
+            ],
+            "initComplete": function () {
+                window.addColumnFilters(this.api(), {
+                    selects: {
+                        7: [
+                            {value: "needs_attention", label: "Prüfen"},
+                            {value: "ok", label: "OK"},
+                            {value: "ignored", label: "Ignoriert"}
+                        ]
+                    }
+                });
+            }
         });
     });
 </script>

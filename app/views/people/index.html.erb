@@ -21,7 +21,10 @@
                 {"data": "details"},
                 {"data": "edit"},
                 {"data": "delete"},
-            ]
+            ],
+            "initComplete": function () {
+                window.addColumnFilters(this.api());
+            }
         });
     });
 </script>

@@ -29,6 +29,8 @@
     "@babel/plugin-transform-runtime": "7",
     "@babel/preset-env": "7",
     "@babel/runtime": "7",
+    "@playwright/test": "^1.60.0",
+    "@types/node": "^25.9.1",
     "babel-loader": "10",
     "compression-webpack-plugin": "11",
     "expose-loader": "^5.0.0",
@@ -46,5 +48,6 @@
   },
   "browserslist": [
     "defaults"
-  ]
+  ],
+  "scripts": {}
 }

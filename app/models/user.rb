@@ -29,5 +29,5 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :lockable, :timeoutable, :database_authenticatable, :rememberable, :validatable
 
-  has_paper_trail ignore: [:remember_created_at, :updated_at]
+  has_paper_trail ignore: [ :remember_created_at, :updated_at ]
 end

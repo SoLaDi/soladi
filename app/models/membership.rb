@@ -1,4 +1,4 @@
-require 'date'
+require "date"
 
 # == Schema Information
 #
@@ -17,10 +17,10 @@ class Membership < ApplicationRecord
   belongs_to :distribution_point
   accepts_nested_attributes_for :bids
 
-  has_paper_trail ignore: [:updated_at]
+  has_paper_trail ignore: [ :updated_at ]
 
   def self.to_csv
-    attributes = %w{id created_at updated_at distribution_point_id terminated}
+    attributes = %w[id created_at updated_at distribution_point_id terminated]
 
     CSV.generate(headers: true) do |csv|
       csv << attributes + %w[currently_active active_next_business_year, active_users, needs_new_bid]
@@ -33,7 +33,7 @@ class Membership < ApplicationRecord
         active_users_count = membership.people.where(website_account_status: "approved").count
         needs_new_bid = (!membership.terminated and !active_next_business_year)
 
-        bid_attributes = [currently_active, active_next_business_year, active_users_count, needs_new_bid]
+        bid_attributes = [ currently_active, active_next_business_year, active_users_count, needs_new_bid ]
         csv << base_attributes + bid_attributes
       end
     end
@@ -47,11 +47,11 @@ class Membership < ApplicationRecord
     invalid_rows = []
 
     # CSV columns: membership_id, distribution_point_id
-    CSV.foreach(file.path, 'r', headers: true, col_sep: ',', encoding: 'utf-8') do |row|
+    CSV.foreach(file.path, "r", headers: true, col_sep: ",", encoding: "utf-8") do |row|
       total_rows_count += 1
 
-      membership_id = row['membership_id']
-      distribution_point_id = row['distribution_point_id']
+      membership_id = row["membership_id"]
+      distribution_point_id = row["distribution_point_id"]
 
       if Membership.exists?(membership_id)
         duplicate_rows.push row
@@ -60,7 +60,7 @@ class Membership < ApplicationRecord
         if membership.save
           imported_rows.push row
         else
-          Rails.logger.info '############ BROKEN TRANSACTION BELOW ############'
+          Rails.logger.info "############ BROKEN TRANSACTION BELOW ############"
           Rails.logger.info membership.inspect
           Rails.logger.info membership.errors.full_messages
           invalid_rows.push row
@@ -114,7 +114,7 @@ class Membership < ApplicationRecord
 
   def total_cost
     today = Date.today
-    Rails.cache.fetch('membership_total_cost_' + id.to_s + today.strftime("%d-%m-%Y"), expires_in: 1.hour) do
+    Rails.cache.fetch("membership_total_cost_" + id.to_s + today.strftime("%d-%m-%Y"), expires_in: 1.hour) do
       bids.all.inject(0) do |total_sum, bid|
         total_sum + bid.months.inject(0) do |bid_sum, bid_month|
           if bid_month < today
@@ -134,7 +134,7 @@ class Membership < ApplicationRecord
   end
 
   def total_payments
-    Rails.cache.fetch('membership_total_payments_' + id.to_s, expires_in: 1.hour) do
+    Rails.cache.fetch("membership_total_payments_" + id.to_s, expires_in: 1.hour) do
       transactions.sum(:amount)
     end
   end
@@ -197,5 +197,4 @@ class Membership < ApplicationRecord
     return nil unless terminated
     bids.max_by(&:end_date)&.end_date
   end
-
 end

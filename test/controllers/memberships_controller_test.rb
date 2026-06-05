@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class MembershipsControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
@@ -20,7 +20,7 @@ class MembershipsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create membership" do
-    assert_difference('Membership.count') do
+    assert_difference("Membership.count") do
       post memberships_url, params: { membership: { distribution_point_id: @membership.distribution_point_id, terminated: @membership.terminated } }
     end
 
@@ -44,7 +44,7 @@ class MembershipsControllerTest < ActionDispatch::IntegrationTest
 
   test "should destroy membership" do
     membership_to_delete = memberships(:three)
-    assert_difference('Membership.count', -1) do
+    assert_difference("Membership.count", -1) do
       delete membership_url(membership_to_delete)
     end
 

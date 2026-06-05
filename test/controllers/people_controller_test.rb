@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class PeopleControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
@@ -20,7 +20,7 @@ class PeopleControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create person" do
-    assert_difference('Person.count') do
+    assert_difference("Person.count") do
       post people_url, params: { person: { email: @person.email, membership_id: @person.membership_id, name: @person.name, phone: @person.phone, surname: @person.surname } }
     end
 
@@ -43,7 +43,7 @@ class PeopleControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy person" do
-    assert_difference('Person.count', -1) do
+    assert_difference("Person.count", -1) do
       delete person_url(@person)
     end
 

@@ -13,7 +13,7 @@
 #  updated_at      :datetime         not null
 #  person_id       :integer
 #
-require 'test_helper'
+require "test_helper"
 
 class BidTest < ActiveSupport::TestCase
   test "active_between gets bids for fiscal_year" do
@@ -25,7 +25,7 @@ class BidTest < ActiveSupport::TestCase
       puts r.start_date
       puts r.end_date
     end
-    assert_equal [3, 4], result.map { |r| r.id }.sort
+    assert_equal [ 3, 4 ], result.map { |r| r.id }.sort
   end
 
   test "active_at gets a bid" do
@@ -36,7 +36,7 @@ class BidTest < ActiveSupport::TestCase
       puts r.start_date
       puts r.end_date
     end
-    assert_equal [4], result.map { |r| r.id }.sort
+    assert_equal [ 4 ], result.map { |r| r.id }.sort
   end
 
   test "active_at gets single month bid" do
@@ -47,6 +47,6 @@ class BidTest < ActiveSupport::TestCase
       puts r.start_date
       puts r.end_date
     end
-    assert_equal [3], result.map { |r| r.id }.sort
+    assert_equal [ 3 ], result.map { |r| r.id }.sort
   end
 end

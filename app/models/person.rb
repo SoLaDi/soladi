@@ -17,7 +17,7 @@ class Person < ApplicationRecord
   belongs_to :membership
   has_one :distribution_point
 
-  has_paper_trail ignore: [:updated_at]
+  has_paper_trail ignore: [ :updated_at ]
 
   after_create :create_login_token
 
@@ -32,9 +32,9 @@ class Person < ApplicationRecord
   end
 
   def self.load_from_wordpress
-    wp_user = ENV['WP_USER']
-    wp_password = ENV['WP_PASSWORD']
-    wp_base_url = ENV['WP_BASE_URL']
+    wp_user = ENV["WP_USER"]
+    wp_password = ENV["WP_PASSWORD"]
+    wp_base_url = ENV["WP_BASE_URL"]
 
     conn = Faraday.new do |conn|
       conn.request :authorization, :basic, wp_user, wp_password
@@ -48,16 +48,16 @@ class Person < ApplicationRecord
       page = index + 1
       Rails.logger.info("Loading wordpress users page #{page}")
       response = conn.get "#{wp_base_url}/wp-json/wp/v2/users" do |req|
-        req.params['page'] = page
-        req.params['context'] = 'edit'
-        req.headers['Content-Type'] = 'application/json'
+        req.params["page"] = page
+        req.params["context"] = "edit"
+        req.headers["Content-Type"] = "application/json"
       end
 
       users_chunk = response.body
       break if users_chunk.length == 0
 
       users_chunk.each do |user|
-        user_id = user['id']
+        user_id = user["id"]
 
         if Person.exists?(user_id)
           existing_person = Person.find(user_id)
@@ -67,7 +67,7 @@ class Person < ApplicationRecord
             Rails.logger.info "Failed to update member: #{existing_person.errors.inspect}"
           end
         else
-          member = Person.new(wp_attrs(user).merge(id: user['id']))
+          member = Person.new(wp_attrs(user).merge(id: user["id"]))
 
           begin
             if member.save
@@ -84,7 +84,7 @@ class Person < ApplicationRecord
   end
 
   def active?
-    website_account_status == 'approved'
+    website_account_status == "approved"
   end
 
   def full_name
@@ -96,14 +96,14 @@ class Person < ApplicationRecord
   end
 
   private_class_method def self.wp_attrs(user)
-    name_parts = user['name']&.split(' ', 2)
+    name_parts = user["name"]&.split(" ", 2)
     {
       name: name_parts&.first,
       surname: name_parts&.[](1),
-      email: user['email'],
-      phone: user['meta']['phone_number'],
-      website_account_status: user['meta']['account_status'],
-      membership_id: user['meta']['membership_id']&.[](1..)
+      email: user["email"],
+      phone: user["meta"]["phone_number"],
+      website_account_status: user["meta"]["account_status"],
+      membership_id: user["meta"]["membership_id"]&.[](1..)
     }
   end
 end

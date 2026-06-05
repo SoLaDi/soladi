@@ -23,7 +23,7 @@ class Bid < ApplicationRecord
   validates :amount, presence: true
   validates :shares, presence: true
 
-  has_paper_trail ignore: [:updated_at]
+  has_paper_trail ignore: [ :updated_at ]
 
   scope :active_at, ->(date) {
     normalised_date = Date.new(date.year, date.month, 1)
@@ -35,7 +35,7 @@ class Bid < ApplicationRecord
   }
 
   def self.to_csv
-    attributes = %w{id start_date end_date amount shares membership_id updated_at person_id}
+    attributes = %w[id start_date end_date amount shares membership_id updated_at person_id]
 
     CSV.generate(headers: true) do |csv|
       csv << attributes
@@ -56,7 +56,7 @@ class Bid < ApplicationRecord
   end
 
   def self.total_amount(start_date, end_date)
-    Rails.cache.fetch('bid_total_amount_' + start_date.strftime("%d-%m-%Y") + end_date.strftime("%d-%m-%Y"), expires_in: 1.hour) do
+    Rails.cache.fetch("bid_total_amount_" + start_date.strftime("%d-%m-%Y") + end_date.strftime("%d-%m-%Y"), expires_in: 1.hour) do
       ApplicationHelper.range_to_months(start_date, end_date).inject(0) do |total, month|
         total + Bid.active_at(month).inject(0) do |sum, bid|
           sum + bid.monthly_amount
@@ -74,7 +74,7 @@ class Bid < ApplicationRecord
   end
 
   def self.total_shares(date)
-    Rails.cache.fetch('bid_total_shares_' + date.strftime("%d-%m-%Y"), expires_in: 1.hour) do
+    Rails.cache.fetch("bid_total_shares_" + date.strftime("%d-%m-%Y"), expires_in: 1.hour) do
       Bid.active_at(date).sum(:shares)
     end
   end
@@ -94,13 +94,13 @@ class Bid < ApplicationRecord
     invalid_rows = []
 
     # CSV columns: membership_id, fiscal_year, shares, price_per_share
-    CSV.foreach(file.path, 'r', headers: true, col_sep: ',', encoding: 'utf-8') do |row|
+    CSV.foreach(file.path, "r", headers: true, col_sep: ",", encoding: "utf-8") do |row|
       total_rows_count += 1
 
-      membership_id = row['membership_id'].to_i
-      fiscal_year = row['fiscal_year'].to_i
-      shares = row['shares'].to_i
-      price_per_share = row['price_per_share'].to_d
+      membership_id = row["membership_id"].to_i
+      fiscal_year = row["fiscal_year"].to_i
+      shares = row["shares"].to_i
+      price_per_share = row["price_per_share"].to_d
 
       amount = price_per_share > 0.0 ? price_per_share : 84.5
 
@@ -112,7 +112,7 @@ class Bid < ApplicationRecord
           if bid.save
             imported_rows.push row
           else
-            Rails.logger.info '############ BROKEN TRANSACTION BELOW ############'
+            Rails.logger.info "############ BROKEN TRANSACTION BELOW ############"
             Rails.logger.info bid.inspect
             Rails.logger.info bid.errors.full_messages
             invalid_rows.push row
@@ -135,7 +135,7 @@ class Bid < ApplicationRecord
   def self.valid_csv_row(membership_id, fiscal_year, shares)
     valid = (membership_id.positive? && shares.positive? && fiscal_year.positive?)
     unless valid
-      Rails.logger.info 'INVALID ROW'
+      Rails.logger.info "INVALID ROW"
       Rails.logger.info "membership_id: #{membership_id}"
       Rails.logger.info "fiscal_year: #{fiscal_year}"
       Rails.logger.info "shares: #{shares}"
@@ -157,7 +157,7 @@ class Bid < ApplicationRecord
 
   def monthly_amounts
     ApplicationHelper.range_to_months(start_date, end_date).map { |month|
-      [month, monthly_amount]
+      [ month, monthly_amount ]
     }.to_h
   end
 

@@ -8,7 +8,7 @@
 #  distribution_point_id :integer          not null
 #  terminated            :boolean          default(FALSE), not null
 #
-require 'test_helper'
+require "test_helper"
 
 class MembershipTest < ActiveSupport::TestCase
   # start_date: earliest bid start_date across all bids

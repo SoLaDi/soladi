@@ -13,7 +13,7 @@ class HomeController < ApplicationController
 
   def calculate_monthly_revenue_graph
     today = Date.today
-    Rails.cache.fetch('home_calculate_monthly_revenue_graph_' + today.strftime("%d-%m-%Y"), expires_in: 1.hour) do
+    Rails.cache.fetch("home_calculate_monthly_revenue_graph_" + today.strftime("%d-%m-%Y"), expires_in: 1.hour) do
       start_date = Date.new(today.year, today.month) - 9.months
       end_date = Date.new(today.year, today.month) + 3.months
 
@@ -35,7 +35,7 @@ class HomeController < ApplicationController
   end
 
   def calculate_monthly_payments(start_date, end_date)
-    monthly_buckets = ApplicationHelper.range_to_months(start_date, end_date).map { |month| [month, 0] }.to_h
+    monthly_buckets = ApplicationHelper.range_to_months(start_date, end_date).map { |month| [ month, 0 ] }.to_h
     Transaction
       .associated_with_membership
       .where(entry_date: start_date..end_date)
@@ -52,7 +52,7 @@ class HomeController < ApplicationController
   end
 
   def calculate_monthly_not_associated_payments(start_date, end_date)
-    monthly_buckets = ApplicationHelper.range_to_months(start_date, end_date).map { |month| [month, 0] }.to_h
+    monthly_buckets = ApplicationHelper.range_to_months(start_date, end_date).map { |month| [ month, 0 ] }.to_h
     Transaction
       .not_associated
       .where(entry_date: start_date..end_date)
@@ -69,7 +69,7 @@ class HomeController < ApplicationController
   end
 
   def calculate_monthly_costs(start_date, end_date)
-    monthly_buckets = ApplicationHelper.range_to_months(start_date, end_date).map { |month| [month, 0] }.to_h
+    monthly_buckets = ApplicationHelper.range_to_months(start_date, end_date).map { |month| [ month, 0 ] }.to_h
     Bid.all.each do |bid|
       monthly_buckets = monthly_buckets.merge(bid.monthly_amounts) { |key, oldval, newval| oldval + newval }
     end
@@ -85,7 +85,7 @@ class HomeController < ApplicationController
   def calculate_monthly_shares
     start_date = Date.today - 6.months
     end_date = Date.today + 6.months
-    Rails.cache.fetch('home_calculate_monthly_shares_' + start_date.strftime("%d-%m-%Y") + end_date.strftime("%d-%m-%Y"), expires_in: 1.hour) do
+    Rails.cache.fetch("home_calculate_monthly_shares_" + start_date.strftime("%d-%m-%Y") + end_date.strftime("%d-%m-%Y"), expires_in: 1.hour) do
       months = ApplicationHelper.range_to_months(start_date, end_date)
       labels = months.map { |month| month.strftime("%b %Y") }
       shares = months.map { |month| Bid.total_shares(month) }
@@ -126,7 +126,7 @@ class HomeController < ApplicationController
 
   # @param month - a Date for which year-month the calculation is done
   def monthly_revenue_statistics(month)
-    Rails.cache.fetch('home_monthly_revenue_statistics_' + month.strftime("%d-%m-%Y"), expires_in: 1.hour) do
+    Rails.cache.fetch("home_monthly_revenue_statistics_" + month.strftime("%d-%m-%Y"), expires_in: 1.hour) do
       last_month = month - 1.month
 
       month_start = Date.new(last_month.year, last_month.month, 15)
@@ -140,7 +140,7 @@ class HomeController < ApplicationController
   end
 
   def date_range_revenue_statistics(start_date, end_date)
-    Rails.cache.fetch('home_date_range_revenue_statistics_' + start_date.strftime("%d-%m-%Y") + end_date.strftime("%d-%m-%Y"), expires_in: 1.hour) do
+    Rails.cache.fetch("home_date_range_revenue_statistics_" + start_date.strftime("%d-%m-%Y") + end_date.strftime("%d-%m-%Y"), expires_in: 1.hour) do
       cost = Bid.total_amount(start_date, end_date)
       payments = Transaction.total_amount(start_date, end_date)
 
@@ -150,7 +150,7 @@ class HomeController < ApplicationController
 
   def calculate_membership_stats
     today = Date.today
-    Rails.cache.fetch('home_calculate_membership_stats_' + today.strftime("%d-%m-%Y"), expires_in: 1.hour) do
+    Rails.cache.fetch("home_calculate_membership_stats_" + today.strftime("%d-%m-%Y"), expires_in: 1.hour) do
       total = Membership.total_count
       active = Membership.active_count
       shares = Bid.total_shares(today)

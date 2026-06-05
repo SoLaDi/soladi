@@ -23,7 +23,7 @@ class PersonDatatable < AjaxDatatablesRails::ActiveRecord
       website_account_status: { source: "Person.website_account_status", cond: :like, searchable: false },
       details: { source: "Person.details", cond: :string_eq, searchable: false, orderable: false },
       edit: { source: "Person.edit", cond: :string_eq, searchable: false, orderable: false },
-      delete: { source: "Person.delete", cond: :string_eq, searchable: false, orderable: false },
+      delete: { source: "Person.delete", cond: :string_eq, searchable: false, orderable: false }
     }
   end
 
@@ -44,7 +44,7 @@ class PersonDatatable < AjaxDatatablesRails::ActiveRecord
         website_account_status: record.website_account_status,
         details: link_to("Details", record, target: "_blank"),
         edit: link_to("Bearbeiten", edit_person_path(record), target: "_blank"),
-        delete: link_to("Löschen", record, method: :delete, data: { confirm: 'Bist du sicher?' }),
+        delete: link_to("Löschen", record, method: :delete, data: { confirm: "Bist du sicher?" })
       }
     end
   end

@@ -1,6 +1,6 @@
 class Api::ApiController < ActionController::API
   include ActionController::HttpAuthentication::Token::ControllerMethods
-  TOKEN = ENV['API_TOKEN']
+  TOKEN = ENV["API_TOKEN"]
 
   before_action :authenticate
 

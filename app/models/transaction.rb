@@ -22,11 +22,11 @@ class Transaction < ApplicationRecord
   validates :amount, presence: true, numericality: { greater_than: 0 }
   validates :currency, presence: true
 
-  has_paper_trail ignore: [:updated_at]
+  has_paper_trail ignore: [ :updated_at ]
 
-  require 'csv'
-  require 'bigdecimal'
-  require 'bigdecimal/util'
+  require "csv"
+  require "bigdecimal"
+  require "bigdecimal/util"
 
   scope :associated_with_membership, ->() {
     where.not(membership_id: nil).where.not(status: "ignored")
@@ -37,7 +37,7 @@ class Transaction < ApplicationRecord
   }
 
   def self.total_amount(start_date, end_date)
-    Rails.cache.fetch('transaction_total_amount_' + start_date.strftime("%d-%m-%Y") + end_date.strftime("%d-%m-%Y"), expires_in: 1.hour) do
+    Rails.cache.fetch("transaction_total_amount_" + start_date.strftime("%d-%m-%Y") + end_date.strftime("%d-%m-%Y"), expires_in: 1.hour) do
       Transaction
         .associated_with_membership
         .where(entry_date: start_date..end_date)
@@ -83,7 +83,7 @@ class Transaction < ApplicationRecord
                 entry_date: row.at(0),
                 sender: row.at(3),
                 description: row.at(4),
-                amount: amount.tr('.', '').tr(',', '.').to_d,
+                amount: amount.tr(".", "").tr(",", ".").to_d,
                 currency: row.at(6),
                 status: "ok"
               )
@@ -133,7 +133,7 @@ class Transaction < ApplicationRecord
   end
 
   def self.to_csv
-    attributes = %w{id entry_date membership_id sender description amount status}
+    attributes = %w[id entry_date membership_id sender description amount status]
 
     CSV.generate(headers: true) do |csv|
       csv << attributes

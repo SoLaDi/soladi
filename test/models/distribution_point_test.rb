@@ -12,7 +12,7 @@
 #  updated_at  :datetime         not null
 #  person_id   :integer
 #
-require 'test_helper'
+require "test_helper"
 
 class DistributionPointTest < ActiveSupport::TestCase
   # test "the truth" do

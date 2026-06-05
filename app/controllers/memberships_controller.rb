@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class MembershipsController < ApplicationController
-  require 'active_support/all'
+  require "active_support/all"
 
   before_action :set_membership,
                 only: %i[show edit update destroy send_payment_overdue_reminder_mail send_bidding_invite_mail agreement send_agreement_mail]
@@ -10,37 +10,37 @@ class MembershipsController < ApplicationController
     Rails.logger.info "Going to send the payment overdue reminder mail for membership #{@membership.id}"
     @membership.send_payment_overdue_reminder_mail
 
-    redirect_to :memberships, notice: 'E-Mail Versand abgeschlossen!'
+    redirect_to :memberships, notice: "E-Mail Versand abgeschlossen!"
   rescue StandardError => e
     redirect_to :memberships, notice: "E-Mail Versand fehlgeschlagen: #{e.message}"
   end
 
   def send_bidding_invite_mail
     if @membership.terminated
-      redirect_to :memberships, notice: 'Die Mitgliedschaft ist gekündigt, keine E-Mail verschickt!'
+      redirect_to :memberships, notice: "Die Mitgliedschaft ist gekündigt, keine E-Mail verschickt!"
     end
 
     Rails.logger.info "Going to send the bidding invite mail to membership #{@membership.id}"
     @membership.send_bidding_invite_mail
-    redirect_to :memberships, notice: 'E-Mail Versand abgeschlossen!'
+    redirect_to :memberships, notice: "E-Mail Versand abgeschlossen!"
   rescue StandardError => e
     redirect_to :memberships, notice: "E-Mail Versand fehlgeschlagen: #{e.message}"
   end
 
   def send_agreement_mail
     if @membership.terminated or not @membership.active_at(Date.new(2026, 7, 1))
-      redirect_to :memberships, notice: 'Die Mitgliedschaft ist gekündigt oder hat kein Gebot, keine E-Mail verschickt!'
+      redirect_to :memberships, notice: "Die Mitgliedschaft ist gekündigt oder hat kein Gebot, keine E-Mail verschickt!"
     end
 
     Rails.logger.info "Going to send the agreement mail to membership #{@membership.id}"
     @membership.send_agreement_mail
-    redirect_to :memberships, notice: 'E-Mail Versand abgeschlossen!'
+    redirect_to :memberships, notice: "E-Mail Versand abgeschlossen!"
   rescue StandardError => e
     redirect_to :memberships, notice: "E-Mail Versand fehlgeschlagen: #{e.message}"
   end
 
   def send_bidding_invite_mail_to_all_memberships
-    Rails.logger.info 'Going to send the bidding invite mail'
+    Rails.logger.info "Going to send the bidding invite mail"
     failed = 0
 
     unterminated_memberships = Membership.all.filter { |m| !m.terminated }
@@ -58,7 +58,7 @@ class MembershipsController < ApplicationController
   end
 
   def send_agreement_mail_to_all_memberships
-    Rails.logger.info 'Going to send the agreement mail'
+    Rails.logger.info "Going to send the agreement mail"
     failed = 0
 
     relevant_memberships = Membership.all.filter { |m| !m.terminated and m.active_at(Date.new(2026, 7, 1)) }
@@ -76,7 +76,7 @@ class MembershipsController < ApplicationController
   end
 
   def create_missing_bids
-    Rails.logger.info 'Going to create missing bids'
+    Rails.logger.info "Going to create missing bids"
 
     relevant_memberships = Membership.all.filter { |m| !m.terminated and !m.active_at(Date.new(2026, 7, 1)) }
     total = relevant_memberships.count
@@ -140,7 +140,7 @@ class MembershipsController < ApplicationController
     @membership = Membership.new(membership_params)
     respond_to do |format|
       if @membership.save
-        format.html { redirect_to @membership, notice: 'Membership was successfully created.' }
+        format.html { redirect_to @membership, notice: "Membership was successfully created." }
         format.json { render :show, status: :created, location: @membership }
       else
         format.html { render :new }
@@ -154,7 +154,7 @@ class MembershipsController < ApplicationController
   def update
     respond_to do |format|
       if @membership.update(membership_params)
-        format.html { redirect_to @membership, notice: 'Membership was successfully updated.' }
+        format.html { redirect_to @membership, notice: "Membership was successfully updated." }
         format.json { render :show, status: :ok, location: @membership }
       else
         format.html { render :edit }
@@ -168,7 +168,7 @@ class MembershipsController < ApplicationController
   def destroy
     @membership.destroy
     respond_to do |format|
-      format.html { redirect_to memberships_url, notice: 'Membership was successfully destroyed.' }
+      format.html { redirect_to memberships_url, notice: "Membership was successfully destroyed." }
       format.json { head :no_content }
     end
   end

@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class DistributionPointsControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
@@ -20,7 +20,7 @@ class DistributionPointsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create distribution_point" do
-    assert_difference('DistributionPoint.count') do
+    assert_difference("DistributionPoint.count") do
       post distribution_points_url, params: { distribution_point: { city: @distribution_point.city, housenumber: @distribution_point.housenumber, name: @distribution_point.name, street: @distribution_point.street, zipcode: @distribution_point.zipcode } }
     end
 
@@ -44,7 +44,7 @@ class DistributionPointsControllerTest < ActionDispatch::IntegrationTest
 
   test "should destroy distribution_point" do
     distribution_point_to_delete = distribution_points(:three)
-    assert_difference('DistributionPoint.count', -1) do
+    assert_difference("DistributionPoint.count", -1) do
       delete distribution_point_url(distribution_point_to_delete)
     end
 

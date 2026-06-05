@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class TransactionsControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
@@ -20,7 +20,7 @@ class TransactionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create transaction" do
-    assert_difference('Transaction.count') do
+    assert_difference("Transaction.count") do
       post transactions_url, params: { transaction: { amount: 200.00, currency: @transaction.currency, description: "New unique transaction", entry_date: Date.new(2020, 3, 15), sender: "New Sender", membership_id: @transaction.membership_id } }
     end
 
@@ -43,7 +43,7 @@ class TransactionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy transaction" do
-    assert_difference('Transaction.count', -1) do
+    assert_difference("Transaction.count", -1) do
       delete transaction_url(@transaction)
     end
 

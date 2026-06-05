@@ -1,5 +1,5 @@
 class TransactionsController < ApplicationController
-  before_action :set_transaction, only: [:show, :edit, :update, :destroy]
+  before_action :set_transaction, only: [ :show, :edit, :update, :destroy ]
 
   # GET /transactions
   # GET /transactions.json
@@ -60,7 +60,7 @@ class TransactionsController < ApplicationController
     respond_to do |format|
       if @transaction.save
         Rails.cache.clear
-        format.html { redirect_to @transaction, notice: 'Transaction was successfully created.' }
+        format.html { redirect_to @transaction, notice: "Transaction was successfully created." }
         format.json { render :show, status: :created, location: @transaction }
       else
         format.html { render :new }
@@ -75,7 +75,7 @@ class TransactionsController < ApplicationController
     respond_to do |format|
       if @transaction.update(transaction_params)
         Rails.cache.clear
-        format.html { redirect_to @transaction, notice: 'Transaction was successfully updated.' }
+        format.html { redirect_to @transaction, notice: "Transaction was successfully updated." }
         format.json { render :show, status: :ok, location: @transaction }
       else
         format.html { render :edit }
@@ -90,7 +90,7 @@ class TransactionsController < ApplicationController
     @transaction.destroy
     respond_to do |format|
       Rails.cache.clear
-      format.html { redirect_to transactions_url, notice: 'Transaction was successfully destroyed.' }
+      format.html { redirect_to transactions_url, notice: "Transaction was successfully destroyed." }
       format.json { head :no_content }
     end
   end

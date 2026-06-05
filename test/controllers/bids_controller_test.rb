@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class BidsControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
@@ -20,7 +20,7 @@ class BidsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create bid" do
-    assert_difference('Bid.count') do
+    assert_difference("Bid.count") do
       post bids_url, params: { bid: { amount: @bid.amount, contract_signed: @bid.contract_signed, end_date: Date.new(2024, 3, 1), membership_id: 1002, shares: @bid.shares, start_date: Date.new(2023, 4, 1) } }
     end
 
@@ -43,7 +43,7 @@ class BidsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy bid" do
-    assert_difference('Bid.count', -1) do
+    assert_difference("Bid.count", -1) do
       delete bid_url(@bid)
     end
 

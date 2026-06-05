@@ -5,7 +5,6 @@ class ImportStatus
     @duplicate_rows = duplicate_rows
     @ignored_rows = ignored_rows
     @invalid_rows = invalid_rows
-
   end
 
   attr_reader :total_rows

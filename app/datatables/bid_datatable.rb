@@ -19,7 +19,7 @@ class BidDatatable < AjaxDatatablesRails::ActiveRecord
       amount: { source: "Bid.amount", cond: :eq },
       shares: { source: "Bid.shares", cond: :eq, searchable: false },
       contract_signed: { source: "Bid.contract_signed", cond: :string_eq, searchable: false },
-      placed_by: { source: "Bid.person", cond: :string_eq, searchable: false , orderable: false},
+      placed_by: { source: "Bid.person", cond: :string_eq, searchable: false, orderable: false },
       details: { source: "Bid.details", cond: :string_eq, searchable: false, orderable: false },
       edit: { source: "Bid.edit", cond: :string_eq, searchable: false, orderable: false },
       delete: { source: "Bid.delete", cond: :string_eq, searchable: false, orderable: false }
@@ -43,7 +43,7 @@ class BidDatatable < AjaxDatatablesRails::ActiveRecord
         placed_by: record.person ? (link_to "#{record.person.name} #{record.person.surname}", person_url(record.person.id)) : "n.a.",
         details: link_to("Details", record, target: "_blank"),
         edit: link_to("Bearbeiten", edit_bid_path(record), target: "_blank"),
-        delete: link_to("Löschen", record, method: :delete, data: { confirm: 'Bist du sicher?' }),
+        delete: link_to("Löschen", record, method: :delete, data: { confirm: "Bist du sicher?" })
       }
     end
   end

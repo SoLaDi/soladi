@@ -1,5 +1,5 @@
 class DistributionPointsController < ApplicationController
-  before_action :set_distribution_point, only: [:show, :edit, :update, :destroy]
+  before_action :set_distribution_point, only: [ :show, :edit, :update, :destroy ]
 
   # GET /distribution_points
   # GET /distribution_points.json
@@ -28,7 +28,7 @@ class DistributionPointsController < ApplicationController
 
     respond_to do |format|
       if @distribution_point.save
-        format.html { redirect_to @distribution_point, notice: 'Distribution point was successfully created.' }
+        format.html { redirect_to @distribution_point, notice: "Distribution point was successfully created." }
         format.json { render :show, status: :created, location: @distribution_point }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class DistributionPointsController < ApplicationController
   def update
     respond_to do |format|
       if @distribution_point.update(distribution_point_params)
-        format.html { redirect_to @distribution_point, notice: 'Distribution point was successfully updated.' }
+        format.html { redirect_to @distribution_point, notice: "Distribution point was successfully updated." }
         format.json { render :show, status: :ok, location: @distribution_point }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class DistributionPointsController < ApplicationController
   def destroy
     @distribution_point.destroy
     respond_to do |format|
-      format.html { redirect_to distribution_points_url, notice: 'Distribution point was successfully destroyed.' }
+      format.html { redirect_to distribution_points_url, notice: "Distribution point was successfully destroyed." }
       format.json { head :no_content }
     end
   end

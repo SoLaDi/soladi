@@ -1,5 +1,5 @@
 class BidsController < ApplicationController
-  before_action :set_bid, only: [:show, :edit, :update, :destroy]
+  before_action :set_bid, only: [ :show, :edit, :update, :destroy ]
 
   def import
     begin
@@ -52,7 +52,7 @@ class BidsController < ApplicationController
     respond_to do |format|
       if @bid.save
         Rails.cache.clear
-        format.html { redirect_to @bid, notice: 'Bid was successfully created.' }
+        format.html { redirect_to @bid, notice: "Bid was successfully created." }
         format.json { render :show, status: :created, location: @bid }
       else
         format.html { render :new }
@@ -67,7 +67,7 @@ class BidsController < ApplicationController
     respond_to do |format|
       if @bid.update(bid_params)
         Rails.cache.clear
-        format.html { redirect_to @bid, notice: 'Bid was successfully updated.' }
+        format.html { redirect_to @bid, notice: "Bid was successfully updated." }
         format.json { render :show, status: :ok, location: @bid }
       else
         format.html { render :edit }
@@ -82,7 +82,7 @@ class BidsController < ApplicationController
     @bid.destroy
     respond_to do |format|
       Rails.cache.clear
-      format.html { redirect_to bids_url, notice: 'Bid was successfully destroyed.' }
+      format.html { redirect_to bids_url, notice: "Bid was successfully destroyed." }
       format.json { head :no_content }
     end
   end

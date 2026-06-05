@@ -19,7 +19,7 @@ class DistributionPoint < ApplicationRecord
   validates :name, presence: true
   validates :city, presence: true
 
-  has_paper_trail ignore: [:updated_at]
+  has_paper_trail ignore: [ :updated_at ]
 
   def total_payments
     memberships.inject(0) do |sum, membership|

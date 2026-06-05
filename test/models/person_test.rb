@@ -13,7 +13,7 @@
 #  website_account_status :string
 #  login_token            :string
 #
-require 'test_helper'
+require "test_helper"
 
 class PersonTest < ActiveSupport::TestCase
   # test "the truth" do

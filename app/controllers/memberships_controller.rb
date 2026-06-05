@@ -28,7 +28,7 @@ class MembershipsController < ApplicationController
   end
 
   def send_agreement_mail
-    if @membership.terminated and @membership.active_at(Date.new(2025, 4, 1))
+    if @membership.terminated or not @membership.active_at(Date.new(2026, 7, 1))
       redirect_to :memberships, notice: 'Die Mitgliedschaft ist gekündigt oder hat kein Gebot, keine E-Mail verschickt!'
     end
 
@@ -61,7 +61,7 @@ class MembershipsController < ApplicationController
     Rails.logger.info 'Going to send the agreement mail'
     failed = 0
 
-    relevant_memberships = Membership.all.filter { |m| !m.terminated and m.active_at(Date.new(2025, 4, 1)) }
+    relevant_memberships = Membership.all.filter { |m| !m.terminated and m.active_at(Date.new(2026, 7, 1)) }
     total = relevant_memberships.count
     sent_mails = relevant_memberships.map do |membership|
       membership.send_agreement_mail
@@ -78,10 +78,10 @@ class MembershipsController < ApplicationController
   def create_missing_bids
     Rails.logger.info 'Going to create missing bids'
 
-    relevant_memberships = Membership.all.filter { |m| !m.terminated and !m.active_at(Date.new(2025, 4, 1)) }
+    relevant_memberships = Membership.all.filter { |m| !m.terminated and !m.active_at(Date.new(2026, 7, 1)) }
     total = relevant_memberships.count
     relevant_memberships.each do |membership|
-      Bid.new(start_date: Date.new(2025, 4, 1), end_date: Date.new(2026, 6, 1), membership_id: membership.id, contract_signed: false, amount: 106.8, shares: 1).save
+      Bid.new(start_date: Date.new(2026, 7, 1), end_date: Date.new(2027, 6, 1), membership_id: membership.id, contract_signed: false, amount: 113, shares: 1).save
     end
 
     redirect_to :memberships, notice: "Gebote wurden angelegt für #{total} Mitgliedschaften"
@@ -121,7 +121,7 @@ class MembershipsController < ApplicationController
   def show; end
 
   def agreement
-    @bid = @membership.bid_for(Date.new(2025, 4, 1))
+    @bid = @membership.bid_for(Date.new(2026, 7, 1))
     raise ActiveRecord::RecordNotFound if @bid.nil?
   end
 

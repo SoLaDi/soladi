@@ -15,15 +15,15 @@ prawn_document(filename: "vereinbarung_#{@membership.id}.pdf", disposition: "att
   pdf.font_size 12
 
   pdf.text "SOLAWI-Vereinbarung mit der Gärtnerei Apfeltraum", align: :center, size: 16
-  pdf.text "Für die Mitgliedschaft Nr. S#{@membership.id} und Wirtschaftsjahr 2025/2026", align: :center, size: 14
+  pdf.text "Für die Mitgliedschaft Nr. S#{@membership.id} und Wirtschaftsjahr 2026/2027", align: :center, size: 14
   pdf.move_down 5
-  pdf.text "Vom 01.04.2025 - 30.06.2026", align: :center, size: 12
+  pdf.text "Vom 01.07.2026 - 30.06.2027", align: :center, size: 12
   pdf.move_down 50
 
   pdf.text "Mir ist bekannt, dass die Teilname an der Jahreshauptversammlung verbindlich ist. Anhand des dort vorgestellten Etats werden die Beiträge festgelegt. Ziel ist die gemeinsame Etatdeckung."
   pdf.move_down 20
 
-  pdf.text "Ich werde mich vom <b>01.04.2025 bis 30.06.2026</b> mit <b>#{@bid.shares} Ernteanteil(en)</b>", inline_format: true
+  pdf.text "Ich werde mich vom <b>01.07.2026 bis 30.06.2027</b> mit <b>#{@bid.shares} Ernteanteil(en)</b>", inline_format: true
   pdf.text "mit einem monatlichen Gesamtbetrag von <b>#{@bid.monthly_amount}€</b> inkl. 7,8% MwSt beteiligen.", inline_format: true
   pdf.move_down 20
   pdf.text "Die Zahlung erfolgt monatlich bis zum 10. des laufenden Monats an folgende Bankverbindung:"

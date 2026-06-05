@@ -1,0 +1,12 @@
+# Rails' default style (omakase). Extend or override below as needed.
+inherit_gem:
+  rubocop-rails-omakase: rubocop.yml
+
+AllCops:
+  Exclude:
+    - 'bin/**/*'
+    - 'db/schema.rb'
+    - 'db/migrate/**/*'
+    - 'node_modules/**/*'
+    - 'vendor/**/*'
+    - 'config/**/*'

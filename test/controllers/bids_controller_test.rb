@@ -14,6 +14,15 @@ class BidsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "index renders bid price chart with 13-month data" do
+    get bids_url
+    assert_response :success
+    assert_select "canvas#avgBidPriceChart"
+    today = Date.today.beginning_of_month
+    assert_includes response.body, (today >> -6).strftime("%b %Y")
+    assert_includes response.body, (today >> 6).strftime("%b %Y")
+  end
+
   test "should get new" do
     get new_bid_url
     assert_response :success

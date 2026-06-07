@@ -25,7 +25,14 @@ class BidsController < ApplicationController
   # GET /bids.json
   def index
     respond_to do |format|
-      format.html
+      format.html do
+        today = Date.today.beginning_of_month
+        months = (-6..6).map { |n| today >> n }
+        @bid_price_chart = {
+          labels: months.map { |m| m.strftime("%b %Y") },
+          data: months.map { |m| Bid.average_share_price(m).to_f }
+        }
+      end
       format.json { render json: BidDatatable.new(params, view_context: view_context) }
     end
   end

@@ -57,6 +57,7 @@
 
 <div class="card">
   <h3 class="card-header">Aktionen</h3>
+
   <div class="card-body">
     <%= button_to('Gebote als CSV exportieren', { :action => :export_csv, format: 'csv' }, { type: "button", class: 'btn btn-outline-primary', method: :get }) %>
     <br/>
@@ -71,3 +72,106 @@
 
   </div>
 </div>
+
+<br>
+<br>
+
+<div class="card">
+  <h3 class="card-header">Durchschnittlicher Gebotspreis pro Monat</h3>
+  <div class="card-body">
+    <canvas id="avgBidPriceChart"></canvas>
+  </div>
+</div>
+
+<script>
+$(document).ready(function() {
+  var avgBidPriceChart;
+
+  document.addEventListener('turbolinks:before-cache', function() {
+    if (avgBidPriceChart) { avgBidPriceChart.destroy(); avgBidPriceChart = null; }
+  }, { once: true });
+
+  if (document.getElementById('avgBidPriceChart')) {
+    var currency_formatter = new Intl.NumberFormat('de-DE', {
+      style: 'currency',
+      currency: 'EUR',
+    });
+
+    var labels = <%= @bid_price_chart[:labels].to_json.html_safe %>;
+    var allData = <%= @bid_price_chart[:data].to_json.html_safe %>;
+    var todayIndex = 6;
+
+    var todayLinePlugin = {
+      id: 'todayLine',
+      afterDraw: function(chart) {
+        var ctx = chart.ctx;
+        var xAxis = chart.scales.x;
+        var yAxis = chart.scales.y;
+        var x = xAxis.getPixelForValue(todayIndex);
+        ctx.save();
+        ctx.beginPath();
+        ctx.moveTo(x, yAxis.top);
+        ctx.lineTo(x, yAxis.bottom);
+        ctx.lineWidth = 1.5;
+        ctx.strokeStyle = '#f90';
+        ctx.setLineDash([5, 4]);
+        ctx.stroke();
+        ctx.restore();
+      }
+    };
+
+    var ctx = document.getElementById('avgBidPriceChart').getContext('2d');
+    avgBidPriceChart = new Chart(ctx, {
+      type: 'line',
+      plugins: [todayLinePlugin],
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: 'Vergangenheit',
+            data: allData.map(function(v, i) { return i <= todayIndex ? v : null; }),
+            borderColor: '#36a2eb',
+            backgroundColor: '#36a2eb',
+            borderWidth: 2,
+            pointRadius: 4,
+            fill: false,
+          },
+          {
+            label: 'Zukunft',
+            data: allData.map(function(v, i) { return i >= todayIndex ? v : null; }),
+            borderColor: '#90caf9',
+            backgroundColor: '#90caf9',
+            borderDash: [6, 4],
+            borderWidth: 2,
+            pointRadius: 4,
+            fill: false,
+          }
+        ]
+      },
+      options: {
+        plugins: {
+          tooltip: {
+            mode: 'index',
+            callbacks: {
+              label: function(context) {
+                if (context.parsed.y === null) return null;
+                return context.dataset.label + ': ' + currency_formatter.format(context.parsed.y);
+              }
+            }
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: false,
+            ticks: {
+              callback: function(value) {
+                return currency_formatter.format(value);
+              }
+            }
+          }
+        }
+      }
+    });
+  }
+});
+</script>

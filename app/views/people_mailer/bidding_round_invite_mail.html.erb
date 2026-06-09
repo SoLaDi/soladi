@@ -17,7 +17,7 @@
   <br>
   Für deine Mitgliedschaft mit der Nummer <%= "S#{@person.membership.id}" %> sind uns folgende Mitglieder bekannt:
 
-  <% @person.membership.people.each do |person| %>
+  <% @person.membership.active_members.each do |person| %>
   <p> <%= person.name %> <%= person.surname %> - <%= person.email %></p>
 <% end %>
 

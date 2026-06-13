@@ -4,7 +4,24 @@
     $(document).ready(function () {
         $('#rich-table').dataTable({
             "ordering": true,
-            "stateSave": true
+            "stateSave": true,
+            "columnDefs": [
+                {"orderable": false, "searchable": false, "targets": [10, 11, 12]}
+            ],
+            "initComplete": function (settings) {
+                var api = new $.fn.dataTable.Api(settings);
+                if (!api.column(3).search()) {
+                    api.column(3).search('Nein').draw(false);
+                }
+                window.addColumnFilters(api, {
+                    selects: {
+                        3: [
+                            {value: "Nein", label: "Nein"},
+                            {value: "Ja", label: "Ja"}
+                        ]
+                    }
+                });
+            }
         });
     });
 </script>

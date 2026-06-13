@@ -52,4 +52,8 @@ class PersonDatatable < AjaxDatatablesRails::ActiveRecord
   def get_raw_records
     Person.all
   end
+
+  def sort_records(records)
+    super.order(id: :asc)
+  end
 end

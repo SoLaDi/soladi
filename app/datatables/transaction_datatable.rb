@@ -52,4 +52,8 @@ class TransactionDatatable < AjaxDatatablesRails::ActiveRecord
   def get_raw_records
     Transaction.all
   end
+
+  def sort_records(records)
+    super.order(id: :asc)
+  end
 end

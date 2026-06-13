@@ -51,4 +51,8 @@ class BidDatatable < AjaxDatatablesRails::ActiveRecord
   def get_raw_records
     Bid.all
   end
+
+  def sort_records(records)
+    super.order(id: :asc)
+  end
 end

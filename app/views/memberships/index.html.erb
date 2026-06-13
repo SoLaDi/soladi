@@ -11,7 +11,7 @@
             "initComplete": function (settings) {
                 var api = new $.fn.dataTable.Api(settings);
                 if (!api.column(3).search()) {
-                    api.column(3).search('Nein').draw(false);
+                    api.column(3).search('Nein').draw();
                 }
                 window.addColumnFilters(api, {
                     selects: {

@@ -72,6 +72,8 @@
     </button>
     <br/>
     <%= button_to('Transaktionen als CSV exportiern', { :action => :export_csv, format: 'csv' }, { type: "button", class: 'btn btn-outline-primary', method: :get }) %>
+    <br/>
+    <%= button_to 'Fehlende Gebote anlegen', create_missing_bids_memberships_path, { class: 'btn btn-outline-warning', data: { confirm: 'Fehlende Gebote für alle aktiven Mitgliedschaften anlegen?' } } %>
 
   </div>
 </div>

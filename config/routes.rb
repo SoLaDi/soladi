@@ -2,7 +2,7 @@
 #
 
 Rails.application.routes.draw do
-  root to: 'home#index'
+  root to: "home#index"
   resources :people do
     collection do
       post :import
@@ -25,6 +25,7 @@ Rails.application.routes.draw do
     collection do
       post :send_bidding_invite_mail_to_all_memberships
       post :send_agreement_mail_to_all_memberships
+      post :create_missing_bids
       post :import
       get :export_csv
     end
@@ -36,13 +37,13 @@ Rails.application.routes.draw do
     end
   end
   devise_for :users
-  resources :users, only: [:show]
+  resources :users, only: [ :show ]
 
   namespace :api, defaults: { format: :json } do
-    resources :magic_link, controller: 'magic_auth' do
+    resources :magic_link, controller: "magic_auth" do
       collection { get :login }
     end
 
-    resources :bids, only: [:create]
+    resources :bids, only: [ :create ]
   end
 end
